@@ -5,13 +5,16 @@ CSCI 5117, Spring 2023, [assignment description](https://canvas.umn.edu/courses/
 ## App Info:
 
 * Team Name: maryj
-* App Name: GoodSits™
+* App Name: GoodSits.™
 * App Link: <https://TODO.com/>
 
 ### Students
 
 * Andrew Hoyle, hoyle020@umn.edu
-* 
+* Jack Lee, lee02802@umn.edu
+* Minnerva Zou, zou00086@umn.edu
+* Ryan Johnsen, joh18447@umn.edu
+* Youssef Zahar, zahar022@umn.edu
 
 
 ## Key Features
@@ -50,27 +53,32 @@ In this space please either provide images (around 4) showing your prototypes, O
 
 <img src="/low-fidelity-mockup/home.png" height=400px width=600px>
 
-Description: "your comments here"
+Description: Landing page when user first enters the url. Brief information about what the application does. 
+The search bar takes a user to a dedicated search page. At the top, across all pages, will be a navigation bar to 
+go to the different pages.
   
 ### Page 2 - Search
 
 <img src="/low-fidelity-mockup/seacrch1.png" height=400px width=600px>
 <img src="/low-fidelity-mockup/search02.png" height=400px width=600px>
 
-Description: "your comments here"
+Description: Where the user finds study spots near them. Entering a search in the search bar makes the red markers appear along with the cards on the left sidebar. Clicking any card on the left sidebar brings the user to Page 4 (Location). Clicking the Filters button on the left side opens the modal pictured in the bottom right (modal with tags / rating / availability / proximity).
 
 ### Page 3 - Add Location
 
 <img src="/low-fidelity-mockup/location.png" height=400px width=600px>
 
-Description: "your comments here"
+Description: A page for entering a study spot. The user can enter a location and basic information about the spot. After you click "Add Location", 
+the user will be redirected to the study spot's Location page.
 
 ### Page 4 - Location
 
 <img src="/low-fidelity-mockup/location-1.png" height=400px width=600px>
 <img src="/low-fidelity-mockup/location-2.png" height=400px width=600px>
 
-Description: "your comments here"
+Description: This is the page that users will see when they click on a study spot. 
+It will contain information about the study spot including the ratings and reviews. 
+The user can click Add Review and will be presented with a modal to enter information (second) image.
 
 ## External Dependencies
 
