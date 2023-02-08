@@ -4,7 +4,7 @@ CSCI 5117, Spring 2023, [assignment description](https://canvas.umn.edu/courses/
 
 ## App Info:
 
-* Team Name: maryj
+* Team Name: MaryJ
 * App Name: GoodSits.™
 * App Link: <https://TODO.com/>
 
@@ -53,7 +53,7 @@ In this space please either provide images (around 4) showing your prototypes, O
 
 <img src="/low-fidelity-mockup/home.png" height=400px width=600px>
 
-Description: Landing page when user first enters the url. Brief information about what the application does. 
+**Description:** Landing page when user first enters the url. Brief information about what the application does. 
 The search bar takes a user to a dedicated search page. At the top, across all pages, will be a navigation bar to 
 go to the different pages.
   
@@ -62,13 +62,13 @@ go to the different pages.
 <img src="/low-fidelity-mockup/seacrch1.png" height=400px width=600px>
 <img src="/low-fidelity-mockup/search02.png" height=400px width=600px>
 
-Description: Where the user finds study spots near them. Entering a search in the search bar makes the red markers appear along with the cards on the left sidebar. Clicking any card on the left sidebar brings the user to Page 4 (Location). Clicking the Filters button on the left side opens the modal pictured in the bottom right (modal with tags / rating / availability / proximity).
+**Description:** Where the user finds study spots near them. Entering a search in the search bar makes the red markers appear along with the cards on the left sidebar. Clicking any card on the left sidebar brings the user to Page 4 (Location). Clicking the Filters button on the left side opens the modal pictured in the bottom right (modal with tags / rating / availability / proximity).
 
 ### Page 3 - Add Location
 
 <img src="/low-fidelity-mockup/location.png" height=400px width=600px>
 
-Description: A page for entering a study spot. The user can enter a location and basic information about the spot. After you click "Add Location", 
+**Description:** A page for entering a study spot. The user can enter a location and basic information about the spot. After you click "Add Location", 
 the user will be redirected to the study spot's Location page.
 
 ### Page 4 - Location
@@ -76,7 +76,7 @@ the user will be redirected to the study spot's Location page.
 <img src="/low-fidelity-mockup/location-1.png" height=400px width=600px>
 <img src="/low-fidelity-mockup/location-2.png" height=400px width=600px>
 
-Description: This is the page that users will see when they click on a study spot. 
+**Description:** This is the page that users will see when they click on a study spot. 
 It will contain information about the study spot including the ratings and reviews. 
 The user can click Add Review and will be presented with a modal to enter information (second) image.
 
