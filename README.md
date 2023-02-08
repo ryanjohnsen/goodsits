@@ -10,7 +10,7 @@ CSCI 5117, Spring 2023, [assignment description](https://canvas.umn.edu/courses/
 
 ### Students
 
-* First Last, x500@umn.edu
+* Andrew Hoyle, hoyle020@umn.edu
 * 
 
 
