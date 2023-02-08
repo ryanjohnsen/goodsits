@@ -48,7 +48,7 @@ In this space please either provide images (around 4) showing your prototypes, O
 
 ### Home
 
-<img src="/low-fidelity-mockup/home.png" height=500px width=500px>
+<img src="/low-fidelity-mockup/home.png" height=400px width=600px>
 
 
 ## External Dependencies
