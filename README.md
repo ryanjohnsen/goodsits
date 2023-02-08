@@ -46,10 +46,31 @@ In this space please either provide images (around 4) showing your prototypes, O
 
 ## Low-fidelity Mockup
 
-### Home
+### Page 1 - Home
 
 <img src="/low-fidelity-mockup/home.png" height=400px width=600px>
 
+Description: "your comments here"
+  
+### Page 2 - Search
+
+<img src="/low-fidelity-mockup/seacrch1.png" height=400px width=600px>
+<img src="/low-fidelity-mockup/search02.png" height=400px width=600px>
+
+Description: "your comments here"
+
+### Page 3 - Add Location
+
+<img src="/low-fidelity-mockup/location.png" height=400px width=600px>
+
+Description: "your comments here"
+
+### Page 4 - Location
+
+<img src="/low-fidelity-mockup/location-1.png" height=400px width=600px>
+<img src="/low-fidelity-mockup/location-2.png" height=400px width=600px>
+
+Description: "your comments here"
 
 ## External Dependencies
 
