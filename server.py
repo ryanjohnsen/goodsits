@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return "<p>Hello World</p>"
+    return render_template("main.html")
 
 # Helper for using vscode debugger
 if __name__ == "__main__":
