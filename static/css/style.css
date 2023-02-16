@@ -1,3 +1,12 @@
+html {
+    height: 100%;
+}
+
 body{
     background-color: antiquewhite;
+    height: 100%;
+}
+
+#content {
+    height: 100%;
 }
