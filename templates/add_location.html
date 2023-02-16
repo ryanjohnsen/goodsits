@@ -1,10 +1,7 @@
-<!-- FIXME: refactor to extend layout when it's eventually made -->
-<!-- FIXME: head to be deleted once layout is made -->
-<head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
-</head>
+{% extends "base.html" %}
 
-<div class="pure-g" style="padding: 10em;"> <!-- FIXME: get rid of inline style once layout is made -->
+{% block content %}
+<div class="pure-g"> <!-- FIXME: get rid of inline style once layout is made -->
   <div class="pure-u-2-5">
     <p>TODO: map goes here</p>
   </div>
@@ -65,3 +62,4 @@
   </form>
   </div>
 </div>
+{% endblock %}
