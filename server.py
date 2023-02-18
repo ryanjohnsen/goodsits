@@ -49,7 +49,7 @@ def login() -> Response:
 def callback() -> Response:
     try:
         token = oauth.auth0.authorize_access_token()
-        session["user"] = token # might only want to save part of this
+        session["user"] = token
         return redirect("/")
     except:
         return redirect("/login")
