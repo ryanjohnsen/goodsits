@@ -6,7 +6,7 @@ CREATE TABLE Location (
     image         TEXT,
     tags          TEXT,
     location      TEXT,
-    user_id       TEXT,
+    user_id       INTEGER,
 );
 
 CREATE TABLE Review (
