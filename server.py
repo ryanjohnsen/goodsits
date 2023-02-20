@@ -5,6 +5,7 @@ from os import environ as env
 from db_scripts import FlyWheeler
 from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
+from time import time
 
 app = Flask(__name__)
 app.secret_key = env.get("APP_SECRET_KEY")
@@ -26,6 +27,11 @@ def requires_auth(func: Callable) -> Callable:
     def decorator(*args, **kwargs) -> Response:
         if "user" not in session:
             return redirect('/login')
+        
+        if session["users"]["expires_at"] <= int(time()):
+            session.clear()
+            return redirect('/login')
+
         return func(*args, **kwargs)
     return decorator
 
@@ -45,7 +51,6 @@ def login() -> Response:
     )
 
 @app.route("/callback", methods = ["GET", "POST"])
-# Has to be a better way to stop this endpoint from being directly accessed by the user?
 def callback() -> Response:
     try:
         token = oauth.auth0.authorize_access_token()
