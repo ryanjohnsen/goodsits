@@ -1,0 +1,22 @@
+
+.menu-header{
+    background-color: whitesmoke;
+    padding: 0.69em;
+}
+
+.pure-menu-list{
+    float: right;
+}
+.pure-menu-heading{
+    font-weight: bolder;
+    font-style: italic;
+}
+
+
+.menu-header li a:hover,
+.menu-header li a:focus {
+    border: none;
+    color: #4f4f4f;
+    text-decoration: underline;
+}
+
