@@ -5,6 +5,8 @@ from os import environ as env
 # from db_scripts import FlyWheeler
 from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
+from werkzeug.utils import secure_filename
+from base64 import b64encode
 from time import time
 import db 
 
@@ -43,22 +45,32 @@ def landing():
     return render_template('landing.html')
 
 @app.route("/add")
-# @requires_auth
+@requires_auth
 def add_location():
     return render_template('add_location.html')
 
 @app.route("/location", methods = ["POST"])
+@requires_auth
 def location():
-    # TODO: encode image to binary
-    required_info = ["title", "description", "tags", "location", "user_id"]
-    # optional_info = ["hours", "image"] (none values are okay)
     data = request.form
+    required_info = ["title", "description", "tags", "location"] #"user_id"]
+    # optional_info = ["hours", "image"] (none values are okay)
+    data = request.form 
     for key in required_info:
-        if key == None:
+        if data[key] == None:
             return make_response(f"Missing {key}; Location not Inserted", 400)
+
+    file = request.files['image']
+    filename = secure_filename(file.filename)
+    image = None
+    if filename != '': # no need to encode empty file names
+        image = b64encode(file.read())
+
+    # TODO: retrieve user id from auth; delete "test-user" after
+    print(data["location"])
     db.insert_location(
         data["title"], data["description"], data["hours"],
-        data["image"], data["tags"], data["location"], data["user_id"]
+        image, data["tags"], data["location"], "test-user"
     )
     return make_response("Location Inserted", 200)
 

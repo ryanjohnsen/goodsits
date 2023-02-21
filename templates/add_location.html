@@ -12,11 +12,9 @@ async
 
 {% block content %}
 <div class="container-custom pure-g"> <!-- FIXME: get rid of inline style once layout is made -->
-  <div id="map" class="pure-u-3-5">
-    <p>TODO: map goes here</p>
-  </div>
+  <div id="map" class="pure-u-3-5"></div>
   <div class="pure-u-2-5">
-    <form class="pure-form pure-form-stacked form-custom">
+    <form class="pure-form pure-form-stacked form-custom" enctype="multipart/form-data">
       <fieldset> <!-- FIXME: idr if fieldset is actually needed here -->
           <h4>Add a Study Spot</h4>
           <h1 class="title" id="address">Address at Pin Mark</h1> <!-- TODO: address dependent on map -->
@@ -41,7 +39,7 @@ async
               <label for="upload"> Images
                 <span class="pure-form-message-inline">Optional</span>
               </label> 
-              <input class="pure-input-1" type="file" name="image" id="upload" />
+              <input class="pure-input-1" type="file" name="image" id="upload" accept="image/*" />
             </div>
           </div><br>
 
@@ -49,7 +47,10 @@ async
             Tags
             <p>(populate with tags here)</p>
             <!-- TODO: populate w/ tags -->
+            <input type="hidden" name="tags" value="tag placeholder"/>
           </div>
+
+          <input id="location" type="hidden" name="location" value="" />
 
           <input class="pure-button pure-button-primary" type="submit" value="Add Location"
             formaction="{{url_for('location')}}" formmethod="post">

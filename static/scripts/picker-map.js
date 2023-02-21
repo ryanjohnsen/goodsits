@@ -44,6 +44,10 @@ function updateAddress() {
         .then((response) => {
             if (response.results[0]) {
                 document.getElementById('address').textContent = response.results[0].formatted_address;
+                // FIXME: is there a better way to do this?
+                coord = `${response.results[0].geometry.location.lat()},${response.results[0].geometry.location.long()}`;
+                console.log(coord)
+                document.getElementById('location').value = coord;
             } else {
                 console.log("No Reverse Geocode Result...");
             }
