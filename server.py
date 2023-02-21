@@ -29,11 +29,11 @@ def requires_auth(func: Callable) -> Callable:
     @wraps(func)
     def decorator(*args, **kwargs) -> Response:
         if "user" not in session:
-            return redirect('/login')
-        
-        if session["users"]["expires_at"] <= int(time()):
+            return redirect("/login")
+
+        if session["user"]["expires_at"] > int(time()):
             session.clear()
-            return redirect('/login')
+            return redirect("/login")
 
         return func(*args, **kwargs)
     return decorator
@@ -42,7 +42,7 @@ def requires_auth(func: Callable) -> Callable:
 def landing():
     return render_template('landing.html')
 
-@app.route("/add/location")
+@app.route("/add")
 @requires_auth
 def add_location():
     return render_template('add_location.html')
