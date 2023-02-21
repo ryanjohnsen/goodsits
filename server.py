@@ -57,7 +57,7 @@ def add_review() -> Response:
 
     return make_response("Review Inserted", 200)
 
-@app.route("/get/review", methods = ["GET"])
+@app.route("/get/reviews", methods = ["GET"])
 @requires_auth
 def get_reviews() -> Response:
     loc_id = request.args.get("reviewLocation")
@@ -85,7 +85,6 @@ def login() -> Response:
     )
 
 @app.route("/callback", methods = ["GET", "POST"])
-# Has to be a better way to stop this endpoint from being directly accessed by the user?
 def callback() -> Response:
     try:
         token = oauth.auth0.authorize_access_token()
