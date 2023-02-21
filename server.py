@@ -42,6 +42,7 @@ def add_location():
     return render_template('add_location.html')
 
 @app.route("/add/review", methods = ["POST"])
+@requires_auth
 def add_review() -> Response:
     loc_id = request.form["reviewLocation"]
     rating = request.form["starRating"]
