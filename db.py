@@ -40,3 +40,10 @@ def insert_review(loc_id: int, rating: str, tags: str, review: str, user_id: str
             "INSERT INTO Review (loc_id, rating, tags, review, user_id) VALUES (%s, %s, %s, %s, %s)", 
             (loc_id, rating, tags, review, user_id)
         )
+
+def select_reviews(loc_id: int) -> list:
+    with get_db_cursor() as cur:
+        cur: cursor
+        cur.execute("SELECT rating, tags, review FROM Review WHERE loc_id = %s", (loc_id))
+        return cur.fetchall()
+    
