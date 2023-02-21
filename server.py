@@ -5,6 +5,7 @@ from os import environ as env
 # from db_scripts import FlyWheeler
 from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
+from time import time
 import db 
 
 app = Flask(__name__)
@@ -28,7 +29,12 @@ def requires_auth(func: Callable) -> Callable:
     @wraps(func)
     def decorator(*args, **kwargs) -> Response:
         if "user" not in session:
-            return redirect('/login')
+            return redirect("/login")
+
+        if session["user"]["expires_at"] > int(time()):
+            session.clear()
+            return redirect("/login")
+
         return func(*args, **kwargs)
     return decorator
 
@@ -36,7 +42,7 @@ def requires_auth(func: Callable) -> Callable:
 def landing():
     return render_template('landing.html')
 
-@app.route("/add/location")
+@app.route("/add")
 @requires_auth
 def add_location():
     return render_template('add_location.html')
