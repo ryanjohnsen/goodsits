@@ -1,3 +1,7 @@
+:root {
+    --grey: #979799;
+}
+
 html {
     height: 100%;
 }
