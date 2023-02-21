@@ -3,10 +3,10 @@ CREATE TABLE Location (
     title         TEXT,
     description   TEXT,
     hours         TEXT,
-    image         TEXT,
+    image         BYTEA,
     tags          TEXT,
-    location      TEXT,
-    user_id       INTEGER,
+    location      POINT,
+    user_id       TEXT
 );
 
 CREATE TABLE Review (
@@ -15,6 +15,6 @@ CREATE TABLE Review (
     rating        TEXT,
     tags          TEXT,
     review        TEXT,
-    user_id       INTEGER,
-    FOREIGN KEY (loc_id) REFERENCES Location(id),
+    user_id       TEXT,
+    FOREIGN KEY (loc_id) REFERENCES Location(id)
 );
