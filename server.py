@@ -78,7 +78,6 @@ def get_reviews() -> Response:
 
     return jsonify(results)
 
-
 @app.route("/login", methods = ["GET"])
 def login() -> Response:
     return oauth.auth0.authorize_redirect(
