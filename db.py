@@ -5,7 +5,6 @@ from psycopg2.extras import DictCursor
 from psycopg2.pool import ThreadedConnectionPool
 from psycopg2.extensions import connection, cursor
 
-
 pool: ThreadedConnectionPool = None
 
 def setup():
