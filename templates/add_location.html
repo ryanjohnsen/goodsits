@@ -1,15 +1,25 @@
 {% extends "base.html" %}
 
+{% block html_head %}
+<script src="{{url_for('static', filename='scripts/picker-map.js')}}"></script>
+<script
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTxssaavgto&callback=initMap"
+defer
+async
+></script>
+
+{% endblock %}
+
 {% block content %}
 <div class="pure-g"> <!-- FIXME: get rid of inline style once layout is made -->
-  <div class="pure-u-2-5">
+  <div id="map" class="pure-u-2-5">
     <p>TODO: map goes here</p>
   </div>
   <div class="pure-u-3-5">
     <form class="pure-form pure-form-stacked">
       <fieldset> <!-- FIXME: idr if fieldset is actually needed here -->
           <h4>Add a Study Spot</h4>
-          <h1>Address at Pin Mark, City, State, 55455</h1> <!-- TODO: address dependent on map -->
+          <h1 id="address">Address at Pin Mark</h1> <!-- TODO: address dependent on map -->
 
           <div class="pure-form-message">
             Click anywhere on the map to adjust the location of your study spot.
