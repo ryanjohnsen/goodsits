@@ -12,7 +12,7 @@ CREATE TABLE Location (
 CREATE TABLE Review (
     id            SERIAL PRIMARY KEY,
     loc_id        INTEGER,
-    rating        TEXT,
+    rating        INTEGER,
     tags          TEXT,
     review        TEXT,
     user_id       TEXT,
