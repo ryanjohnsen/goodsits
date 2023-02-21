@@ -43,9 +43,24 @@ def landing():
     return render_template('landing.html')
 
 @app.route("/add")
-@requires_auth
+# @requires_auth
 def add_location():
     return render_template('add_location.html')
+
+@app.route("/location", methods = ["POST"])
+def location():
+    # TODO: encode image to binary
+    required_info = ["title", "description", "tags", "location", "user_id"]
+    # optional_info = ["hours", "image"] (none values are okay)
+    data = request.form
+    for key in required_info:
+        if key == None:
+            return make_response(f"Missing {key}; Location not Inserted", 400)
+    db.insert_location(
+        data["title"], data["description"], data["hours"],
+        data["image"], data["tags"], data["location"], data["user_id"]
+    )
+    return make_response("Location Inserted", 200)
 
 @app.route("/add/review", methods = ["POST"])
 @requires_auth

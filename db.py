@@ -33,6 +33,16 @@ def get_db_cursor(commit: bool = False) -> cursor:
         finally:
             cur.close()
 
+def insert_location(title: str, description: str, hours: str, image: str, tags: str, location: str, user_id: str) -> None:
+     with get_db_cursor(True) as cur:
+        cur: cursor
+        cur.execute(
+            """
+            INSERT INTO Location (title, description, hours, image, tags, location, user_id)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (title, description, hours, image, tags, location, user_id)
+        )
+
 def insert_review(loc_id: int, rating: str, tags: str, review: str, user_id: str) -> None:
     with get_db_cursor(True) as cur:
         cur: cursor

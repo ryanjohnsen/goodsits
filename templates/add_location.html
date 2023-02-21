@@ -26,38 +26,22 @@ async
           </div><br>
 
           <label for="title">Study Spot Title</label>
-          <input id="title" class="pure-input-1" placeholder="basement of keller hall" /><br>
+          <input id="title" class="pure-input-1" name="title" placeholder="basement of keller hall" /><br>
 
           <label for="description">Description</label>
-          <textarea class="pure-input-1" id="description" placeholder="you would be so powerful down here">
-          </textarea><br>
+          <textarea class="pure-input-1" id="description" name="description" placeholder="you would be so powerful here"></textarea>
         
           <div class="pure-g">
             <div class="pure-u-3-5">
               <label for="hours">Hours Open</label>
-
-              <!-- FIXME: make macro? / clean up -->
-              <div class="pure-g">
-                <select id="days">
-                  <option>Monday</option>
-                  <option>Tuesday</option>
-                  <option>Wednesday</option>
-                  <option>Thursday</option>
-                  <option>Friday</option>
-                  <option>Saturday</option>
-                  <option>Sunday</option>
-                </select>
-                <input type="time" id="hrs_from" />
-                <input type="time" id="hrs_to" />
-              </div>
-              <!-- TODO: add new times -->
+              <textarea class="pure-input-1" id="hours" name="hours" placeholder="Mondays 2-4 PM"></textarea>
             </div>
 
             <div class="pure-u-2-5">
               <label for="upload"> Images
                 <span class="pure-form-message-inline">Optional</span>
               </label> 
-              <input class="pure-input-1" type="file" id="upload" />
+              <input class="pure-input-1" type="file" name="image" id="upload" />
             </div>
           </div><br>
 
@@ -67,7 +51,8 @@ async
             <!-- TODO: populate w/ tags -->
           </div>
 
-          <button type="submit" class="pure-button pure-button-primary">Add Location</button>
+          <input class="pure-button pure-button-primary" type="submit" value="Add Location"
+            formaction="{{url_for('location')}}" formmethod="post">
       </fieldset>
   </form>
   </div>
