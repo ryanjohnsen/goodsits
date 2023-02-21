@@ -2,12 +2,16 @@ from flask import *
 from typing import Callable
 from functools import wraps
 from os import environ as env
-from db_scripts import FlyWheeler
+# from db_scripts import FlyWheeler
 from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
+import db 
 
 app = Flask(__name__)
+with app.app_context():
+    db.setup() 
 app.secret_key = env.get("APP_SECRET_KEY")
+
 
 oauth = OAuth(app)
 oauth.register(
