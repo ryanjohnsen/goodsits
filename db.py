@@ -1,39 +1,42 @@
-from contextlib import contextmanager
-import logging
-import os
-
-from flask import current_app, g
-
-import psycopg2
+from psycopg2.extensions import connection, cursor
 from psycopg2.pool import ThreadedConnectionPool
 from psycopg2.extras import DictCursor
+from contextlib import contextmanager
+from flask import current_app
+from os import environ as env
 
-pool = None
+pool: ThreadedConnectionPool = None
 
 def setup():
     global pool
-    DATABASE_URL = os.environ['DATABASE_URL']
+    DATABASE_URL = env['DATABASE_URL']
     current_app.logger.info(f"creating db connection pool")
     pool = ThreadedConnectionPool(1, 100, dsn=DATABASE_URL, sslmode='require')
 
-
 @contextmanager
-def get_db_connection():
+def get_db_connection() -> connection:
     try:
-        connection = pool.getconn()
-        yield connection
+        conn = pool.getconn()
+        yield conn
     finally:
-        pool.putconn(connection)
-
+        pool.putconn(conn)
 
 @contextmanager
-def get_db_cursor(commit=False):
-    with get_db_connection() as connection:
-      cursor = connection.cursor(cursor_factory=DictCursor)
-      # cursor = connection.cursor()
-      try:
-          yield cursor
-          if commit:
-              connection.commit()
-      finally:
-          cursor.close()
+def get_db_cursor(commit: bool = False) -> cursor:
+    with get_db_connection() as conn:
+        conn: connection
+        cur = conn.cursor(cursor_factory = DictCursor)
+        try:
+            yield cur
+            if commit:
+                conn.commit()
+        finally:
+            cur.close()
+
+def insert_review(loc_id: int, rating: str, tags: str, review: str, user_id: str) -> None:
+    with get_db_cursor(True) as cur:
+        cur: cursor
+        cur.execute(
+            "INSERT INTO Review (loc_id, rating, tags, review, user_id) VALUES (%s, %s, %s, %s, %s)", 
+            (loc_id, rating, tags, review, user_id)
+        )
