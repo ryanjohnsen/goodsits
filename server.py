@@ -12,7 +12,6 @@ with app.app_context():
     db.setup() 
 app.secret_key = env.get("APP_SECRET_KEY")
 
-
 oauth = OAuth(app)
 oauth.register(
     "auth0",
@@ -37,10 +36,26 @@ def requires_auth(func: Callable) -> Callable:
 def landing():
     return render_template('landing.html')
 
-@app.route("/add")
+@app.route("/add/location")
 @requires_auth
 def add_location():
     return render_template('add_location.html')
+
+@app.route("/add/review", methods = ["POST"])
+@requires_auth
+def add_review() -> Response:
+    loc_id = request.form["reviewLocation"]
+    rating = request.form["starRating"]
+    tags = request.form["tags"]
+    review = request.form["review"]
+    user_id = session["user"]["userinfo"]["sub"]
+
+    if loc_id == None or rating == None or tags == None or review == None or user_id == None:
+        return make_response("Review Not Inserted", 400)
+    
+    db.insert_review(loc_id, rating, tags, review, user_id)
+
+    return make_response("Review Inserted", 200)
 
 @app.route("/login", methods = ["GET"])
 def login() -> Response:

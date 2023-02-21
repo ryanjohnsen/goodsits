@@ -18,3 +18,5 @@ CREATE TABLE Review (
     user_id       TEXT,
     FOREIGN KEY (loc_id) REFERENCES Location(id)
 );
+
+INSERT INTO Review (loc_id, rating, tags, review, user_id) VALUES (%s, %s, %s, %s, %s);
