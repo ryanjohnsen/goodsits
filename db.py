@@ -1,9 +1,10 @@
-from psycopg2.extensions import connection, cursor
-from psycopg2.pool import ThreadedConnectionPool
-from psycopg2.extras import DictCursor
-from contextlib import contextmanager
 from flask import current_app
 from os import environ as env
+from contextlib import contextmanager
+from psycopg2.extras import DictCursor
+from psycopg2.pool import ThreadedConnectionPool
+from psycopg2.extensions import connection, cursor
+
 
 pool: ThreadedConnectionPool = None
 
