@@ -1,33 +1,39 @@
 #hideReviewForm{
     display: none;
 }
+
 #modalForm{
-    margin-left: 4%;
+    margin: 1em;
 }
-
-
 /* 
     modal overall Style
 */
 #modal{
-    position: fixed;
-    top: 30%;
-    right: 40%;
-    display: flex;
+    display: block;
+    margin: auto;
+    max-width: 40%;
     background-color: whitesmoke;
     border: 2px solid #90EE90;
-    display: flex;
-    flex-direction: column;
 }
-
 
 /* 
     Exit button style
 */
 #modal .exitBtn {
-    align-self: flex-end;
-    font-size: 1.4em;
-    margin: 8px 8px 0;
-    padding: 0 8px;
     cursor: pointer;
-  }
+}
+
+.g-custom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.legend-custom {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+.tags {
+    margin: 1em 0;
+}

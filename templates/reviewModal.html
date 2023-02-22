@@ -6,30 +6,27 @@
 {% block content %}
 <div id="modal">
   <form class="pure-form pure-form-stacked" id="modalForm">
-    <button class="exitBtn" title="Close">x</button>
-    <fieldset>
-        <legend>Write Review</legend>
-        <label for="rating">Overall Rating</label>
-        <!-- TODO make this required-->
-        <input type="rating" id="rating" />
-        
-        <label>Written Review</label>
-        <!-- TODO make this required-->
-        <textarea type="text" id="review"></textarea>
-        
-        <label for="tags">Tags</label>
-        <!--<input  type="tags" id="tags" />-->
-        <input class="tags" id="stacked-remember" type="checkbox" value="taggy"/> taggy
-        <input class="tags" id="stacked-remember" type="checkbox" value="taggy2"/> taggy2
-        <input class="tags" id="stacked-remember" type="checkbox" value="taggy3"/> taggy3
+    <fieldset class="pure-g">
+      <div class="g-custom pure-u-1">
+        <legend class="legend-custom">Write Review</legend>
+        <button class="exitBtn" title="Close" onclick="closeModal()">x</button>
+      </div>
 
+      <label for="rating">Overall Rating</label>
+      <input class="pure-u-1" required type="rating" id="rating" />
 
-        
-        <button type="submit" class="pure-button">
-          Submit
-        </button>
+      <label>Written Review</label>
+      <textarea class="pure-u-1" required type="text" id="review"></textarea>
+
+      <div class="tags pure-u-1">
+        Select Tags
+      </div>
+
+      <button type="submit" class="pure-button">
+        Submit
+      </button>
     </fieldset>
-</form>
+  </form>
 </div>
 
 {% endblock %}

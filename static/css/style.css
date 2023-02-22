@@ -2,9 +2,13 @@ html {
     height: 100%;
 }
 
-body{
+body {
     background-color: antiquewhite;
     height: 100%;
+}
+
+textarea {
+    resize: vertical; 
 }
 
 #content {
