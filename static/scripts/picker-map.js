@@ -16,7 +16,7 @@ function initMap() {
     navigator.geolocation.getCurrentPosition(function (position) {
         var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         map.setCenter(initialLocation);
-    }, function (positionError) { /* "Error Handling" */ } );
+    }, function (positionError) { /* "Error Handling" */ });
 
     let marker = null;
 
@@ -33,6 +33,10 @@ function initMap() {
             position: mapsMouseEvent.latLng,
             map: map,
         });
+
+        // FIXME: is there a better way to do this??
+        coord = `${curLoc.lat},${curLoc.lng}`;
+        document.getElementById('location').value = coord;
 
         updateAddress();
     });
