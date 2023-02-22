@@ -1,3 +1,0 @@
-CREATE TABLE IF NOT EXISTS locations (
-    id SERIAL PRIMARY KEY
-);
