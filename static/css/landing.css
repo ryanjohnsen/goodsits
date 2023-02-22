@@ -1,25 +1,47 @@
+@keyframes fadeIn {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+}
+
 .hero {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-size: cover;
     background-position: 60% 22%;
-    background-image: url(/static/images/Hero_Image.png);
-    text-shadow: 1px 1px 2px black;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+        url(/static/images/Hero_Image.png);
     width: 100%;    
-    height: 50%;
+    height: 75%;
 }
 
 .hero-header {
-    margin-top: 8%;
-    color: 	rgb(144, 238, 145);
+    animation: 1s ease-out 0s fadeIn;
+    color: rgb(144, 238, 145);
+    letter-spacing: 2px;
+    font-weight: 700;
+    font-size: 3rem;
 }
 
 .sub-hero {
+    animation: 1s ease-out 1.25s fadeIn;
+    animation-fill-mode: both;
     color: white;
+    font-size: 1.5rem;
 }
 
 .main {
-    background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='50' fill='%2390EE91'/></svg>") no-repeat -5vw 25vh,
-                url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='50' fill='%23CAEEC2'/></svg>") no-repeat 75vw -10vh;
+    background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='50' fill='%2390EE91'/></svg>") no-repeat calc(-30vw / 6) 25vh,
+                url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='50' fill='%23CAEEC2'/></svg>") no-repeat 75vw calc(-30vw / 2);
+    background-size: 30vw, 30vw;
     width: 100%;
     height: 45%;
     display: flex;
