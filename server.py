@@ -115,3 +115,9 @@ def logout() -> Response:
 # Helper for using vscode debugger
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+#open location for testing
+@app.route("/location")
+def location():
+    return render_template('location.html')

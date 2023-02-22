@@ -1,10 +1,17 @@
 {% extends "base.html" %}
+{% block html_head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/reviewForm.css')}}">
+<script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
+{% endblock %}
 {% block title %}Main{% endblock %}
   
 
 {% block content %}
-  <button onclick>
+  <button id="addBtn">
     add review
   </button>
+  <div id="hideReviewForm" class="modal">
+    {% include "reviewModal.html" %}
+  </div>
   <!-- TODO -->
 {% endblock %}
