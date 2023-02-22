@@ -139,14 +139,16 @@ def new_location() -> Response:
     
 @app.route("/location/<int:loc_id>", methods = ["GET"])
 def location(loc_id: int) -> Response:
-    reviews = db.select_reviews(int(loc_id))
+    reviews = db.select_reviews(loc_id)
+    for review in reviews:
+        review["tags"] = [x.strip() for x in review["tags"].split(',')]
+    # print(reviews)
+    
     location = db.get_location(loc_id)
+    location["tags"] = [x.strip() for x in location["tags"].split(',')]
+    # print(location["tags"])
     return render_template('location.html', location=location, 
-                                            title=location["title"],
                                             rating=db.get_rating(loc_id),
-                                            description=location["description"],
-                                            hours=location["hours"],
-                                            address=location["location"],
                                             reviews=reviews)
 
 # Helper for using vscode debugger
