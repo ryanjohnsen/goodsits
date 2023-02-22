@@ -29,25 +29,31 @@ oauth.register(
 def requires_auth(func: Callable) -> Callable:
     @wraps(func)
     def decorator(*args, **kwargs) -> Response:
-        if "user" not in session:
+        session["path"] = request.path
+        if not session.get("user"):
             return redirect("/login")
-
+        
         if session["user"]["expires_at"] <= int(time()):
             session.clear()
+            session["path"] = request.path
             return redirect("/login")
 
         return func(*args, **kwargs)
     return decorator
 
-@app.route("/") #TODO Change this to index.
+def check_auth() -> dict[str, str]:
+    state = "logout" if session.get("user") else "login"
+    return {"link": f"/{state}", "status": state.capitalize()}
+
+@app.route("/")
 def landing():
-    return render_template('landing.html')
+    return render_template('landing.html', login = check_auth())
 
 @app.route("/add")
 @requires_auth
 def add_location():
     print()
-    return render_template('add_location.html')
+    return render_template('add_location.html', login = check_auth())
 
 @app.route("/add/review", methods = ["POST"])
 @requires_auth
@@ -97,7 +103,7 @@ def callback() -> Response:
     try:
         token = oauth.auth0.authorize_access_token()
         session["user"] = token
-        return redirect("/")
+        return redirect(session["path"]) if "path" in session else redirect("/")
     except:
         return redirect("/login")
 
@@ -147,7 +153,8 @@ def location(loc_id: int) -> Response:
                                             description=location["description"],
                                             hours=location["hours"],
                                             address=location["location"],
-                                            reviews=reviews)
+                                            reviews=reviews,
+                                            login = check_auth())
 
 # Helper for using vscode debugger
 if __name__ == "__main__":
