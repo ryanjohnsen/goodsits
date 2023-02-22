@@ -49,29 +49,6 @@ def add_location():
     print()
     return render_template('add_location.html')
 
-@app.route("/location", methods = ["POST"])
-@requires_auth
-def location():
-    # TODO: switch form to call js function to get var instead of just html form submit? maybe
-    data = request.form
-    required_info = ["title", "description", "tags", "location"] #"user_id"]
-    # optional_info = ["hours", "image"] (none values are okay)
-    for key in required_info:
-        if data[key] == None:
-            return make_response(f"Missing {key}; Location not Inserted", 400)
-
-    file = request.files['image']
-    filename = secure_filename(file.filename)
-    image = None
-    if filename != '':
-        image = b64encode(file.read())
-
-    db.insert_location(
-        data["title"], data["description"], data["hours"],
-        image, data["tags"], data["location"], session["user"]["userinfo"]["aud"]
-    )
-    return make_response("Location Inserted", 200)
-
 @app.route("/add/review", methods = ["POST"])
 @requires_auth
 def add_review() -> Response:
@@ -136,6 +113,29 @@ def logout() -> Response:
             quote_via = quote_plus,
         )
     )
+
+@app.route("/location", methods = ["POST"])
+@requires_auth
+def new_location() -> Response:
+    # TODO: switch form to call js function to get var instead of just html form submit? maybe
+    data = request.form
+    required_info = ["title", "description", "tags", "location"] #"user_id"]
+    # optional_info = ["hours", "image"] (none values are okay)
+    for key in required_info:
+        if data[key] == None:
+            return make_response(f"Missing {key}; Location not Inserted", 400)
+
+    file = request.files['image']
+    filename = secure_filename(file.filename)
+    image = None
+    if filename != '':
+        image = b64encode(file.read())
+
+    id = db.insert_location(
+        data["title"], data["description"], data["hours"],
+        image, data["tags"], data["location"], session["user"]["userinfo"]["aud"]
+    )
+    return redirect("/location/" + str(id))
     
 @app.route("/location/<int:loc_id>", methods = ["GET"])
 def location(loc_id: int) -> Response:
@@ -143,7 +143,7 @@ def location(loc_id: int) -> Response:
     location = db.get_location(loc_id)
     return render_template('location.html', location=location, 
                                             title=location["title"],
-                                            rating=float(db.get_rating(loc_id)[0]),
+                                            rating=db.get_rating(loc_id),
                                             description=location["description"],
                                             hours=location["hours"],
                                             address=location["location"],

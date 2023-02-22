@@ -33,7 +33,7 @@ def get_db_cursor(commit: bool = False) -> cursor:
         finally:
             cur.close()
 
-def insert_location(title: str, description: str, hours: str, image: str, tags: str, location: str, user_id: str) -> None:
+def insert_location(title: str, description: str, hours: str, image: str, tags: str, location: str, user_id: str) -> int:
      lat, long = location.split(',')
      with get_db_cursor(True) as cur:
         cur: cursor
@@ -41,8 +41,10 @@ def insert_location(title: str, description: str, hours: str, image: str, tags: 
             """
             INSERT INTO Location (title, description, hours, image, tags, location, user_id)
             VALUES (%s, %s, %s, %s, %s, POINT(%s, %s), %s)
+            RETURNING id
             """, (title, description, hours, image, tags, lat, long, user_id)
         )
+        return int(cur.fetchone()[0])
 
 def insert_review(loc_id: int, rating: str, tags: str, review: str, user_id: str) -> None:
     with get_db_cursor(True) as cur:
@@ -63,8 +65,8 @@ def get_location(loc_id):
         cur.execute("SELECT * FROM Location WHERE id = %s", ([loc_id]))
         return cur.fetchone()
     
-def get_rating(loc_id):
+def get_rating(loc_id: int) -> float:
     with get_db_cursor() as cur:
-        cur.execute("SELECT AVG(rating) FROM Review WHERE loc_id = %s", ([loc_id]))
-        return cur.fetchone()
+        cur.execute("SELECT COALESCE(AVG(rating), 0.0) FROM Review WHERE loc_id = %s", ([loc_id]))
+        return float(cur.fetchone()[0])
     
