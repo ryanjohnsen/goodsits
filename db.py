@@ -44,7 +44,7 @@ def insert_review(loc_id: int, rating: str, tags: str, review: str, user_id: str
 def select_reviews(loc_id: int) -> list:
     with get_db_cursor() as cur:
         cur: cursor
-        cur.execute("SELECT rating, tags, review FROM Review WHERE loc_id = %s", (loc_id))
+        cur.execute("SELECT rating, tags, review FROM Review WHERE loc_id = %s", ([loc_id]))
         return cur.fetchall()
     
 def get_location(loc_id):

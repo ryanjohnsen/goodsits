@@ -57,3 +57,12 @@
     padding: 1rem 0rem;
     text-align: center;
 }
+
+#reviews .pure-u-2-3 {
+    padding: 0 1rem;
+}
+
+.review {
+    background-color: red;
+    /* width: 100%; */
+}
