@@ -47,3 +47,13 @@ def select_reviews(loc_id: int) -> list:
         cur.execute("SELECT rating, tags, review FROM Review WHERE loc_id = %s", (loc_id))
         return cur.fetchall()
     
+def get_location(loc_id):
+    with get_db_cursor() as cur:
+        cur.execute("SELECT * FROM Location WHERE id = %s", ([loc_id]))
+        return cur.fetchone()
+    
+def get_rating(loc_id):
+    with get_db_cursor() as cur:
+        cur.execute("SELECT AVG(rating) FROM Review WHERE loc_id = %s", ([loc_id]))
+        return cur.fetchone()
+    
