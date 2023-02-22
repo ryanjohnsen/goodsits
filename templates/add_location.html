@@ -8,6 +8,10 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTx
 defer
 async
 ></script>
+
+<link rel="stylesheet" href="{{url_for('static', filename='css/tags.css')}}">
+<script src="{{url_for('static', filename='scripts/tags.js')}}" defer></script>
+
 {% endblock %}
 
 {% block content %}
@@ -43,9 +47,8 @@ async
             </div>
           </div><br>
 
-          <div>
+          <div id="tags">
             Tags
-            <p>(populate with tags here)</p>
             <!-- TODO: populate w/ tags -->
             <input type="hidden" name="tags" value="tag placeholder"/>
           </div>
