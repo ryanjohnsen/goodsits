@@ -1,0 +1,68 @@
+#title {
+    text-align: center;
+    font-size: 20px;
+}
+
+#reviewHighlights {
+    background-color: aliceblue;
+}
+
+#stars {
+    text-align: center;
+    background-color: lightgray;
+    padding: 0.5rem 0;
+}
+
+#rating {
+    text-align: center;
+    background-color: gray;
+    /* width: fit-content; */
+}
+
+#ratingNumber {
+    font-size: 40px;
+    margin: 1rem 0;
+    padding: 1rem 3rem;
+}
+
+.clip-star {
+    background: gold;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+}
+
+#img-container {
+    text-align: center;
+    vertical-align: middle;
+    padding: 3rem 0;
+    background-color: lightsalmon;
+}
+
+#locationInfo {
+    background-color: lightcoral;
+    padding: 1rem 0;
+}
+
+#locationInfo h2 {
+    /* text-align: center; */
+}
+
+#locationInfo div {
+    padding: 0 1rem;
+}
+
+#add-review-button {
+    padding: 1rem 0rem;
+    text-align: center;
+}
+
+#reviews .pure-u-2-3 {
+    padding: 0 1rem;
+}
+
+.review {
+    background-color: red;
+    /* width: 100%; */
+}
