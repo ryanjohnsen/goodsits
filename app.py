@@ -103,7 +103,7 @@ def callback() -> Response:
     try:
         token = oauth.auth0.authorize_access_token()
         session["user"] = token
-        return redirect(session["path"]) if "path" in session else redirect("/")
+        return redirect(session.get("path", "/"))
     except:
         return redirect("/login")
 
