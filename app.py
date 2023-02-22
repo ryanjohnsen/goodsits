@@ -30,7 +30,7 @@ def requires_auth(func: Callable) -> Callable:
         if "user" not in session:
             return redirect("/login")
 
-        if session["user"]["expires_at"] > int(time()):
+        if session["user"]["expires_at"] <= int(time()):
             session.clear()
             return redirect("/login")
 
