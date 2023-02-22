@@ -16,7 +16,7 @@ function initMap() {
     navigator.geolocation.getCurrentPosition(function (position) {
         var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         map.setCenter(initialLocation);
-    }, function (positionError) { /* "Error Handling" */ } );
+    }, function (positionError) { /* "Error Handling" */ });
 
     let marker = null;
 
@@ -34,6 +34,10 @@ function initMap() {
             map: map,
         });
 
+        // FIXME: is there a better way to do this??
+        coord = `${curLoc.lat},${curLoc.lng}`;
+        document.getElementById('location').value = coord;
+
         updateAddress();
     });
 }
@@ -44,10 +48,6 @@ function updateAddress() {
         .then((response) => {
             if (response.results[0]) {
                 document.getElementById('address').textContent = response.results[0].formatted_address;
-                // FIXME: is there a better way to do this?
-                coord = `${response.results[0].geometry.location.lat()},${response.results[0].geometry.location.long()}`;
-                console.log(coord)
-                document.getElementById('location').value = coord;
             } else {
                 console.log("No Reverse Geocode Result...");
             }

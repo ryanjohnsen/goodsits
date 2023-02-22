@@ -33,7 +33,7 @@ def requires_auth(func: Callable) -> Callable:
         if "user" not in session:
             return redirect("/login")
 
-        if session["user"]["expires_at"] > int(time()):
+        if session["user"]["expires_at"] <= int(time()):
             session.clear()
             return redirect("/login")
 
@@ -47,15 +47,16 @@ def landing():
 @app.route("/add")
 @requires_auth
 def add_location():
+    print()
     return render_template('add_location.html')
 
 @app.route("/location", methods = ["POST"])
 @requires_auth
 def location():
+    # TODO: switch form to call js function to get var instead of just html form submit? maybe
     data = request.form
     required_info = ["title", "description", "tags", "location"] #"user_id"]
     # optional_info = ["hours", "image"] (none values are okay)
-    data = request.form 
     for key in required_info:
         if data[key] == None:
             return make_response(f"Missing {key}; Location not Inserted", 400)
@@ -63,14 +64,13 @@ def location():
     file = request.files['image']
     filename = secure_filename(file.filename)
     image = None
-    if filename != '': # no need to encode empty file names
+    if filename != '':
         image = b64encode(file.read())
 
-    # TODO: retrieve user id from auth; delete "test-user" after
     print(data["location"])
     db.insert_location(
         data["title"], data["description"], data["hours"],
-        image, data["tags"], data["location"], "test-user"
+        image, data["tags"], data["location"], session["user"]["userinfo"]["aud"]
     )
     return make_response("Location Inserted", 200)
 

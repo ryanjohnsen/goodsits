@@ -35,14 +35,13 @@ def get_db_cursor(commit: bool = False) -> cursor:
 
 def insert_location(title: str, description: str, hours: str, image: str, tags: str, location: str, user_id: str) -> None:
      lat, long = location.split(',')
-     point = "POINT(%s, %s)" % (lat, long)
      with get_db_cursor(True) as cur:
         cur: cursor
         cur.execute(
             """
             INSERT INTO Location (title, description, hours, image, tags, location, user_id)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-            """, (title, description, hours, image, tags, point, user_id)
+            VALUES (%s, %s, %s, %s, %s, POINT(%s, %s), %s)
+            """, (title, description, hours, image, tags, lat, long, user_id)
         )
 
 def insert_review(loc_id: int, rating: str, tags: str, review: str, user_id: str) -> None:
