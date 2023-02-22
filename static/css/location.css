@@ -87,6 +87,8 @@ body {
 
 #add-review-button {
     padding: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
 }
 
 
@@ -122,31 +124,5 @@ body {
     align-items: center;
     justify-content: center;
     margin-right: 0.5rem;
-}
-
-.tag-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: normal;
-}
-
-.tag-box div {
-    text-align: center;
-    margin: 0.25rem 0.5rem;
-    padding: 0.25rem;
-    background-color: lightblue;
-}
-
-#loc-tags {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-#loc-tags .loc-tag {
-    margin: 0.25rem;
-    padding: 0.25rem;
-    background-color: lightblue;
 }
 

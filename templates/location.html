@@ -3,6 +3,7 @@
 {% block html_head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/location.css') }}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/reviewForm.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/tags.css')}}">
     <script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
 {% endblock %}
 
@@ -40,9 +41,9 @@
 
                 <!-- TODO: make tags look cool -->
                 <h2>Tags</h2>
-                <div id="loc-tags">
+                <div id="picked-tags">
                     {% for tag in location["tags"] %}
-                        <div class="loc-tag">
+                        <div class="picked tag">
                             {{ tag }}
                         </div>
                     {% endfor %}
@@ -79,9 +80,9 @@
                             </h3>
                             <p>{{ rev["review"] }}</p>
                         </div>
-                        <div class="tag-box pure-u-1-6">
+                        <div class="picked-tags pure-u-1-6">
                             {% for tag in rev["tags"] %}
-                                <div>
+                                <div class="picked tag">
                                     {{ tag }}
                                 </div>
                             {% endfor %}
