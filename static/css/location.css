@@ -1,68 +1,152 @@
+/* * { 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+     box-sizing: border-box; 
+} */
+body {
+    background-color: white;
+}
+
+#main-content {
+    background-color: white;
+    margin: 2em;
+}
+
 #title {
     text-align: center;
-    font-size: 20px;
+    background-color: #E4DEE4;
 }
 
-#reviewHighlights {
-    background-color: aliceblue;
+#title h1 {
+    font-size: 40px;
+    margin: 0;
+    padding: 1rem 0;
 }
 
-#stars {
-    text-align: center;
-    background-color: lightgray;
-    padding: 0.5rem 0;
+#loc-info {
+    /* background-color: lightcoral; */
+    /* padding: 1rem 1rem; */
 }
 
 #rating {
-    text-align: center;
-    background-color: gray;
-    /* width: fit-content; */
+    padding: 2rem 1rem;
+    display: flex;
+    justify-content: center;
+    /* background-color: lightgray; */
 }
 
-#ratingNumber {
-    font-size: 40px;
-    margin: 1rem 0;
-    padding: 1rem 3rem;
+#rating-number {
+    font-size: 4em;
+    padding: 2rem;
+    margin: 0;
+    background-color: lightgray;
+}
+
+#stars {
+    background-color: #E4DEE4;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
 }
 
 .clip-star {
-    background: gold;
+    background: white;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     display: inline-block;
+    /* height: 20%; */
     height: 50px;
     width: 50px;
 }
 
+.full-star {
+    background: black;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    display: inline-block;
+    /* height: 20%; */
+    height: 50px;
+    width: 50px;
+}
+
+/* colors: https://coolors.co/ede3e4-e7dfe8-e4dee4-cabfc5-af9fa5-aa9ca0-a4989a */
+#gist {
+    background-color: #E4DEE4;
+    padding: 1rem 1rem;
+}
+
+#img-revs {
+    /* background-color: lightblue; */
+}
+
 #img-container {
-    text-align: center;
-    vertical-align: middle;
-    padding: 3rem 0;
-    background-color: lightsalmon;
-}
-
-#locationInfo {
-    background-color: lightcoral;
-    padding: 1rem 0;
-}
-
-#locationInfo h2 {
-    /* text-align: center; */
-}
-
-#locationInfo div {
-    padding: 0 1rem;
+    display: flex;
+    justify-content: center;
+    /* background-color: lightgreen; */
+    padding: 1rem 1rem;
+    height: 35vh;
 }
 
 #add-review-button {
-    padding: 1rem 0rem;
-    text-align: center;
+    padding: 1.5rem;
 }
 
-#reviews .pure-u-2-3 {
-    padding: 0 1rem;
+
+#reviews {
+    background-color: #E4DEE4;
+    /* padding: 1rem 1rem; */
+    margin: 0 1.5rem;
+    padding: 0.5rem 0;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
 }
 
 .review {
-    background-color: red;
-    /* width: 100%; */
+    background-color: #CABFC5;
+    margin: 0.5rem 0.5rem;
+    border: solid 3px black;
+    border-radius: 5px;
 }
+
+.star-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.star-container .clip-star {
+    background: #E4DEE4;
+    height: 90px;
+    width: 90px;
+    text-align: center;
+    /* vertically align text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.5rem;
+}
+
+.tag-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: normal;
+}
+
+.tag-box div {
+    text-align: center;
+    margin: 0.25rem 0.5rem;
+    padding: 0.25rem;
+    background-color: lightblue;
+}
+
+#loc-tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#loc-tags .loc-tag {
+    margin: 0.25rem;
+    padding: 0.25rem;
+    background-color: lightblue;
+}
+
