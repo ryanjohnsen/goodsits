@@ -2,9 +2,10 @@ from flask import *
 from typing import Callable
 from functools import wraps
 from os import environ as env
-# from db_scripts import FlyWheeler
 from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
+from werkzeug.utils import secure_filename
+from base64 import b64encode
 from time import time
 import db 
 
@@ -31,7 +32,7 @@ def requires_auth(func: Callable) -> Callable:
         if "user" not in session:
             return redirect("/login")
 
-        if session["user"]["expires_at"] > int(time()):
+        if session["user"]["expires_at"] <= int(time()):
             session.clear()
             return redirect("/login")
 
@@ -45,6 +46,7 @@ def landing():
 @app.route("/add")
 @requires_auth
 def add_location():
+    print()
     return render_template('add_location.html')
 
 @app.route("/add/review", methods = ["POST"])
@@ -112,12 +114,41 @@ def logout() -> Response:
         )
     )
 
+@app.route("/location", methods = ["POST"])
+@requires_auth
+def new_location() -> Response:
+    # TODO: switch form to call js function to get var instead of just html form submit? maybe
+    data = request.form
+    required_info = ["title", "description", "tags", "location"] #"user_id"]
+    # optional_info = ["hours", "image"] (none values are okay)
+    for key in required_info:
+        if data[key] == None:
+            return make_response(f"Missing {key}; Location not Inserted", 400)
+
+    file = request.files['image']
+    filename = secure_filename(file.filename)
+    image = None
+    if filename != '':
+        image = b64encode(file.read())
+
+    id = db.insert_location(
+        data["title"], data["description"], data["hours"],
+        image, data["tags"], data["location"], session["user"]["userinfo"]["aud"]
+    )
+    return redirect("/location/" + str(id))
+    
+@app.route("/location/<int:loc_id>", methods = ["GET"])
+def location(loc_id: int) -> Response:
+    reviews = db.select_reviews(int(loc_id))
+    location = db.get_location(loc_id)
+    return render_template('location.html', location=location, 
+                                            title=location["title"],
+                                            rating=db.get_rating(loc_id),
+                                            description=location["description"],
+                                            hours=location["hours"],
+                                            address=location["location"],
+                                            reviews=reviews)
+
 # Helper for using vscode debugger
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-#open location for testing
-@app.route("/location")
-def location():
-    return render_template('location.html')
