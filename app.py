@@ -4,6 +4,8 @@ from functools import wraps
 from os import environ as env
 from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
+from werkzeug.utils import secure_filename
+from base64 import b64encode
 from time import time
 import db 
 
@@ -44,7 +46,31 @@ def landing():
 @app.route("/add")
 @requires_auth
 def add_location():
+    print()
     return render_template('add_location.html')
+
+@app.route("/location", methods = ["POST"])
+@requires_auth
+def location():
+    # TODO: switch form to call js function to get var instead of just html form submit? maybe
+    data = request.form
+    required_info = ["title", "description", "tags", "location"] #"user_id"]
+    # optional_info = ["hours", "image"] (none values are okay)
+    for key in required_info:
+        if data[key] == None:
+            return make_response(f"Missing {key}; Location not Inserted", 400)
+
+    file = request.files['image']
+    filename = secure_filename(file.filename)
+    image = None
+    if filename != '':
+        image = b64encode(file.read())
+
+    db.insert_location(
+        data["title"], data["description"], data["hours"],
+        image, data["tags"], data["location"], session["user"]["userinfo"]["aud"]
+    )
+    return make_response("Location Inserted", 200)
 
 @app.route("/add/review", methods = ["POST"])
 @requires_auth
