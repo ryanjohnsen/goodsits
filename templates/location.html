@@ -57,27 +57,27 @@
 
         <!-- Reviews -->
         <!-- purecss button -->
-        <div id="add-review-button" class="pure-u-2-3">
-            <button class="pure-button pure-button-primary">Add Review</button>
-        </div>
 
         <div id="reviews" class="pure-u-2-3"> 
-            <div class="pure-g">
-                <div id="review1" class="pure-u-1-1">  
-                    <h2>Review 1</h2>
-                    <p>{{ review1 }}</p>
-                </div>
+            <div id="add-review-button">
+                <button class="pure-button pure-button-primary">Add Review</button>
+            </div>
 
-                <div id="review2" class="pure-u-1-1">  
-                    <h2>Review 2</h2>
-                    <p>{{ review2 }}</p>
+            {% for rev in reviews %}
+            <div>
+                <div class="pure-u-1-6">
+                    star
                 </div>
-
-                <div id="review3" class="pure-u-1-1">  
-                    <h2>Review 3</h2>
-                    <p>{{ review3 }}</p>
+                <div class="pure-u-4-6">
+                    <h3>Review</h3>
+                    <p>{{ rev[2] }}</p>
+                </div>
+                <div class="pure-u-1-6">
+                    tags
                 </div>
             </div>
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}
