@@ -3,15 +3,11 @@
 {% block html_head %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/add-location.css')}}">
 <script src="{{url_for('static', filename='scripts/picker-map.js')}}"></script>
-<script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTxssaavgto&callback=initMap"
-defer
-async
-></script>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTxssaavgto&callback=initMap" defer
+  async></script>
 <link rel="stylesheet" href="{{url_for('static', filename='css/tags.css')}}">
 <script src="{{url_for('static', filename='scripts/tags.js')}}" defer></script>
-
+<script src="{{url_for('static', filename='scripts/add-location.js')}}" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -20,45 +16,45 @@ async
   <div class="pure-u-2-5">
     <form class="pure-form pure-form-stacked form-custom" enctype="multipart/form-data">
       <fieldset> <!-- FIXME: idr if fieldset is actually needed here -->
-          <h4>Add a Study Spot</h4>
-          <h1 class="title" id="address">Address at Pin Mark</h1> <!-- TODO: address dependent on map -->
+        <h4>Add a Study Spot</h4>
+        <h1 class="title" id="address">Address at Pin Mark</h1> <!-- TODO: address dependent on map -->
 
-          <div class="message-custom pure-form-message">
-            Click anywhere on the map to adjust the location of your study spot.
-          </div><br>
+        <div class="message-custom pure-form-message">
+          Click anywhere on the map to adjust the location of your study spot.
+        </div><br>
 
-          <label for="title">Study Spot Title</label>
-          <input id="title" class="pure-input-1" name="title" placeholder="Basement of Keller Hall" /><br>
+        <label for="title">Study Spot Title</label>
+        <input id="title" class="pure-input-1" name="title" placeholder="Basement of Keller Hall" /><br>
 
-          <label for="description">Description</label>
-          <textarea class="pure-input-1" id="description" name="description" placeholder="You would be so powerful here."></textarea>
-        
-          <div class="pure-g">
-            <div class="col-custom pure-u-6-12">
-              <label for="hours">Hours Open</label>
-              <textarea class="pure-input-1" id="hours" name="hours" placeholder="Mondays 2:00 - 4:00 PM"></textarea>
-            </div>
+        <label for="description">Description</label>
+        <textarea class="pure-input-1" id="description" name="description"
+          placeholder="You would be so powerful here."></textarea>
 
-            <div class="col-custom pure-u-5-12">
-              <label for="upload"> Images
-                <span class="pure-form-message-inline">Optional</span>
-              </label> 
-              <input class="pure-input-1" type="file" name="image" id="upload" accept="image/*" />
-            </div>
-          </div><br>
-
-          <div id="tags">
-            Tags
-            <!-- TODO: populate w/ tags -->
-            <input type="hidden" name="tags" value="tag placeholder"/>
+        <div class="pure-g">
+          <div class="col-custom pure-u-6-12">
+            <label for="hours">Hours Open</label>
+            <textarea class="pure-input-1" id="hours" name="hours" placeholder="Mondays 2:00 - 4:00 PM"></textarea>
           </div>
 
-          <input id="location" type="hidden" name="location" value="" />
+          <div class="col-custom pure-u-5-12">
+            <label for="upload"> Images
+              <span class="pure-form-message-inline">Optional</span>
+            </label>
+            <input class="pure-input-1" type="file" name="image" id="upload" accept="image/*" />
+          </div>
+        </div><br>
 
-          <input class="pure-button pure-button-primary" type="submit" value="Add Location"
-            formaction="{{url_for('location')}}" formmethod="post">
+        <div id="tags">
+          Tags
+          <input id="tags-list" type="hidden" name="tags" value="" />
+        </div>
+
+        <input id="location" type="hidden" name="location" value="" />
+
+        <input onclick="send_tags()" class="pure-button pure-button-primary" type="submit" value="Add Location"
+          formaction="{{url_for('location')}}" formmethod="post">
       </fieldset>
-  </form>
+    </form>
   </div>
 </div>
 {% endblock %}

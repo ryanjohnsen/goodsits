@@ -34,13 +34,15 @@ function populateTags() {
 function setupTags() {
     let tags = document.getElementById("tags");
 
-    let unpicked = document.createElement("div");
-    unpicked.id = "unpicked-tags";
-    tags.appendChild(unpicked);
+
 
     let picked = document.createElement("div");
     picked.id = "picked-tags"
     tags.appendChild(picked);
+
+    let unpicked = document.createElement("div");
+    unpicked.id = "unpicked-tags";
+    tags.appendChild(unpicked);
 
     populateTags();
 }

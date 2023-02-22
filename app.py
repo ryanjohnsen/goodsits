@@ -66,7 +66,6 @@ def location():
     if filename != '':
         image = b64encode(file.read())
 
-    print(data["location"])
     db.insert_location(
         data["title"], data["description"], data["hours"],
         image, data["tags"], data["location"], session["user"]["userinfo"]["aud"]

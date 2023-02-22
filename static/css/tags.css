@@ -1,19 +1,20 @@
 #unpicked-tags, #picked-tags {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
 }
 
 .picked {
-    background-color: lightblue;
+    background-color: var(--blue);
 }
 
 .unpicked {
-    background-color: gray;
+    background-color: var(--grey);
 }
 
 .tag {
     color: white;
     margin: 2px;
-    padding: 2px;
+    padding: 0.5em;
     border-radius: 5px;
 }
