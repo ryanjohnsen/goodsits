@@ -155,9 +155,6 @@ def location(loc_id: int) -> Response:
     # print(location["tags"])
     return render_template('location.html', location=location, 
                                             rating=db.get_rating(loc_id),
-                                            description=location["description"],
-                                            hours=location["hours"],
-                                            address=location["location"],
                                             reviews=reviews,
                                             login = check_auth())
 
