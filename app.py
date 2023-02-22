@@ -2,7 +2,6 @@ from flask import *
 from typing import Callable
 from functools import wraps
 from os import environ as env
-# from db_scripts import FlyWheeler
 from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
 from time import time
