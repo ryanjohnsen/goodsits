@@ -5,16 +5,16 @@
 {% endblock %}
 
 {% block content %}
-<div class="hero pure-g">
-    <h1 class="hero-header pure-u-1">Find Your Place To Sit</h1>
-    <p class="sub-hero pure-u-1">Discovering comfort in every corner of the world</p>
+<div class="hero">
+    <h1 class="hero-header">Find Your Place To Sit</h1>
+    <p class="sub-hero">Discovering comfort in every corner of the world</p>
 </div>
 
 <div class="main">
     <div class="search">
         <h1>Get Started</h1>
-        <form class="search-form pure-form">
-            <input class="bar" type="email" placeholder="Enter address, neighborhood, city or ZIP code" />
+        <form action="/search" method="POST" class="search-form pure-form">
+            <input class="bar" type="text" placeholder="Enter address, neighborhood, city or ZIP code" required>
         </form>
     </div>    
 </div>

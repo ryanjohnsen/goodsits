@@ -1,12 +1,7 @@
-html {
+html, body, #content {
     height: 100%;
 }
 
-body{
+body {
     background-color: antiquewhite;
-    height: 100%;
-}
-
-#content {
-    height: 100%;
 }
