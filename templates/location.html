@@ -2,6 +2,8 @@
 
 {% block html_head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/location.css') }}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/reviewForm.css')}}">
+    <script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
 {% endblock %}
 
 {% block content %}
@@ -57,8 +59,12 @@
                 <img src="https://via.placeholder.com/400x200.png" alt="placeholder">
             </div>
 
-            <div id="add-review-button">
-                <button class="pure-button pure-button-primary">Add Review</button>
+        <div id="reviews" class="pure-u-2-3"> 
+            <button id="addBtn" class="pure-button pure-button-primary">
+              Add Review
+            </button>
+            <div id="hideReviewForm" class="modal">
+              {% include "reviewModal.html" %}
             </div>
 
             <div id="reviews">
