@@ -136,6 +136,18 @@ def logout() -> Response:
             quote_via = quote_plus,
         )
     )
+    
+@app.route("/location/<int:loc_id>", methods = ["GET"])
+def location(loc_id: int) -> Response:
+    reviews = db.select_reviews(int(loc_id))
+    location = db.get_location(loc_id)
+    return render_template('location.html', location=location, 
+                                            title=location["title"],
+                                            rating=float(db.get_rating(loc_id)[0]),
+                                            description=location["description"],
+                                            hours=location["hours"],
+                                            address=location["location"],
+                                            reviews=reviews)
 
 # Helper for using vscode debugger
 if __name__ == "__main__":

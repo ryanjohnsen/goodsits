@@ -21,4 +21,6 @@ CREATE TABLE Review (
 
 INSERT INTO Review (loc_id, rating, tags, review, user_id) VALUES (%s, %s, %s, %s, %s);
 
+INSERT INTO Location (title, description, hours, image, tags, location, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s);
+
 SELECT rating, tags, review FROM Review WHERE loc_id = %s;
