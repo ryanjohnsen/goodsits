@@ -9,8 +9,9 @@
     modal overall Style
 */
 #modal{
-    display: block;
-    margin: auto;
+    position: fixed;
+    top: 20%;
+    right: 30%;
     max-width: 40%;
     background-color: whitesmoke;
     border: 2px solid #90EE90;
