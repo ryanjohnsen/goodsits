@@ -1,6 +1,7 @@
 
 .menu-header{
-    background-color: whitesmoke;
+    background-color: white;
+    border-bottom: solid var(--grey) 1px;
     padding: 0.69em;
 }
 

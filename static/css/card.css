@@ -1,0 +1,30 @@
+.card {
+  padding: 2em 2em 4em 2em;
+}
+
+.card:hover {
+  color: var(--dark-blue);
+}
+
+.img-container {
+  background: var(--light-grey);
+}
+
+.proximity, .rating {
+  margin-bottom: 0.5em;
+}
+
+.heading, .details {
+  margin-bottom: 0.75em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* add to style.css, global refactor */
+.title {
+  font-weight: bold;
+  font-size: x-large;
+}

@@ -1,16 +1,47 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.content {
   height: 100vh;
-  background-color: green;
 }
 
-.sidebar, .map {
-  height: 100%;
+.map, .cards {
+  height: 100vh;
 }
 
-.sidebar {
-  background-color: blue;
+.filter, .cards {
+  border-bottom: solid var(--light-grey) 2px;
 }
 
-.map {
-  background-color: red;
+.search-bar {
+  display: flex;
+  border-bottom: solid var(--grey) 1px;
+}
+
+.search {
+  flex-grow: 1;
+  padding: 0.5em;
+  margin: 1em 2em;
+}
+
+.cards {
+  overflow-y: scroll;
+}
+
+.search-bar {
+  background-color: var(--light-grey)
+}
+
+.filter {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: small;
+  padding: 1em 2em;
+}
+
+.filter:hover {
+  color: var(--dark-blue);
 }
