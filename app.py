@@ -158,6 +158,10 @@ def location(loc_id: int) -> Response:
                                             reviews=reviews,
                                             login = check_auth())
 
+@app.route("/search")
+def search():
+    return render_template('search.html', login = check_auth());
+
 # Helper for using vscode debugger
 if __name__ == "__main__":
     app.run(debug=True)

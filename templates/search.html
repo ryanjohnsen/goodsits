@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block html_head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/search.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container pure-g">
+  <div class="search-bar pure-u-1">x</div>
+  <div class="sidebar pure-u-1-3"></div>
+  <div class="map pure-u-2-3"></div>
+</div>
+{% endblock %}
