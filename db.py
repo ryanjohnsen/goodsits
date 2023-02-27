@@ -33,6 +33,41 @@ def get_db_cursor(commit: bool = False) -> cursor:
         finally:
             cur.close()
 
+def search_locations(location: str, miles: int, tags: str) -> list:
+    args = location.split(',') + [miles]
+    tags = tags.split(',') if tags else []
+
+    # Query setup
+    query = """
+        SELECT id, title, hours, location, tags
+        FROM (
+            SELECT id, title, hours, location, tags, POINT(%s, %s) <@> location AS miles 
+            FROM Location
+        ) AS Closest
+        WHERE miles >= COALESCE(%s, miles)
+    """.rstrip()
+
+    # Add tags to the query string
+    for tag in tags:
+        query += " AND tags LIKE %s"
+        args.append('%' + tag + '%')
+
+    # Order the rows by how far they are away
+    query += """
+        ORDER BY miles
+    """
+
+    with get_db_cursor() as cur:
+        cur: cursor
+        cur.execute(query, args) 
+        return cur.fetchall()
+    
+def get_image(id: int) -> list:
+    with get_db_cursor() as cur:
+        cur: cursor
+        cur.execute("SELECT image FROM Location WHERE id = %s", (id,)) 
+        return cur.fetchone()
+
 def insert_location(title: str, description: str, hours: str, image: str, tags: str, location: str, user_id: str) -> int:
      lat, long = location.split(',')
      with get_db_cursor(True) as cur:
@@ -50,11 +85,13 @@ def insert_review(loc_id: int, rating: str, tags: str, review: str, user_id: str
     with get_db_cursor(True) as cur:
         cur: cursor
         cur.execute(
-            "INSERT INTO Review (loc_id, rating, tags, review, user_id) VALUES (%s, %s, %s, %s, %s)", 
-            (loc_id, rating, tags, review, user_id)
+            """
+            INSERT INTO Review (loc_id, rating, tags, review, user_id) 
+            VALUES (%s, %s, %s, %s, %s)
+            """, (loc_id, rating, tags, review, user_id)
         )
 
-def select_reviews(loc_id: int) -> list:
+def get_reviews(loc_id: int) -> list:
     with get_db_cursor() as cur:
         cur: cursor
         cur.execute("SELECT rating, tags, review FROM Review WHERE loc_id = %s", (loc_id,))
