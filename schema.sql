@@ -25,7 +25,7 @@ INSERT INTO Location (title, description, hours, image, tags, location, user_id)
 
 SELECT rating, tags, review FROM Review WHERE loc_id = %s;
 
--- Query for search without tags
+-- Query for search
 SELECT id, title, hours, location, tags
 FROM (SELECT id, title, hours, location, tags, POINT(%s, %s) <@> location AS miles FROM Location) AS Closest 
 WHERE miles >= %s AND tags LIKE %s AND .....
