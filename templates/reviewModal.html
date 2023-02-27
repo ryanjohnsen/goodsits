@@ -1,0 +1,32 @@
+{% block html_head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/reviewForm.css')}}">
+<script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="modal">
+  <form class="pure-form pure-form-stacked" id="modalForm">
+    <fieldset class="pure-g">
+      <div class="g-custom pure-u-1">
+        <legend class="legend-custom">Write Review</legend>
+        <button class="exitBtn" title="Close" onclick="closeModal()">x</button>
+      </div>
+
+      <label for="rating">Overall Rating</label>
+      <input class="pure-u-1" required type="rating" id="rating" />
+
+      <label>Written Review</label>
+      <textarea class="pure-u-1" required type="text" id="review"></textarea>
+
+      <div class="tags pure-u-1">
+        Select Tags
+      </div>
+
+      <button type="submit" class="pure-button">
+        Submit
+      </button>
+    </fieldset>
+  </form>
+</div>
+
+{% endblock %}

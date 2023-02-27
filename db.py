@@ -11,7 +11,7 @@ def setup():
     global pool
     DATABASE_URL = env['DATABASE_URL']
     current_app.logger.info(f"creating db connection pool")
-    pool = ThreadedConnectionPool(1, 100, dsn=DATABASE_URL, sslmode='require')
+    pool = ThreadedConnectionPool(1, 5, dsn=DATABASE_URL, sslmode='require')
 
 @contextmanager
 def get_db_connection() -> connection:
@@ -57,16 +57,18 @@ def insert_review(loc_id: int, rating: str, tags: str, review: str, user_id: str
 def select_reviews(loc_id: int) -> list:
     with get_db_cursor() as cur:
         cur: cursor
-        cur.execute("SELECT rating, tags, review FROM Review WHERE loc_id = %s", ([loc_id]))
+        cur.execute("SELECT rating, tags, review FROM Review WHERE loc_id = %s", (loc_id,))
         return cur.fetchall()
     
 def get_location(loc_id):
     with get_db_cursor() as cur:
-        cur.execute("SELECT * FROM Location WHERE id = %s", ([loc_id]))
+        cur: cursor
+        cur.execute("SELECT * FROM Location WHERE id = %s", (loc_id,))
         return cur.fetchone()
     
 def get_rating(loc_id: int) -> float:
     with get_db_cursor() as cur:
-        cur.execute("SELECT COALESCE(AVG(rating), 0.0) FROM Review WHERE loc_id = %s", ([loc_id]))
+        cur: cursor
+        cur.execute("SELECT COALESCE(AVG(rating), 0.0) FROM Review WHERE loc_id = %s", (loc_id,))
         return float(cur.fetchone()[0])
     
