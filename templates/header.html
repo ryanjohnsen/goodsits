@@ -2,7 +2,9 @@
 <nav class="header">
     <div class="menu-header pure-menu pure-menu-horizontal">
         <a href="{{ url_for('landing')}}" class="pure-menu-heading pure-menu-link">LOGO</a>
-        <ul class="pure-menu-list">
+
+        <!-- Initial header elements layout -->
+        <ul class="header-response-horizontal pure-menu-list">
             <li class="pure-menu-item">
                 <a href="{{ url_for('add_location')}}" class="pure-menu-link">Add Location</a>
             </li>
@@ -13,5 +15,24 @@
                 <a href="{{ login.link }}" class="pure-menu-link">{{ login.status }}</a>
             </li>
         </ul>
+
+        <!-- Header elements layout once screen size is 500px or less -->
+        <ul class="header-response-vertical pure-menu-list">
+            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                <a id="menuLink1" class="pure-menu-link">menu</a>
+                <ul class="pure-menu-children">
+                    <li class="pure-menu-item">
+                        <a href="{{ url_for('add_location')}}" class="pure-menu-link">Add Location</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="#" class="pure-menu-link">Search</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="{{ login.link }}" class="pure-menu-link">{{ login.status }}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
     </div>
 </nav>

@@ -1,11 +1,14 @@
 
-.menu-header{
+.header{
     background-color: whitesmoke;
     padding: 0.69em;
+    width: 100%;
 }
+
 
 .pure-menu-list{
     float: right;
+    display: inline;
 }
 .pure-menu-heading{
     font-weight: bolder;
@@ -20,3 +23,26 @@
     text-decoration: underline;
 }
 
+.header-response-vertical{
+    display: none;
+    visibility: hidden;
+}
+
+/* show drop down menu once the screen width is 500px or less */
+@media (max-width:500px) {
+    .header-response-vertical{
+        float: right;
+        display: contents;
+        visibility: visible;
+    }
+
+    .header-response-horizontal{
+        display: none;
+        visibility: hidden;
+        display: contents;
+    }
+    
+    .pure-menu-horizontal .pure-menu-list {
+        display: contents !important;
+    }
+}
