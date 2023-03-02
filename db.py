@@ -34,27 +34,53 @@ def get_db_cursor(commit: bool = False) -> cursor:
             cur.close()
 
 def search_locations(location: str, miles: int, tags: str) -> list:
-    args = location.split(',') + [miles]
+    lat, long = location.split(',')
+    args = [lat, long]
     tags = tags.split(',') if tags else []
 
-    # Query setup
     query = """
-        SELECT id, title, hours, location, tags
-        FROM (
-            SELECT id, title, hours, location, tags, POINT(%s, %s) <@> location AS miles 
-            FROM Location
-        ) AS Closest
-        WHERE miles >= COALESCE(%s, miles)
+        WITH nearby AS (
+            SELECT l.id, l.title, l.hours, l.location, POINT(%s, %s) <@> l.location AS miles
+            FROM Location AS l
+            WHERE
     """.rstrip()
+    
 
-    # Add tags to the query string
-    for tag in tags:
-        query += " AND tags LIKE %s"
-        args.append('%' + tag + '%')
+    if tags:
+        query += " ARRAY["
+        for i in range(len(tags) - 1):
+            query += "%s, "
+            args.append(tags[i])
+        query += """
+            %s] <@ ARRAY (
+                SELECT t.title
+                FROM Tag AS t
+                WHERE loc_id = l.id
+                GROUP BY t.title
+                ORDER BY COUNT(t.title) DESC
+                LIMIT 3
+            ) AND
+        """.strip()
+        args.append(tags[len(tags) - 1])
+    
+    # No two points on earth are greater than 10,000 miles
+    query += " (POINT(%s, %s) <@> location <= COALESCE(%s, 10000)  OR location IS NULL)"
+    args.append(lat)
+    args.append(long)
+    args.append(miles)
 
-    # Order the rows by how far they are away
     query += """
-        ORDER BY miles
+        )
+
+        SELECT nearby.id, nearby.title, nearby.hours, nearby.location, t.tags
+        FROM nearby LEFT JOIN (
+            SELECT n.id, array_agg(DISTINCT t.title) AS Tags
+            FROM nearby AS n, Tag AS t
+            WHERE n.id = t.loc_id
+            GROUP BY n.id
+        ) AS t ON nearby.id = t.id
+        ORDER BY miles ASC
+        LIMIT 10
     """
 
     with get_db_cursor() as cur:
@@ -68,39 +94,82 @@ def get_image(id: int) -> list:
         cur.execute("SELECT image FROM Location WHERE id = %s", (id,)) 
         return cur.fetchone()
 
-def insert_location(title: str, description: str, hours: str, image: str, tags: str, location: str, user_id: str) -> int:
+def insert_location(title: str, description: str, hours: str, image: str, location: str, user_id: str) -> int:
      lat, long = location.split(',')
      with get_db_cursor(True) as cur:
         cur: cursor
         cur.execute(
             """
-            INSERT INTO Location (title, description, hours, image, tags, location, user_id)
-            VALUES (%s, %s, %s, %s, %s, POINT(%s, %s), %s)
+            INSERT INTO Location (title, description, hours, image, location, user_id)
+            VALUES (%s, %s, %s, %s, POINT(%s, %s), %s)
             RETURNING id
-            """, (title, description, hours, image, tags, lat, long, user_id)
+            """, (title, description, hours, image, lat, long, user_id)
         )
         return int(cur.fetchone()[0])
 
-def insert_review(loc_id: int, rating: str, tags: str, review: str, user_id: str) -> None:
+def insert_tags(loc_id: int, tags: str, review_id: int = None) -> None:
+    if tags == None or len(tags) == 0:
+        return
+    
+    args = []
+    tags = tags.split(',')
+
+    query = """
+        INSERT INTO Tag (loc_id, review_id, title)
+        VALUES
+    """.rstrip()
+    
+    for i in range(len(tags) - 1):
+        query += " (%s, %s, %s),"
+        args.append(loc_id)
+        args.append(review_id)
+        args.append(tags[i])
+    
+    query += " (%s, %s, %s)"
+    args.append(loc_id)
+    args.append(review_id)
+    args.append(tags[len(tags) - 1])
+
+    with get_db_cursor(True) as cur:
+        cur: cursor
+        cur.execute(query, args)
+
+def insert_review(loc_id: int, rating: str, review: str, user_id: str) -> int:
     with get_db_cursor(True) as cur:
         cur: cursor
         cur.execute(
             """
-            INSERT INTO Review (loc_id, rating, tags, review, user_id) 
-            VALUES (%s, %s, %s, %s, %s)
-            """, (loc_id, rating, tags, review, user_id)
+            INSERT INTO Review (loc_id, rating, review, user_id) 
+            VALUES (%s, %s, %s, %s)
+            RETURNING id
+            """, (loc_id, rating, review, user_id)
         )
-
+        return int(cur.fetchone()[0])
+    
 def get_reviews(loc_id: int) -> list:
     with get_db_cursor() as cur:
         cur: cursor
-        cur.execute("SELECT rating, tags, review FROM Review WHERE loc_id = %s", (loc_id,))
+        cur.execute(
+            """
+            SELECT r.id, r.rating, r.review, array_agg(DISTINCT t.title) AS tags
+            FROM Review AS r, Tag AS t
+            WHERE r.loc_id = t.loc_id AND r.loc_id = %s
+            GROUP BY r.id
+            """, (loc_id,)
+        )
         return cur.fetchall()
     
-def get_location(loc_id):
+def get_location(loc_id: int) -> dict:
     with get_db_cursor() as cur:
         cur: cursor
-        cur.execute("SELECT * FROM Location WHERE id = %s", (loc_id,))
+        cur.execute(
+            """
+            SELECT l.id, l.title, l.description, l.hours, l.location, l.user_id, array_agg(DISTINCT t.title) AS tags
+            FROM Location AS l, Tag AS t
+            WHERE l.id = t.loc_id AND l.id = %s
+            GROUP BY l.id;
+            """, (loc_id,)
+        )
         return cur.fetchone()
     
 def get_rating(loc_id: int) -> float:
