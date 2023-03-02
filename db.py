@@ -64,7 +64,7 @@ def search_locations(location: str, miles: int, tags: str) -> list:
         args.append(tags[len(tags) - 1])
     
     # No two points on earth are greater than 10,000 miles
-    query += " (POINT(%s, %s) <@> location <= COALESCE(%s, 10000)  OR location IS NULL)"
+    query += " (POINT(%s, %s) <@> location <= COALESCE(%s, 10000) OR location IS NULL)"
     args.append(lat)
     args.append(long)
     args.append(miles)
