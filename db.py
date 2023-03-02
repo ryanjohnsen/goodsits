@@ -88,11 +88,11 @@ def search_locations(location: str, miles: int, tags: str) -> list:
         cur.execute(query, args) 
         return cur.fetchall()
     
-def get_image(id: int) -> list:
+def get_image(id: int) -> bytes:
     with get_db_cursor() as cur:
         cur: cursor
         cur.execute("SELECT image FROM Location WHERE id = %s", (id,)) 
-        return cur.fetchone()
+        return cur.fetchone()[0]
 
 def insert_location(title: str, description: str, hours: str, image: str, location: str, user_id: str) -> int:
      lat, long = location.split(',')

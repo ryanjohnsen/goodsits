@@ -85,7 +85,7 @@ def landing() -> Response:
 def image(image_id: int) -> Response:
     image = db.get_image(image_id)
     
-    stream = BytesIO(b64decode(image[0]))
+    stream = BytesIO(b64decode(image))
 
     return send_file(stream, download_name = "file.jpg")
 
