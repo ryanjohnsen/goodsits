@@ -3,7 +3,7 @@
 {% block html_head %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/search.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='css/filters.css')}}">
-<script src="{{url_for('static', filename='scripts/search.js')}}"></script>
+<script src="{{url_for('static', filename='scripts/search.js')}}" defer></script>
 <script src="{{url_for('static', filename='scripts/search-map.js')}}"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTxssaavgto&callback=initMap" defer
   async></script>
@@ -12,7 +12,7 @@
 {% block content %}
 <div class="container">
   <div class="search-bar">
-    <input class="search" name="search" placeholder="Basement of Keller Hall" />
+    <input id="search" class="search" name="search" placeholder="Basement of Keller Hall" />
   </div>
   <div class="content pure-g">
     <div class="pure-u-1-3">
