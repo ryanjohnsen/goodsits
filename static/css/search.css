@@ -36,12 +36,14 @@
 }
 
 .filter {
+  display: flex;
+  flex-direction: row;
   text-transform: uppercase;
   font-weight: bold;
   font-size: small;
   padding: 1em 2em;
 }
 
-.filter:hover {
+.filter-label:hover {
   color: var(--dark-blue);
 }
