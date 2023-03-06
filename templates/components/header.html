@@ -14,10 +14,10 @@
                     <a id="menuLink1" class="pure-menu-link">menu</a>
                     <ul class="pure-menu-children">
                         <li class="pure-menu-item">
-                            <a href="{{ url_for('add_location')}}" class="pure-menu-link">Add Location</a>
+                            <a href="{{ url_for('add_location') }}" class="pure-menu-link">Add Location</a>
                         </li>
                         <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Search</a>
+                            <a href="{{ url_for('search') }}" class="pure-menu-link">Search</a>
                         </li>
                         <li class="pure-menu-item">
                             <a href="{{ login.link }}" class="pure-menu-link">{{ login.status }}</a>
@@ -32,10 +32,10 @@
         <div class="header-response-horizontal">
             <ul class="pure-menu-list">
                 <li class="pure-menu-item">
-                    <a href="{{ url_for('add_location')}}" class="pure-menu-link">Add Location</a>
+                    <a href="{{ url_for('add_location') }}" class="pure-menu-link">Add Location</a>
                 </li>
                 <li class="pure-menu-item">
-                    <a href="#" class="pure-menu-link">Search</a>
+                    <a href="{{ url_for('search') }}" class="pure-menu-link">Search</a>
                 </li>
                 <li class="pure-menu-item">
                     <a href="{{ login.link }}" class="pure-menu-link">{{ login.status }}</a>

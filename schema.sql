@@ -56,17 +56,24 @@ WITH nearby AS (
         ORDER BY COUNT(t.title) DESC
         LIMIT 3
     )
+    AND l.title LIKE '%%s%'
     AND (POINT(%s, %s) <@> location <= %s OR location IS NULL)
 )
 
-SELECT nearby.*, t.tags
+SELECT nearby.*, t.tags, r.avg_rating
 FROM nearby LEFT JOIN (
     SELECT n.id, array_agg(DISTINCT t.title) AS tags
     FROM nearby AS n, Tag AS T
     WHERE n.id = t.loc_id
     GROUP BY n.id
-) AS t ON nearby.id = t.id
+) AS t ON nearby.id = t.id LEFT JOIN (
+    SELECT n.id, COALESCE(AVG(r.rating), 0.0) AS avg_rating
+    FROM nearby AS n, Review AS r
+    WHERE n.id = r.loc_id
+    GROUP BY n.id
+) AS r ON nearby.id = r.id
 ORDER BY miles ASC
+WHERE (r.avg_rating IS NULL OR r.avg_rating > %s)
 LIMIT 10;
 
 -- Example
@@ -81,16 +88,23 @@ WITH nearby AS (
         ORDER BY COUNT(t.title) DESC
         LIMIT 3
     )
+    AND l.title LIKE '%el%'
     AND (POINT(0, 0) <@> location >= 10 OR location IS NULL)
 )
 
-SELECT nearby.*, t.tags
+SELECT nearby.*, t.tags, r.avg_rating
 FROM nearby LEFT JOIN (
     SELECT n.id, array_agg(DISTINCT t.title) AS tags
     FROM nearby AS n, Tag AS T
     WHERE n.id = t.loc_id
     GROUP BY n.id
-) AS t ON nearby.id = t.id
+) AS t ON nearby.id = t.id LEFT JOIN (
+    SELECT n.id, COALESCE(AVG(r.rating), 0.0) AS avg_rating
+    FROM nearby AS n, Review AS r
+    WHERE n.id = r.loc_id
+    GROUP BY n.id
+) AS r ON nearby.id = r.id
+WHERE r.avg_rating > 2
 ORDER BY miles
 LIMIT 10;
 

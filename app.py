@@ -8,6 +8,7 @@ from werkzeug.utils import secure_filename
 from base64 import b64encode, b64decode
 from io import BytesIO
 from time import time
+import magic
 import db 
 
 app = Flask(__name__)
@@ -83,27 +84,36 @@ def landing() -> Response:
 # Returns back a image link to a entry in the database
 @app.route("/images/<int:image_id>", methods = ["GET"])
 def image(image_id: int) -> Response:
-    image = db.get_image(image_id)
-    
-    stream = BytesIO(b64decode(image))
+    binary = db.get_image(image_id)
+    if (binary == None):
+        abort(404)
 
-    return send_file(stream, download_name = "file.jpg")
+    image = b64decode(binary)
+
+    mime = magic.from_buffer(image, mime = True)
+    stream = BytesIO(image)
+
+    return send_file(stream, mimetype = mime)
 
 # Endpoint for searching the top 10 location with filtered tags in a radius
-@app.route("/search", methods = ["GET"])
-def search() -> Response:
+@app.route("/api/search", methods = ["GET"])
+def search_api() -> Response:
     location = request.args.get("location", "0,0")
     miles = request.args.get("miles")
     tags = request.args.get("tags")
+    text = request.args.get("text")
+    min_rating = request.args.get("minRating")
 
-    locations, results = db.search_locations(location, miles, tags), []
+    locations, results = db.search_locations(location, text, miles, min_rating, tags), []
     for loc in locations:
         results.append({
             "id": loc[0],
             "title": loc[1],
             "hours": loc[2],
             "location": loc[3],
-            "tags": loc[4]
+            "distance": loc[4],
+            "tags": loc[5],
+            "rating": loc[6]
         })
     
     return jsonify(results)
@@ -152,7 +162,11 @@ def location(loc_id: int) -> Response:
                                             reviews=reviews,
                                             login = check_auth())
 
+@app.route("/search")
+def search():
+    return render_template('search.html', login = check_auth());
 # Endpoint for adding fields to a location entry
+
 @app.route("/location/<int:loc_id>/add", methods = ["POST"])
 @requires_auth
 def add_review(loc_id: int) -> Response:

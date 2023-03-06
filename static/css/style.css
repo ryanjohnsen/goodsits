@@ -1,7 +1,9 @@
 :root {
+    --light-grey: #F3F3F3;
     --grey: #979799;
     --light-blue: #BEE3F8;
     --blue: #719BE3;
+    --dark-blue: #587892;
 }
 
 html, body, #content {
