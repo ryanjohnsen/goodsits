@@ -1,3 +1,5 @@
+let curLoc = { lat: 44.9742826, lng: -93.2323081 }; // Keller Hall
+
 function showFilters() {
     const filters = document.getElementById("filter-modal");
     filters.style.display = "block";
@@ -53,9 +55,18 @@ function pointToLatLng(point) {
     return toRet;
 }
 
-async function search(lat, long, text, tags, minRating, proximity) {
+// There is a better way to do this caching behavior. I don't know it right now.
+let lastText = "";
+let lastTags = [];
+let lastMinRating = -1;
+let lastProximity = 10000;
+async function search(loc, text, tags, minRating, proximity) {
+    lastText = text;
+    lastTags = tags;
+    lastMinRating = minRating;
+    lastProximity = proximity;
     fetch("/api/search?" + new URLSearchParams({
-        location: lat+ "," + long,
+        location: loc.lat+ "," + loc.lng,
         text: text,
         miles: proximity,
         minRating: minRating,
@@ -85,14 +96,11 @@ searchBar.addEventListener("keydown", event => {
     let minRating = document.getElementById("min-rating").value;
     let text = searchBar.value;
     let proximity = document.getElementById("proximity-input").value;
-    navigator.geolocation.getCurrentPosition(function (location) {
-        search(location.coords.latitude, location.coords.longitude, text, tags, minRating, proximity);
-    }, function (positionError) { /* "Error Handling" */ } );
+    search(curLoc, text, tags, minRating, proximity);
 });
 
-async function initPage() {
-    const keller = { lat: 44.9742826, lng: -93.2323081 };
-    search(keller.lat, keller.lng, "", [], -1, 10000);
-}
-
-initPage();
+search(curLoc, "", [], -1, 10000);
+navigator.geolocation.getCurrentPosition(function (location) {
+    curLoc = { lat: location.coords.latitude, lng: location.coords.longitude }
+    search(curLoc, lastText, lastTags, lastMinRating, lastProximity);
+}, function (positionError) { /* "Error Handling" */ } );
