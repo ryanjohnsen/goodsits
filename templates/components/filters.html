@@ -1,0 +1,62 @@
+{% block html_head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/tags.css')}}">
+<script src="{{url_for('static', filename='scripts/filter.js')}}" defer></script>
+<script src="{{url_for('static', filename='scripts/tags.js')}}" defer></script>
+{% endblock %}
+
+{% block content %}
+<div id="modal">
+    <div class="pure-g">
+        <div class="filter-label-container filter-header pure-u-1" onclick="hideFilters()">
+            <label class="filter-label">⮜</label>
+        </div>
+
+        <div class="pure-u-1 filter-label-container" onclick="showAccordion('tags-container')">
+            <label class="filter-label">Tags</label>
+            <label class="arrow filter-label" id="tags-container-arrow-label">⮟</label>
+        </div>
+        <div class="accordion pure-u-1" id="tags-container">
+            <div class="accordion-content" id="tags"></div>
+        </div>
+
+        <div class="pure-u-1 filter-label-container" onclick="showAccordion('rating-container')">
+            <label class="filter-label">Rating at Least</label>
+            <label class="arrow filter-label" id="rating-container-arrow-label">⮟</label>
+        </div>
+        <div class="accordion pure-u-1" id="rating-container">
+            <div id="rating" class="accordion-content">
+                <form class="pure-form pure-form-stacked">
+                    <div class="pure-g">
+                        <select id="min-rating" class="pure-input-1-6">
+                            <option value="-1">Any</option>
+                            <option value="5">5 ★★★★★</option>
+                            <option value="4">4 ★★★★☆</option>
+                            <option value="3">3 ★★★☆☆</option>
+                            <option value="2">2 ★★☆☆☆</option>
+                            <option value="1">1 ★☆☆☆☆</option>
+                        </select>
+                        <span class="accordion-text">Stars</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="pure-u-1 filter-label-container" onclick="showAccordion('proximity-container')">
+            <label class="filter-label">Proximity</label>
+            <label class="arrow filter-label" id="proximity-container-arrow-label">⮟</label>
+        </div>
+        <div class="accordion pure-u-1" id="proximity-container">
+            <div id="proximity" class="accordion-content">
+                <form class="pure-form pure-form-stacked">
+                    <div class="pure-g">
+                        <span class="accordion-text">At most</span>
+                        <input id="proximity-input" type="text" onkeypress="return isNumberKey(event)" class="pure-input-1-6">
+                        <span class="accordion-text">miles away</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

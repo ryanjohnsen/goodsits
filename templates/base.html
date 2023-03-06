@@ -13,13 +13,14 @@
   </head>
   
   <body>
-    {% include "header.html" %}
+    {% include "/components/header.html" %}
 
 
     <div id="content">
       {% block content %}{% endblock %}
+      <div style="height: 40px; width: 100%;"></div>
     </div>
 
-    {% include "footer.html" %}
+    {% include "/components/footer.html" %}
   </body>
 </html>
