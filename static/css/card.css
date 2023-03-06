@@ -6,10 +6,6 @@
   color: var(--dark-blue);
 }
 
-.img-container {
-  background: var(--light-grey);
-}
-
 .proximity, .rating {
   margin-bottom: 0.5em;
 }

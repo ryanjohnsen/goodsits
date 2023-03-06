@@ -24,7 +24,7 @@ function initMap() {
 
 function removeMarkers() {
     if (markers != null) {
-        markers.array.forEach(e => {
+        markers.forEach(e => {
             e.setMap(null);
         });
 
@@ -43,17 +43,21 @@ function updateMarkers() {
     for (i = 0; i < points.length; i++) {
         let id = i + 1;
         marker = new google.maps.Marker({
-            position: points[i],
+            position: points[i].point,
             label: "" + id,
             map: map,
         });
 
-        // TODO: Add a listener to hear when one of these markers are clicked and open that location page
+        let locId = points[i].id;
         marker.addListener("click", () => {
-            console.log("" + id + ": clicked");
+            window.location.href = "/location/" + locId;
         });
 
         markers[i] = marker;
+    }
+
+    if (points.length > 0) {
+        map.setCenter(points[0].point);
     }
 }
 
@@ -67,4 +71,4 @@ function displayPoints(markerPoints) {
 
 window.initMap = initMap;
 
-displayPoints(mockPoints);
+// displayPoints(mockPoints);
