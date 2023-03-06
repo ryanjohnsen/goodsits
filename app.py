@@ -8,6 +8,7 @@ from werkzeug.utils import secure_filename
 from base64 import b64encode, b64decode
 from io import BytesIO
 from time import time
+import magic
 import db 
 
 app = Flask(__name__)
@@ -83,11 +84,12 @@ def landing() -> Response:
 # Returns back a image link to a entry in the database
 @app.route("/images/<int:image_id>", methods = ["GET"])
 def image(image_id: int) -> Response:
-    image = db.get_image(image_id)
-    
-    stream = BytesIO(b64decode(image))
+    image = b64decode(db.get_image(image_id))
 
-    return send_file(stream, download_name = "file.jpg")
+    mime = magic.from_buffer(image, mime = True)
+    stream = BytesIO(image)
+
+    return send_file(stream, mimetype = mime)
 
 # Endpoint for searching the top 10 location with filtered tags in a radius
 @app.route("/search", methods = ["GET"])
