@@ -1,6 +1,8 @@
 {% block html_head %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/reviewForm.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/tags.css')}}">
 <script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
+<script defer src="{{url_for('static', filename='scripts/reviewTags.js')}}"></script>
 {% endblock %}
 
 {% block content %}
@@ -11,15 +13,20 @@
         <legend class="legend-custom">Write Review</legend>
         <button class="exitBtn" title="Close" onclick="closeModal()">x</button>
       </div>
-
+      
       <label for="rating">Overall Rating</label>
       <input class="pure-u-1" required type="rating" id="rating" />
-
-      <label>Written Review</label>
-      <textarea class="pure-u-1" required type="text" id="review"></textarea>
-
+      
+      <div class="pure-u-1">
+        <label>Written Review</label>
+        <textarea class="pure-u-1" required type="text" id="review"></textarea>
+      </div>
+      
       <div class="tags pure-u-1">
-        Select Tags
+        <div id="review-tags">
+          <label for="tags-list">Select tag:</label>
+          <input id="review-tags-list" type="hidden" name="tags" value="" />
+        </div>
       </div>
 
       <button type="submit" class="pure-button">
