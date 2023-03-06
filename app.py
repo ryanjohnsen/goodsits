@@ -84,7 +84,11 @@ def landing() -> Response:
 # Returns back a image link to a entry in the database
 @app.route("/images/<int:image_id>", methods = ["GET"])
 def image(image_id: int) -> Response:
-    image = b64decode(db.get_image(image_id))
+    binary = db.get_image(image_id)
+    if (binary == None):
+        abort(404)
+
+    image = b64decode(binary)
 
     mime = magic.from_buffer(image, mime = True)
     stream = BytesIO(image)
@@ -97,15 +101,19 @@ def search_api() -> Response:
     location = request.args.get("location", "0,0")
     miles = request.args.get("miles")
     tags = request.args.get("tags")
+    text = request.args.get("text")
+    min_rating = request.args.get("minRating")
 
-    locations, results = db.search_locations(location, miles, tags), []
+    locations, results = db.search_locations(location, text, miles, min_rating, tags), []
     for loc in locations:
         results.append({
             "id": loc[0],
             "title": loc[1],
             "hours": loc[2],
             "location": loc[3],
-            "tags": loc[4]
+            "distance": loc[4],
+            "tags": loc[5],
+            "rating": loc[6]
         })
     
     return jsonify(results)
