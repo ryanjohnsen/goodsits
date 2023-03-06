@@ -42,7 +42,7 @@
 .accordion {
     max-height: 500px;
     overflow: hidden;
-    transition: max-height 0.8s;
+    transition: max-height 0.5s;
 }
 
 .accordion-text {
@@ -51,4 +51,8 @@
     padding-left: 0.5em;
     padding-right: 0.5em;
     color: black;
+}
+
+.arrow {
+    user-select: none;
 }
