@@ -11,6 +11,7 @@ authlib = "*"
 requests = "*"
 python-dotenv = "*"
 python-magic-bin = "*"
+python-magic = "*"
 
 [dev-packages]
 
