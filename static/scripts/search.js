@@ -14,6 +14,12 @@ function clearCards() {
 
 function addCard(location) {
     // This definetly has cross site scripting vulnerabilities right now
+    let tags = "";
+    if (location.tags != null) {
+        location.tags.forEach(tag => {
+            tags += `<div class="picked tag">${tag}</div>`;
+        });
+    }
     let card = `
         <a href="location/${location.id}">
         <div class="card pure-g">
@@ -26,7 +32,7 @@ function addCard(location) {
                 <div class="proximity">📌 ${location.distance == null ? "?" : location.distance.toFixed(1)} km away</div>
                 <div class="rating">⭐ ${(location.rating == null ? 5.0 : parseFloat(location.rating)).toFixed(1)} / 5.0</div>
             </div>
-            <div id="tags">(tags go here)</div>
+            <div class="picked-tags">${tags}</div>
             </div>
             <div class="img-container pure-u-11-24">
             <img class="img pure-img" src="/images/${location.id}" alt="">
@@ -55,6 +61,7 @@ async function search(lat, long, text, tags, minRating, proximity) {
         minRating: minRating,
         tags: tags.join(",")
     })).then(response => response.json()).then(data => {
+        console.log(data);
         clearCards();
         data.forEach(function(ele) {
             addCard(ele)
