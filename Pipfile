@@ -10,7 +10,7 @@ psycopg2 = "*"
 authlib = "*"
 requests = "*"
 python-dotenv = "*"
-python-magic-bin = "==0.4.14"
+python-magic-bin = "*"
 
 [dev-packages]
 
