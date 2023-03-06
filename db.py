@@ -13,7 +13,7 @@ def setup():
     current_app.logger.info(f"creating db connection pool")
     pool = ThreadedConnectionPool(
         1,
-        5,
+        50, # We sometimes hit 5 when loading a lot of images at once on the search page
         dsn=DATABASE_URL,
         sslmode='require',
         keepalives=1,
@@ -42,7 +42,7 @@ def get_db_cursor(commit: bool = False) -> cursor:
         finally:
             cur.close()
 
-def search_locations(location: str, miles: int, tags: str) -> list:
+def search_locations(location: str, text: str, miles: int, min_rating: float, tags: str) -> list:
     lat, long = location.split(',')
     args = [lat, long]
     tags = tags.split(',') if tags else []
@@ -71,23 +71,34 @@ def search_locations(location: str, miles: int, tags: str) -> list:
             ) AND
         """.strip()
         args.append(tags[len(tags) - 1])
+
+    # Have to add these late to avoid botching the tag parameters
+    args.append("%" + text + "%")
     
+    query += " l.title LIKE %s"
     # No two points on earth are greater than 10,000 miles
-    query += " (POINT(%s, %s) <@> location <= COALESCE(%s, 10000) OR location IS NULL)"
+    query += "AND (POINT(%s, %s) <@> location <= COALESCE(%s, 10000) OR location IS NULL)"
     args.append(lat)
     args.append(long)
-    args.append(miles)
+    args.append(miles if miles != "" else None)
+    args.append(min_rating if min_rating != None else -1)
 
     query += """
         )
 
-        SELECT nearby.id, nearby.title, nearby.hours, nearby.location, t.tags
+        SELECT nearby.id, nearby.title, nearby.hours, nearby.location, nearby.miles, t.tags, r.avg_rating
         FROM nearby LEFT JOIN (
             SELECT n.id, array_agg(DISTINCT t.title) AS Tags
             FROM nearby AS n, Tag AS t
             WHERE n.id = t.loc_id
             GROUP BY n.id
-        ) AS t ON nearby.id = t.id
+        ) AS t ON nearby.id = t.id LEFT JOIN (
+            SELECT n.id, COALESCE(AVG(r.rating), 0.0) AS avg_rating
+            FROM nearby AS n, Review AS r
+            WHERE n.id = r.loc_id
+            GROUP BY n.id
+        ) AS r ON nearby.id = r.id
+        WHERE (r.avg_rating IS NULL OR r.avg_rating > %s)
         ORDER BY miles ASC
         LIMIT 10
     """

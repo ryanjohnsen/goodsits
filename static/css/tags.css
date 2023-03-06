@@ -1,7 +1,8 @@
-#unpicked-tags, #picked-tags {
+#unpicked-tags, .unpicked-tags, #picked-tags, .picked-tags {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    user-select: none;
 }
 
 .picked {
