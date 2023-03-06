@@ -9,7 +9,13 @@
 }
 
 .map, .cards {
-  height: 100vh;
+  height: 50vh; /* FIXME: this is a pretty jank way to do this */
+}
+
+@media screen and (min-width: 64em) {
+  .map, .cards {
+    height: 100vh;
+  }
 }
 
 .filter, .cards {
