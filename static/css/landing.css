@@ -69,8 +69,33 @@
 }
 
 .bar {
-    width: 35%;
-    font-size: 20px;
-    height: 75px !important;
-    border-radius: 20px !important;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: 2px solid black;
+    width: 40%;
+    font-size: 1.25rem;
+    height: 4rem;
+    border-radius: 20px;
+    padding: 0 0.5rem;
+}
+
+.bar > input {
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    padding: 0.5rem;
+}
+
+.bar > button > img {
+    width: 2rem;
+}
+
+.bar > button {
+    width: 3rem;
+    width: 3rem;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
 }
