@@ -1,46 +1,45 @@
 <!--Layout reference: https://purecss.io/menus/ -->
-<nav class="header">
-    <div class="menu-header pure-menu pure-menu-horizontal">
-        <div class="image-div">
-            <a href="{{ url_for('landing')}}" class="pure-menu-heading pure-menu-link">
-                <img class="pure-img" src="{{url_for('static', filename='images/goodSitsLogo.png')}}" alt="GoodSits Logo">
-            </a>
-        </div>
-
-        <!-- Header elements layout once screen size is 500px or less -->
-        <div class="header-response-vertical">
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                    <a id="menuLink1" class="pure-menu-link">menu</a>
-                    <ul class="pure-menu-children">
-                        <li class="pure-menu-item">
-                            <a href="{{ url_for('add_location') }}" class="pure-menu-link">Add Location</a>
-                        </li>
-                        <li class="pure-menu-item">
-                            <a href="{{ url_for('search') }}" class="pure-menu-link">Search</a>
-                        </li>
-                        <li class="pure-menu-item">
-                            <a href="{{ login.link }}" class="pure-menu-link">{{ login.status }}</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
 
 
-        <!-- Initial header elements layout -->
-        <div class="header-response-horizontal">
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item">
-                    <a href="{{ url_for('add_location') }}" class="pure-menu-link">Add Location</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="{{ url_for('search') }}" class="pure-menu-link">Search</a>
-                </li>
-                <li class="pure-menu-item">
-                    <a href="{{ login.link }}" class="pure-menu-link">{{ login.status }}</a>
-                </li>
-            </ul>
-        </div>
+<div class="menu-header pure-menu pure-menu-horizontal">
+    <nav class="header">
+    <div class="image-div">
+        <a href="{{ url_for('landing')}}" class="pure-menu-heading pure-menu-link">
+            <img class="logo pure-img" src="{{url_for('static', filename='images/logo_alt.png')}}" alt="GoodSits Logo">
+        </a>
     </div>
-</nav>
+    <!-- Header elements layout once screen size is 500px or less -->
+    <div class="header-response-vertical">
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                <a id="menuLink1" class="pure-menu-link">menu</a>
+                <ul class="pure-menu-children">
+                    <li class="pure-menu-item">
+                        <a href="{{ url_for('add_location') }}" class="pure-menu-link">Add Location</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="{{ url_for('search') }}" class="pure-menu-link">Search</a>
+                    </li>
+                    <li class="pure-menu-item">
+                        <a href="{{ login.link }}" class="pure-menu-link">{{ login.status }}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!-- Initial header elements layout -->
+    <div class="header-response-horizontal">
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item">
+                <a href="{{ url_for('add_location') }}" class="pure-menu-link">Add Location</a>
+            </li>
+            <li class="pure-menu-item">
+                <a href="{{ url_for('search') }}" class="pure-menu-link">Search</a>
+            </li>
+            <li class="pure-menu-item">
+                <a href="{{ login.link }}" class="pure-menu-link">{{ login.status }}</a>
+            </li>
+        </ul>
+    </div>
+    </nav>
+</div>
