@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.content {
+  height: 100vh;
+}
+
+.map, .cards {
+  height: 100vh;
+}
+
+.filter, .cards {
+  border-bottom: solid var(--light-grey) 2px;
+}
+
+.search-bar {
+  display: flex;
+  border-bottom: solid var(--grey) 1px;
+}
+
+.search {
+  flex-grow: 1;
+  padding: 0.5em;
+  margin: 1em 2em;
+}
+
+.cards {
+  overflow-y: scroll;
+}
+
+.search-bar {
+  background-color: var(--light-grey)
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: small;
+  padding: 1em 2em;
+}
+
+.filter-label:hover {
+  color: var(--dark-blue);
+}
