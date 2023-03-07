@@ -53,3 +53,49 @@
     start rating styling
 */
 
+.star-rate {
+    height: 36px;
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+/*star label holder style*/
+.star-rate:not(:checked) > label {
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    float:right;
+    padding-left:1.5rem ;
+    width:1em;
+    font-size:40px;
+    color:var(--grey) ; /*empty star color*/
+}
+/*star style*/
+.star-rate:not(:checked) > label::before {
+    content: '★ ';
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+/*
+remove input little circle
+found it here: https://stackoverflow.com/questions/34286322/remove-border-circle-from-radio-input
+*/
+.star-rate > input{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* start color once checked */
+.star-rate > input:checked ~ label {
+    color: #FFD700;
+}
+
+/*star color when hovering over them*/
+.star-rate:not(:checked) > label:hover,
+.star-rate:not(:checked) > label:hover ~ label {
+    color: #d3b71b;
+}

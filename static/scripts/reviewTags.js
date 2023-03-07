@@ -35,14 +35,15 @@ function setupTags() {
     let tags = document.getElementById("review-tags");
 
 
-
+    let unpicked = document.createElement("div");
+    unpicked.id = "review-unpicked-tags";
+    tags.appendChild(unpicked);
+    
     let picked = document.createElement("div");
     picked.id = "review-picked-tags"
     tags.appendChild(picked);
 
-    let unpicked = document.createElement("div");
-    unpicked.id = "review-unpicked-tags";
-    tags.appendChild(unpicked);
+    
 
     populateTags();
 }

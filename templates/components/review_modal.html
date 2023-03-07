@@ -7,14 +7,30 @@
         <button class="exitBtn" title="Close" onclick="closeModal()">x</button>
       </div>
       
-      <label for="rating">Overall Rating</label>
-      <input class="pure-u-1" required type="rating" id="rating" />
+      <!-- Review start rating -->
+      <div class="stars pure-u-1">
+        <label>Overall Rating</label>
+        <div class="star-rate">
+          <input type="radio" id="star-5" name="rate" value="5" required="">
+          <label for="star-5" title="5 stars">5 stars</label>
+          <input type="radio" id="star-4" name="rate" value="4">
+          <label for="star-4" title="4 stars">4 stars</label>
+          <input type="radio" id="star-3" name="rate" value="3">
+          <label for="star-3" title="3 stars">3 stars</label>
+          <input type="radio" id="star-2" name="rate" value="2">
+          <label for="star-2" title="2 stars">2 stars</label>
+          <input type="radio" id="star-1" name="rate" value="1">
+          <label for="star-1" title="1 star">1 star</label>
+        </div>
+      </div>
       
+      <!-- Review text -->
       <div class="pure-u-1">
         <label>Written Review</label>
         <textarea class="pure-u-1" required type="text" id="review"></textarea>
       </div>
       
+      <!-- Review optional tags -->
       <div class="tags pure-u-1">
         <div id="review-tags">
           <label for="tags-list">Select tag:</label>
