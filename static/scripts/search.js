@@ -105,8 +105,8 @@ navigator.geolocation.getCurrentPosition(function (location) {
 }, function (positionError) { /* "Error Handling" */ } );
 
 window.onload = _ => {
-    let params = (new URL(document.location)).searchParams;
-    let title = params.get("title");
+    const params = (new URL(document.location)).searchParams;
+    const title = params.get("title");
     if (title !== undefined) {
         search(curLoc, title, [], -1, 10000);
     } else {
