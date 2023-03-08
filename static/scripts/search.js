@@ -61,7 +61,6 @@ let lastTags = [];
 let lastMinRating = -1;
 let lastProximity = 10000;
 async function search(loc, text, tags, minRating, proximity) {
-    console.log(loc, text, tags, minRating, proximity);
     lastText = text;
     lastTags = tags;
     lastMinRating = minRating;
