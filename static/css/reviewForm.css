@@ -6,6 +6,25 @@
     margin: 1em;
 }
 
+
+/*
+Close button style
+*/
+
+.close {
+    position: absolute;
+    right: 1.5em;
+    top: 1em;
+    font-size: 30px;
+    opacity: 0.4;
+    cursor: pointer;
+}
+.close:hover {
+    opacity: 1;
+} 
+
+
+
 /* modal overall Style */
 #modal {
     position: fixed;
