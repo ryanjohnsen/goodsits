@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/tags.css')}}">
     <script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
     <script defer src="{{url_for('static', filename='scripts/star.js')}}"></script>
+    <script defer src="{{url_for('static', filename='scripts/reviewTags.js')}}"></script>
     <script>
         function getAddy() {  
             let address = document.getElementById('addy').innerText;
@@ -32,6 +33,7 @@
 {% endblock %}
 
 {% block content %}
+    <div id="fade-out-container"></div>
     <div id="main-content" class="pure-g">
         <!-- Title of location -->
         <div id="title" class="pure-u-1">
@@ -42,7 +44,7 @@
         <div id="loc-info" class="pure-u-1-3">
             <div id="loc-info-inner" class="pure-g">
                 <div id="rating" class="pure-u-1-3">
-                    <h2 id="rating-number" class="rev-number"> {{ rating }} </h2>
+                    <h2 id="rating-number" class="rev-number"> {{ "%.1f"|format(rating) }} </h2>
                     <div class="rating">
                         <div class="rating-upper">
                             <span>★</span>

@@ -156,7 +156,7 @@ body {
 }
 
 .review {
-    background-color: #CABFC5;
+    background-color: #ffffff;
     margin: 0.5rem 0.5rem;
     border: solid 3px black;
     border-radius: 2rem;
@@ -169,3 +169,10 @@ body {
 }
 
 
+#fade-out-container {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
