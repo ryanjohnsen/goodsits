@@ -170,12 +170,10 @@ def search():
 @app.route("/location/<int:loc_id>/add", methods = ["POST"])
 @requires_auth
 def add_review(loc_id: int) -> Response:
-    print(request.form)
     rating = request.form.get("starRating")
     tags = request.form.get("tags")
     review = request.form.get("review")
     user_id = session["user"]["userinfo"]["sub"]
-    print(user_id)
 
     if loc_id == None or rating == None or tags == None or review == None or user_id == None:
         return make_response("Review Not Inserted", 400)
