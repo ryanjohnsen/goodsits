@@ -145,7 +145,7 @@ def new_location() -> Response:
 
     id = db.insert_location(
         data["title"], data["description"], data["hours"],
-        image, data["location"], session["user"]["userinfo"]["aud"]
+        image, data["location"], session["user"]["userinfo"]["sub"]
     )
 
     db.insert_tags(id, data["tags"])
