@@ -13,8 +13,12 @@
 <div class="main">
     <div class="search">
         <h1>Get Started</h1>
-        <form action="/search" method="POST" class="search-form pure-form">
-            <input class="bar" type="text" placeholder="Enter address, neighborhood, city or ZIP code" required>
+        <form action="/search" method="GET" class="search-form">
+            <div class="bar">
+                <input type="text" name="title" placeholder="Basement of Keller Hall" required>
+                <!-- Icon from https://fonts.google.com/icons-->
+                <button type="submit"><img src="{{url_for('static', filename='images/search.png')}}"></button>
+            </div>
         </form>
     </div>    
 </div>

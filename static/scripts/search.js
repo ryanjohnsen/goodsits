@@ -99,8 +99,20 @@ searchBar.addEventListener("keydown", event => {
     search(curLoc, text, tags, minRating, proximity);
 });
 
-search(curLoc, "", [], -1, 10000);
 navigator.geolocation.getCurrentPosition(function (location) {
     curLoc = { lat: location.coords.latitude, lng: location.coords.longitude }
     search(curLoc, lastText, lastTags, lastMinRating, lastProximity);
 }, function (positionError) { /* "Error Handling" */ } );
+
+window.onload = _ => {
+    const params = (new URL(document.location)).searchParams;
+    const title = params.get("title");
+    if (title !== undefined) {
+        search(curLoc, title, [], -1, 10000);
+    } else {
+        search(curLoc, "", [], -1, 10000);
+    }
+    
+    // clear the url of the search query
+    window.history.pushState({}, document.title, window.location.pathname);
+}
