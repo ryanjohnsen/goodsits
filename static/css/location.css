@@ -121,7 +121,7 @@ body {
 #gist {
     /* background-color: #E4DEE4; */
     padding: 1rem 1rem;
-    background-color: #EEE;
+    background-color: #d6ffce;
     border: solid 3px black;
     border-radius: 2rem;
     margin-top: 1rem;
@@ -156,7 +156,7 @@ body {
 }
 
 .review {
-    background-color: #ffffff;
+    background-color: #cce9fa;
     margin: 0.5rem 0.5rem;
     border: solid 3px black;
     border-radius: 2rem;
