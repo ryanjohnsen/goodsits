@@ -5,10 +5,8 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/reviewForm.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/tags.css')}}">
     <script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
-<<<<<<< HEAD
-    <script defer src="{{url_for('static', filename='scripts/reviewTags.js')}}"></script>
-=======
     <script defer src="{{url_for('static', filename='scripts/star.js')}}"></script>
+    <script defer src="{{url_for('static', filename='scripts/reviewTags.js')}}"></script>
     <script>
         function getAddy() {  
             let address = document.getElementById('addy').innerText;
@@ -32,7 +30,6 @@
         }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTxssaavgto&callback=getAddy" defer async></script>
->>>>>>> origin/staging
 {% endblock %}
 
 {% block content %}
