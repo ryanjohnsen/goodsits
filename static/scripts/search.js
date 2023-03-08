@@ -107,6 +107,7 @@ navigator.geolocation.getCurrentPosition(function (location) {
 window.onload = _ => {
     const params = (new URL(document.location)).searchParams;
     const title = params.get("title");
+    searchBar.value = title;
     if (title !== undefined) {
         search(curLoc, title, [], -1, 10000);
     } else {
