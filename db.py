@@ -172,8 +172,9 @@ def get_reviews(loc_id: int) -> list:
         cur.execute(
             """
             SELECT r.id, r.rating, r.review, array_agg(DISTINCT t.title) AS tags
-            FROM Review AS r, Tag AS t
-            WHERE r.loc_id = t.loc_id AND r.loc_id = %s
+            FROM Review r LEFT JOIN Tag t
+            ON r.loc_id = t.loc_id
+            WHERE r.loc_id = %s
             GROUP BY r.id
             """, (loc_id,)
         )
@@ -185,8 +186,9 @@ def get_location(loc_id: int) -> dict:
         cur.execute(
             """
             SELECT l.id, l.title, l.description, l.hours, l.location, l.user_id, array_agg(DISTINCT t.title) AS tags
-            FROM Location AS l, Tag AS t
-            WHERE l.id = t.loc_id AND l.id = %s
+            FROM Location l LEFT JOIN Tag t
+            ON l.id = t.loc_id
+            WHERE l.id = %s
             GROUP BY l.id;
             """, (loc_id,)
         )

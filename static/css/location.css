@@ -9,68 +9,122 @@ body {
 
 #main-content {
     background-color: white;
-    margin: 2em;
+    margin: 1rem 3em;
 }
 
 #title {
     text-align: center;
-    background-color: #E4DEE4;
+    /* background-color: #E4DEE4; */
 }
 
 #title h1 {
-    font-size: 40px;
+    font-size: 2.5rem;
     margin: 0;
     padding: 1rem 0;
 }
 
 #loc-info {
-    /* background-color: lightcoral; */
+    border-radius: 2rem;
+    /* background-color: antiquewhite; */
     /* padding: 1rem 1rem; */
 }
 
 #rating {
-    padding: 2rem 1rem;
+    /* padding: 1rem 1rem; */
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     /* background-color: lightgray; */
 }
 
 #rating-number {
-    font-size: 4em;
-    padding: 2rem;
+    font-size: 4rem;
+    text-align: center;
+    /* padding: 1rem; */
+    margin: 0rem;
+    /* background-color: lightgray; */
+}
+
+.rating {
+    display: inline-block;
+    unicode-bidi: bidi-override;
+    color: lightgray;
+    font-size: 3vh;
+    height: 3vh;
+    width: auto;
     margin: 0;
-    background-color: lightgray;
+    position: relative;
+    padding: 0;
 }
 
-#stars {
-    background-color: #E4DEE4;
+.rating-upper {
+    color: #FFD700;
+    padding: 0;
+    position: absolute;
+    z-index: 0;
     display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
+    top: 0;
+    left: 0;
+    overflow: hidden;
 }
 
-.clip-star {
-    background: white;
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    display: inline-block;
-    /* height: 20%; */
-    height: 50px;
-    width: 50px;
+.rating-lower {
+    padding: 0;
+    display: flex;
+    z-index: 0;
 }
 
-.full-star {
-    background: black;
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    display: inline-block;
-    /* height: 20%; */
-    height: 50px;
-    width: 50px;
+.single-progress-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.69rem;
+    margin-left: 0.69rem;
+}
+
+.rating-text {
+    margin-right: 0.5rem;
+    width: fit-content;
+}
+
+.rating-value {
+    margin-left: 0.69rem;
+}
+
+.progress {
+    height: 20px;
+    width: 69%;
+    background-color: #e0e0de;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #FFD700;
+    width: 18%;
+}
+
+#loc-info-inner {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* background-color: lightblue; */
+    padding: 2rem 0;
+    padding-bottom: 1rem;
+    /* background-color: antiquewhite; */
+    border-radius: 2rem;
+    
 }
 
 /* colors: https://coolors.co/ede3e4-e7dfe8-e4dee4-cabfc5-af9fa5-aa9ca0-a4989a */
 #gist {
-    background-color: #E4DEE4;
+    /* background-color: #E4DEE4; */
     padding: 1rem 1rem;
+    background-color: #EEE;
+    border: solid 3px black;
+    border-radius: 2rem;
+    margin-top: 1rem;
 }
 
 #img-revs {
@@ -93,7 +147,7 @@ body {
 
 
 #reviews {
-    background-color: #E4DEE4;
+    /* background-color: #E4DEE4; */
     /* padding: 1rem 1rem; */
     margin: 0 1.5rem;
     padding: 0.5rem 0;
@@ -105,24 +159,13 @@ body {
     background-color: #CABFC5;
     margin: 0.5rem 0.5rem;
     border: solid 3px black;
-    border-radius: 5px;
+    border-radius: 2rem;
+    padding: 1rem 1rem;
 }
 
-.star-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#rev-rating {
+    font-size: 1.25rem;
+    font-weight: bold;
 }
 
-.star-container .clip-star {
-    background: #E4DEE4;
-    height: 90px;
-    width: 90px;
-    text-align: center;
-    /* vertically align text */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 0.5rem;
-}
 

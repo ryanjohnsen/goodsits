@@ -5,6 +5,30 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/reviewForm.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/tags.css')}}">
     <script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
+    <script defer src="{{url_for('static', filename='scripts/star.js')}}"></script>
+    <script>
+        function getAddy() {  
+            let address = document.getElementById('addy').innerText;
+            let myLatitude	= address.split(",")[0];
+            myLatitude = parseFloat(myLatitude.split("(")[1]);
+            let myLongitude	= address.split(",")[1];
+            myLongitude = parseFloat(myLongitude.split(")")[0]);
+            var geocoder	= new google.maps.Geocoder();							
+            var location	= new google.maps.LatLng(myLatitude, myLongitude);		
+                
+            geocoder.geocode({'latLng': location}, function (results, status) {
+                if(status == google.maps.GeocoderStatus.OK) {		
+                    let addy = results[0].formatted_address;
+                    let addyContainer = document.getElementById('addy');				
+                    addyContainer.innerText = addy;			
+                } else {
+                    alert("Geocode failure: " + status);
+                    return false;
+                }
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTxssaavgto&callback=getAddy" defer async></script>
 {% endblock %}
 
 {% block content %}
@@ -16,18 +40,71 @@
 
         <!-- Location info (LHS) -->
         <div id="loc-info" class="pure-u-1-3">
-            <div id="rating">
-                <h2 id="rating-number"> {{ rating }} </h2>
+            <div id="loc-info-inner" class="pure-g">
+                <div id="rating" class="pure-u-1-3">
+                    <h2 id="rating-number" class="rev-number"> {{ rating }} </h2>
+                    <div class="rating">
+                        <div class="rating-upper">
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                        </div>
+                        <div class="rating-lower">
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                            <span>★</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="progress-bars" class="pure-u-2-3">
+                    <div class="single-progress-bar">
+                        <div class="rating-text"> 5 ★</div>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <span class="rating-value">0</span> 
+                    </div>
+
+                    <div class="single-progress-bar">
+                        <div class="rating-text"> 4 ★ </div>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <span class="rating-value">0</span> 
+                    </div>
+
+                    <div class="single-progress-bar">
+                        <div class="rating-text"> 3 ★ </div>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <span class="rating-value">0</span> 
+                    </div>
+
+                    <div class="single-progress-bar">
+                        <div class="rating-text"> 2 ★ </div>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <span class="rating-value">0</span> 
+                    </div>
+
+                    <div class="single-progress-bar">
+                        <div class="rating-text"> 1 ★ </div>
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <span class="rating-value">0</span> 
+                    </div>
+                </div>
             </div>
 
-            <div id="stars">
-                {% for i in range(0, rating|int) %}
-                    <div class="full-star"></div>
-                {% endfor %}
-                {% for i in range(rating|int, 5) %}
-                    <div class="clip-star"></div>
-                {% endfor %}
-            </div>
+            
 
             <div id="gist">
                 <h2>Description</h2>
@@ -37,7 +114,7 @@
                 <p>{{ location["hours"] }}</p>
 
                 <h2>Address</h2>
-                <p>{{ location["address"] }}</p>
+                <p id="addy">{{ location["location"] }}</p>
 
                 <!-- TODO: make tags look cool -->
                 <h2>Tags</h2>
@@ -57,7 +134,8 @@
         <div id="img-revs" class="pure-u-7-12">
             <div id="img-container">
                 <!-- TODO: Add image from DB here -->
-                <img src="https://via.placeholder.com/400x200.png" alt="placeholder">
+                {% set base_url = "/images/" %}
+                <img src={{ base_url ~ location["id"] }} alt="placeholder">
             </div>
 
             <div id="add-review-button">
@@ -70,17 +148,28 @@
 
             <div id="reviews">
                 {% for rev in reviews %}
-                    <div class="review pure-g">
-                        <div class="star-container pure-u-1-6">
-                            <div class="clip-star">{{ rev["rating"] }}</div>
-                        </div>
-                        <div class="pure-u-2-3">
-                            <h3>
-                                Review #{{ loop.index }}
-                            </h3>
+                    <div class="review">
+                        <div>
+                            <span id="rev-rating" class="rev-number"> {{ rev["rating"] }} </span>
+                            <div class="rating">
+                                <div class="rating-upper">
+                                    <span>★</span>
+                                    <span>★</span>
+                                    <span>★</span>
+                                    <span>★</span>
+                                    <span>★</span>
+                                </div>
+                                <div class="rating-lower">
+                                    <span>★</span>
+                                    <span>★</span>
+                                    <span>★</span>
+                                    <span>★</span>
+                                    <span>★</span>
+                                </div>
+                            </div>
                             <p>{{ rev["review"] }}</p>
                         </div>
-                        <div class="picked-tags pure-u-1-6">
+                        <div class="picked-tags">
                             {% for tag in rev["tags"] %}
                                 <div class="picked tag">
                                     {{ tag }}
