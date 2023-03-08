@@ -12,4 +12,9 @@ function closeModal() {
     reviewModal.style.display="none";
 }
 
+// getting tags for submission
+function send_review_tags() {
+    document.getElementById('review-tags-list').value = getPickedTags();
+}
+
 document.getElementById("addBtn").addEventListener("click", addReview);

@@ -170,18 +170,22 @@ def search():
 @app.route("/location/<int:loc_id>/add", methods = ["POST"])
 @requires_auth
 def add_review(loc_id: int) -> Response:
+    print(request.form)
     rating = request.form.get("starRating")
     tags = request.form.get("tags")
     review = request.form.get("review")
     user_id = session["user"]["userinfo"]["sub"]
+    print(user_id)
 
     if loc_id == None or rating == None or tags == None or review == None or user_id == None:
         return make_response("Review Not Inserted", 400)
     
-    review_id = db.insert_review(int(loc_id), int(rating), tags, review, user_id)
+    review_id = db.insert_review(int(loc_id), int(rating), review, user_id)
     db.insert_tags(loc_id, tags, review_id)
 
-    return make_response("Review Inserted", 200)
+    return redirect("/location/"+str(loc_id))
+    
+
 
 # Helper for using vscode debugger
 if __name__ == "__main__":
