@@ -151,32 +151,42 @@
             <div id="reviews">
                 {% for rev in reviews %}
                     <div class="review">
-                        <div>
-                            <span id="rev-rating" class="rev-number"> {{ rev["rating"] }} </span>
-                            <div class="rating">
-                                <div class="rating-upper">
-                                    <span>★</span>
-                                    <span>★</span>
-                                    <span>★</span>
-                                    <span>★</span>
-                                    <span>★</span>
+                        <div class="pure-g">
+                            <div class="pure-u-4-5">
+                                <div>
+                                    <span id="rev-rating" class="rev-number"> {{ rev["rating"] }} </span>
+                                    <div class="rating">
+                                        <div class="rating-upper">
+                                            <span>★</span>
+                                            <span>★</span>
+                                            <span>★</span>
+                                            <span>★</span>
+                                            <span>★</span>
+                                        </div>
+                                        <div class="rating-lower">
+                                            <span>★</span>
+                                            <span>★</span>
+                                            <span>★</span>
+                                            <span>★</span>
+                                            <span>★</span>
+                                        </div>
+                                    </div>
+                                    <p>{{ rev["review"] }}</p>
                                 </div>
-                                <div class="rating-lower">
-                                    <span>★</span>
-                                    <span>★</span>
-                                    <span>★</span>
-                                    <span>★</span>
-                                    <span>★</span>
+                                <div class="picked-tags">
+                                    {% for tag in rev["tags"] %}
+                                        {% if tag != None %}
+                                            <div class="picked tag">
+                                                {{ tag }}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
                             </div>
-                            <p>{{ rev["review"] }}</p>
-                        </div>
-                        <div class="picked-tags">
-                            {% for tag in rev["tags"] %}
-                                <div class="picked tag">
-                                    {{ tag }}
-                                </div>
-                            {% endfor %}
+                            <div id="edit-button" class="pure-u-1-5">
+                                <!-- pure button -->
+                                <button class="pure-button pure-button-primary"><img src="{{url_for('static', filename='images/penLogoEdit1.png')}}" height="30vh" width="30vw"></button>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
