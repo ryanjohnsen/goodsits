@@ -200,3 +200,38 @@ def get_rating(loc_id: int) -> float:
         cur.execute("SELECT COALESCE(AVG(rating), 0.0) FROM Review WHERE loc_id = %s", (loc_id,))
         return float(cur.fetchone()[0])
     
+def edit_review(id: str, rating: str, review: str) -> int:
+    with get_db_cursor(True) as cur:
+        cur: cursor
+        cur.execute(
+            """
+            UPDATE Review 
+            SET rating= %s, review= %s 
+            WHERE id = %s
+            RETURNING id
+            """, (rating, review, id)
+        )
+        return int(cur.fetchone()[0])
+    
+    
+def delete_review(id: str) -> int:
+    with get_db_cursor(True) as cur:
+        cur: cursor
+        cur.execute(
+            """
+            DELETE FROM Review 
+            WHERE id = %s 
+            """, (id)
+        )
+        return int(cur.fetchone()[0])
+
+def delete_review_tag(id: str) -> int:
+    with get_db_cursor(True) as cur:
+        cur: cursor
+        cur.execute(
+            """
+            DELETE FROM Tag 
+            WHERE review_id = %s 
+            """, (id)
+        )
+        return int(cur.fetchone()[0])
