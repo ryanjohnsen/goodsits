@@ -1,10 +1,13 @@
 // FIXME: this is jank
+// FIXME: instead of unique ids for every button, just do querySelectors instead
 
 function edit(event) {
   const rev_id = event.currentTarget.rev_id;
   changeButtonVisibility(rev_id, true);
   changeReviewVisibility(rev_id, true);
-  // TODO: show hidden div of content
+  // document.getElementById('edit-tags-list').value = getPickedTags();
+
+  
 }
 
 function exit(event) {
@@ -17,19 +20,21 @@ async function save(event) {
   const rev_id = event.currentTarget.rev_id;
   // TODO: big vulnerability right here VVVVVVVVVVV
   const review = document.getElementById("edit-text-" + rev_id).value;
-  // const rating = document.getElementById("edit-stars-" + rev_id).stars;
-  // const tags = document.getElementById("edit-tags-" + rev_id).tags;
   const loc_id = event.currentTarget.getAttribute('loc_id');
+  const tags = document.getElementById("edit-tags-" + rev_id).tags;
 
-  // const response = await fetch('/location/edit_review', {
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     'id': rev_id,
-  //     'loc_id': loc_id,
-  //     'rating': rating,
-  //     'review': review
-  //   }),
-  // });
+  // TODO: actually fill
+  const rating = 5;
+
+  const response = await fetch('/location/edit_review', {
+    method: 'POST',
+    body: JSON.stringify({
+      'id': rev_id,
+      'loc_id': loc_id,
+      'rating': rating,
+      'review': review
+    }),
+  });
 
   // if (response.ok) {
   //   // celebrate
@@ -53,7 +58,7 @@ function changeButtonVisibility(rev_id, edit_mode = False) {
 }
 
 function changeReviewVisibility(rev_id, edit_mode = False) {
-  const labels = ["text"];
+  const labels = ["text", "tags"];
   labels.forEach(label => {
     const data = document.getElementById(label + "-" + rev_id);
     const editable_data = document.getElementById("edit-" + label + "-" + rev_id);

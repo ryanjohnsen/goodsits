@@ -6,7 +6,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTxssaavgto&callback=initMap" defer
   async></script>
 <link rel="stylesheet" href="{{url_for('static', filename='css/tags.css')}}">
-<script src="{{url_for('static', filename='scripts/tags.js')}}" defer></script>
+<script src="{{url_for('static', filename='scripts/tags.js')}}"
+  picked_label="picked-tags" unpicked_label="unpicked-tags" tags_label="tags" limit=3 defer></script>
 <script src="{{url_for('static', filename='scripts/add-location.js')}}" defer></script>
 {% endblock %}
 

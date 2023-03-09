@@ -8,7 +8,8 @@
 <script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
 <script defer src="{{url_for('static', filename='scripts/star.js')}}"></script>
 <script defer src="{{url_for('static', filename='scripts/review.js')}}"></script>
-<script defer src="{{url_for('static', filename='scripts/reviewTags.js')}}"></script>
+<script src="{{url_for('static', filename='scripts/tags.js')}}"
+    picked_label="review-picked-tags" unpicked_label="review-unpicked-tags" tags_label="review-tags" limit=3 defer></script>
 <script>
     // Retrieves the address of the location.
     function getAddy() {
@@ -120,7 +121,7 @@
                                         <div class="rating-lower">{{ stars(5) }}</div>
                                     </div>
                                 </div>
-                                <div id="edit-stars-{{ rev['id'] }}" ></div>
+                                <div id="edit-stars-{{ rev['id'] }}"></div>
 
                                 <p class="text" id="text-{{ rev['id'] }}">{{ rev["review"] }}</p>
                                 <textarea class="edit-text text" id="edit-text-{{ rev['id'] }}">{{rev["review"]}}</textarea>
@@ -133,7 +134,15 @@
                                     {% endif %}
                                 {% endfor %}
                             </div>
-                            <div class="edit-tags" id="edit-tags-{{ rev['id'] }}"></div>
+
+                            <div class="edit-tags" id="edit-tags-{{ rev['id'] }}">
+                                <div class="tags pure-u-1">
+                                    <div id="review-tags">
+                                      <label class="subtitle" for="tags-list">Select tag: (3 max)</label>
+                                      <input id="edit-tags-list" type="hidden" name="tags" value="" />
+                                    </div>
+                                  </div>
+                            </div>  
                         </div>
                         <div id="{{ rev['id'] }}" class="edit pure-u-1-5">
                             <button class="edit-button" id="edit-{{ rev['id'] }}"> ✏️ </button>
