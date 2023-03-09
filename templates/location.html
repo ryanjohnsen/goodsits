@@ -1,196 +1,142 @@
 {% extends 'base.html' %}
 
 {% block html_head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/location.css') }}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/reviewForm.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/tags.css')}}">
-    <script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
-    <script defer src="{{url_for('static', filename='scripts/star.js')}}"></script>
-    <script defer src="{{url_for('static', filename='scripts/reviewTags.js')}}"></script>
-    <script>
-        function getAddy() {  
-            let address = document.getElementById('addy').innerText;
-            let myLatitude	= address.split(",")[0];
-            myLatitude = parseFloat(myLatitude.split("(")[1]);
-            let myLongitude	= address.split(",")[1];
-            myLongitude = parseFloat(myLongitude.split(")")[0]);
-            var geocoder	= new google.maps.Geocoder();							
-            var location	= new google.maps.LatLng(myLatitude, myLongitude);		
-                
-            geocoder.geocode({'latLng': location}, function (results, status) {
-                if(status == google.maps.GeocoderStatus.OK) {		
-                    let addy = results[0].formatted_address;
-                    let addyContainer = document.getElementById('addy');				
-                    addyContainer.innerText = addy;			
-                } else {
-                    alert("Geocode failure: " + status);
-                    return false;
-                }
-            });
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTxssaavgto&callback=getAddy" defer async></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/location.css') }}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/reviewForm.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/tags.css')}}">
+
+<script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
+<script defer src="{{url_for('static', filename='scripts/star.js')}}"></script>
+<script defer src="{{url_for('static', filename='scripts/reviewTags.js')}}"></script>
+<script>
+    // Retrieves the address of the location.
+    function getAddy() {
+        let address = document.getElementById('addy').innerText;
+        let myLatitude = address.split(",")[0];
+        myLatitude = parseFloat(myLatitude.split("(")[1]);
+        let myLongitude = address.split(",")[1];
+        myLongitude = parseFloat(myLongitude.split(")")[0]);
+        var geocoder = new google.maps.Geocoder();
+        var location = new google.maps.LatLng(myLatitude, myLongitude);
+
+        geocoder.geocode({ 'latLng': location }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                let addy = results[0].formatted_address;
+                let addyContainer = document.getElementById('addy');
+                addyContainer.innerText = addy;
+            } else {
+                alert("Geocode failure: " + status);
+                return false;
+            }
+        });
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTxssaavgto&callback=getAddy" defer async></script>
 {% endblock %}
 
+<!-- So we don't have a bunch of ★s copy pasted everywhere. -->
+{% macro stars(num) %}
+    {% for i in range(num) %}
+        <span>★</span>
+    {% endfor %}
+{% endmacro %}
+
+{% macro progress_bar(rating) %}
+    <div class="single-progress-bar">
+        <div class="rating-text"> {{rating}} ★</div>
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+        <span class="rating-value">0</span>
+    </div>
+{% endmacro %}
+
+
+
 {% block content %}
-    <div id="fade-out-container"></div>
-    <div id="main-content" class="pure-g">
-        <!-- Title of location -->
-        <div id="title" class="pure-u-1">
-            <h1>{{ location["title"] }}</h1>
-        </div>
+<div id="fade-out-container"></div>
+<div id="main-content" class="pure-g">
+    <div id="title" class="pure-u-1"><h1>{{ location["title"] }}</h1></div>
 
-        <!-- Location info (LHS) -->
-        <div id="loc-info" class="pure-u-1-3">
-            <div id="loc-info-inner" class="pure-g">
-                <div id="rating" class="pure-u-1-3">
-                    <h2 id="rating-number" class="rev-number"> {{ "%.1f"|format(rating) }} </h2>
-                    <div class="rating">
-                        <div class="rating-upper">
-                            <span>★</span>
-                            <span>★</span>
-                            <span>★</span>
-                            <span>★</span>
-                            <span>★</span>
-                        </div>
-                        <div class="rating-lower">
-                            <span>★</span>
-                            <span>★</span>
-                            <span>★</span>
-                            <span>★</span>
-                            <span>★</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="progress-bars" class="pure-u-2-3">
-                    <div class="single-progress-bar">
-                        <div class="rating-text"> 5 ★</div>
-                        <div class="progress">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <span class="rating-value">0</span> 
-                    </div>
-
-                    <div class="single-progress-bar">
-                        <div class="rating-text"> 4 ★ </div>
-                        <div class="progress">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <span class="rating-value">0</span> 
-                    </div>
-
-                    <div class="single-progress-bar">
-                        <div class="rating-text"> 3 ★ </div>
-                        <div class="progress">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <span class="rating-value">0</span> 
-                    </div>
-
-                    <div class="single-progress-bar">
-                        <div class="rating-text"> 2 ★ </div>
-                        <div class="progress">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <span class="rating-value">0</span> 
-                    </div>
-
-                    <div class="single-progress-bar">
-                        <div class="rating-text"> 1 ★ </div>
-                        <div class="progress">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <span class="rating-value">0</span> 
-                    </div>
+    <!-- Location info (LHS) -->
+    <div id="loc-info" class="pure-u-1-3">
+        <div id="loc-info-inner" class="pure-g">
+            <div id="rating" class="pure-u-1-3">
+                <h2 id="rating-number" class="rev-number"> {{ "%.1f"|format(rating) }} </h2>
+                <div class="rating">
+                    <div class="rating-upper">{{ stars(5) }}</div>
+                    <div class="rating-lower">{{ stars(5) }}</div>
                 </div>
             </div>
 
-            
-
-            <div id="gist">
-                <h2>Description</h2>
-                <p>{{ location["description"] }}</p>
-
-                <h2>Hours</h2>
-                <p>{{ location["hours"] }}</p>
-
-                <h2>Address</h2>
-                <p id="addy">{{ location["location"] }}</p>
-
-                <!-- TODO: make tags look cool -->
-                <h2>Tags</h2>
-                <div class="picked-tags">
-                    {% for tag in location["tags"] %}
-                        <div class="picked tag">
-                            {{ tag }}
-                        </div>
-                    {% endfor %}
-                </div>
+            <div id="progress-bars" class="pure-u-2-3">
+                {% for i in range(1,6) %}
+                    {{ progress_bar(i) }}
+                {% endfor %}
             </div>
         </div>
+        <div id="gist">
+            <h2>Description</h2><p>{{ location["description"] }}</p>
+            <h2>Hours</h2><p>{{ location["hours"] }}</p>
+            <h2>Address</h2><p id="addy">{{ location["location"] }}</p>
 
-        <div class="pure-u-1-12"> </div>
-
-        <!-- Image and reviews (RHS) -->
-        <div id="img-revs" class="pure-u-7-12">
-            <div id="img-container">
-                <!-- TODO: Add image from DB here -->
-                {% set base_url = "/images/" %}
-                <img src={{ base_url ~ location["id"] }} alt="placeholder">
-            </div>
-
-            <div id="add-review-button">
-                <button id="addBtn" class="pure-button pure-button-primary">Add Review</button>
-            </div>
-
-            <div id="hideReviewForm" class="modal">
-              {% include "/components/review_modal.html" %}
-            </div>
-
-            <div id="reviews">
-                {% for rev in reviews %}
-                    <div class="review">
-                        <div class="pure-g">
-                            <div class="pure-u-4-5">
-                                <div>
-                                    <span id="rev-rating" class="rev-number"> {{ rev["rating"] }} </span>
-                                    <div class="rating">
-                                        <div class="rating-upper">
-                                            <span>★</span>
-                                            <span>★</span>
-                                            <span>★</span>
-                                            <span>★</span>
-                                            <span>★</span>
-                                        </div>
-                                        <div class="rating-lower">
-                                            <span>★</span>
-                                            <span>★</span>
-                                            <span>★</span>
-                                            <span>★</span>
-                                            <span>★</span>
-                                        </div>
-                                    </div>
-                                    <p>{{ rev["review"] }}</p>
-                                </div>
-                                <div class="picked-tags">
-                                    {% for tag in rev["tags"] %}
-                                        {% if tag != None %}
-                                            <div class="picked tag">
-                                                {{ tag }}
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <div id="edit-button" class="pure-u-1-5">
-                                <!-- pure button -->
-                                <button class="pure-button pure-button-primary"><img src="{{url_for('static', filename='images/penLogoEdit1.png')}}" height="30vh" width="30vw"></button>
-                            </div>
-                        </div>
-                    </div>
+            <!-- TODO: make tags look cool -->
+            <h2>Tags</h2>
+            <div class="picked-tags">
+                {% for tag in location["tags"] %}
+                    <div class="picked tag">{{ tag }}</div>
                 {% endfor %}
             </div>
         </div>
     </div>
+
+    <div class="pure-u-1-12"></div>
+
+    <!-- Image and reviews (RHS) -->
+    <div id="img-revs" class="pure-u-7-12">
+        <div id="img-container">
+            {% set base_url = "/images/" %}
+            <img src={{ base_url ~ location["id"] }} alt="placeholder">
+        </div>
+
+        <div id="add-review-button">
+            <button id="addBtn" class="pure-button pure-button-primary">Add Review</button>
+        </div>
+
+        <div id="hideReviewForm" class="modal">
+            {% include "/components/review_modal.html" %}
+        </div>
+
+        <div id="reviews">
+            {% for rev in reviews %}
+            <div class="review">
+                <div class="pure-g">
+                    <div class="pure-u-4-5">
+                        <div>
+                            <span id="rev-rating" class="rev-number"> {{ rev["rating"] }} </span>
+                            <div class="rating">
+                                <div class="rating-upper">{{ stars(5) }}</div>
+                                <div class="rating-lower">{{ stars(5) }}</div>
+                            </div>
+                            <p>{{ rev["review"] }}</p>
+                        </div>
+                        <div class="picked-tags">
+                            {% for tag in rev["tags"] %}
+                                {% if tag != None %}
+                                    <div class="picked tag">{{ tag }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div id="edit-button" class="pure-u-1-5">
+                        <button class="pure-button"><img src="{{url_for('static', filename='images/penLogoEdit1.png')}}"
+                                height="30vh" width="30vw"></button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock %}
