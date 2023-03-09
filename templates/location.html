@@ -7,6 +7,7 @@
 
 <script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
 <script defer src="{{url_for('static', filename='scripts/star.js')}}"></script>
+<script defer src="{{url_for('static', filename='scripts/review.js')}}"></script>
 <script defer src="{{url_for('static', filename='scripts/reviewTags.js')}}"></script>
 <script>
     // Retrieves the address of the location.
@@ -52,8 +53,6 @@
     </div>
 {% endmacro %}
 
-
-
 {% block content %}
 <div id="fade-out-container"></div>
 <div id="main-content" class="pure-g">
@@ -93,7 +92,6 @@
 
     <div class="pure-u-1-12"></div>
 
-    <!-- Image and reviews (RHS) -->
     <div id="img-revs" class="pure-u-7-12">
         <div id="img-container">
             {% set base_url = "/images/" %}
@@ -108,33 +106,35 @@
             {% include "/components/review_modal.html" %}
         </div>
 
+        <!-- Location Reviews -->
         <div id="reviews">
             {% for rev in reviews %}
-            <div class="review">
-                <div class="pure-g">
-                    <div class="pure-u-4-5">
-                        <div>
-                            <span id="rev-rating" class="rev-number"> {{ rev["rating"] }} </span>
-                            <div class="rating">
-                                <div class="rating-upper">{{ stars(5) }}</div>
-                                <div class="rating-lower">{{ stars(5) }}</div>
+                <div class="review">
+                    <div class="pure-g">
+                        <div class="pure-u-4-5">
+                            <div>
+                                <span id="rev-rating" class="rev-number"> {{ rev["rating"] }} </span>
+                                <div class="rating">
+                                    <div class="rating-upper">{{ stars(5) }}</div>
+                                    <div class="rating-lower">{{ stars(5) }}</div>
+                                </div>
+                                <p id="rev-text">{{ rev["review"] }}</p>
                             </div>
-                            <p>{{ rev["review"] }}</p>
+                            <div class="picked-tags">
+                                {% for tag in rev["tags"] %}
+                                    {% if tag != None %}
+                                        <div class="picked tag">{{ tag }}</div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </div>
-                        <div class="picked-tags">
-                            {% for tag in rev["tags"] %}
-                                {% if tag != None %}
-                                    <div class="picked tag">{{ tag }}</div>
-                                {% endif %}
-                            {% endfor %}
+                        <div id="{{ rev['id'] }}" class="edit pure-u-1-5">
+                            <button class="edit-button" id="edit-{{ rev['id'] }}"> ✏️ </button>
+                            <button class="exit-button" id="exit-{{ rev['id'] }}"> ❌ </button>
+                            <button class="save-button" id="save-{{ rev['id'] }}"> ✔️ </button>
                         </div>
-                    </div>
-                    <div id="edit-button" class="pure-u-1-5">
-                        <button class="pure-button"><img src="{{url_for('static', filename='images/penLogoEdit1.png')}}"
-                                height="30vh" width="30vw"></button>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         </div>
     </div>
