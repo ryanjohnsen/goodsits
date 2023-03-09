@@ -183,7 +183,12 @@ def add_review(loc_id: int) -> Response:
 
     return redirect("/location/"+str(loc_id))
     
-
+@app.route("/location/<int:loc_id>/edit_review",methods=["POST"])
+@requires_auth
+def edit_review(loc_id: int) -> Response:
+    # db.edit_review(loc_id, rev_id, rating, review, user_id)
+    # TODO
+    return jsonify()
 
 # Helper for using vscode debugger
 if __name__ == "__main__":

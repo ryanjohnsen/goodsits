@@ -113,25 +113,32 @@
                     <div class="pure-g">
                         <div class="pure-u-4-5">
                             <div>
-                                <span id="rev-rating" class="rev-number"> {{ rev["rating"] }} </span>
-                                <div class="rating">
-                                    <div class="rating-upper">{{ stars(5) }}</div>
-                                    <div class="rating-lower">{{ stars(5) }}</div>
+                                <div id="stars-{{ rev['id'] }}">
+                                    <span id="rev-rating" class="rev-number"> {{ rev["rating"] }} </span>
+                                    <div class="rating">
+                                        <div class="rating-upper">{{ stars(5) }}</div>
+                                        <div class="rating-lower">{{ stars(5) }}</div>
+                                    </div>
                                 </div>
-                                <p id="rev-text">{{ rev["review"] }}</p>
+                                <div id="edit-stars-{{ rev['id'] }}" ></div>
+
+                                <p class="text" id="text-{{ rev['id'] }}">{{ rev["review"] }}</p>
+                                <textarea class="edit-text text" id="edit-text-{{ rev['id'] }}">{{rev["review"]}}</textarea>
                             </div>
-                            <div class="picked-tags">
+
+                            <div id="tags-{{ rev['id'] }}" class="picked-tags">
                                 {% for tag in rev["tags"] %}
                                     {% if tag != None %}
                                         <div class="picked tag">{{ tag }}</div>
                                     {% endif %}
                                 {% endfor %}
                             </div>
+                            <div class="edit-tags" id="edit-tags-{{ rev['id'] }}"></div>
                         </div>
                         <div id="{{ rev['id'] }}" class="edit pure-u-1-5">
                             <button class="edit-button" id="edit-{{ rev['id'] }}"> ✏️ </button>
                             <button class="exit-button" id="exit-{{ rev['id'] }}"> ❌ </button>
-                            <button class="save-button" id="save-{{ rev['id'] }}"> ✔️ </button>
+                            <button class="save-button" id="save-{{ rev['id'] }}" loc_id="{{ location['id'] }}"> ✔️ </button>
                         </div>
                     </div>
                 </div>

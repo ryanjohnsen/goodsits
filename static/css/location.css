@@ -189,6 +189,14 @@ body {
     z-index: 10;
 }
 
-.save-button, .exit-button {
+.save-button, .exit-button, .edit-text, .edit-tags {
     display: none;
+}
+
+.edit-text {
+    width: 100%;
+}
+
+.text {
+    margin: 1em 0;
 }

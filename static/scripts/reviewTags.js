@@ -45,8 +45,6 @@ function setupTags() {
     picked.id = "review-picked-tags"
     tags.appendChild(picked);
 
-    
-
     populateTags();
 }
 
