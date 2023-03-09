@@ -5,9 +5,8 @@ function edit(event) {
   const rev_id = event.currentTarget.rev_id;
   changeButtonVisibility(rev_id, true);
   changeReviewVisibility(rev_id, true);
-  // document.getElementById('edit-tags-list').value = getPickedTags();
-
-  
+  // TODO: show the ratings here
+  // TODO: show the stars here
 }
 
 function exit(event) {
@@ -18,15 +17,15 @@ function exit(event) {
 
 async function save(event) {
   const rev_id = event.currentTarget.rev_id;
-  // TODO: big vulnerability right here VVVVVVVVVVV
+  // FIXME: big vulnerability right here VVVVVVVVVVV
   const review = document.getElementById("edit-text-" + rev_id).value;
   const loc_id = event.currentTarget.getAttribute('loc_id');
   const tags = document.getElementById("edit-tags-" + rev_id).tags;
 
-  // TODO: actually fill
+  // TODO: get the star rating value somehow
   const rating = 5;
 
-  const response = await fetch('/location/edit_review', {
+  const response = await fetch('/location/'+ loc_id + '/edit_review', {
     method: 'POST',
     body: JSON.stringify({
       'id': rev_id,
