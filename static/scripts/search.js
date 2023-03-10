@@ -31,7 +31,7 @@ function addCard(location) {
                 <div class="subtitle">${location.hours}</div>
             </div>
             <div class="details">
-                <div class="proximity">📌 ${location.distance == null ? "?" : location.distance.toFixed(1)} km away</div>
+                <div class="proximity">📌 ${location.distance == null ? "?" : location.distance.toFixed(1)} miles away</div>
                 <div class="rating">⭐ ${(location.rating == null ? 5.0 : parseFloat(location.rating)).toFixed(1)} / 5.0</div>
             </div>
             <div class="picked-tags">${tags}</div>
@@ -72,7 +72,6 @@ async function search(loc, text, tags, minRating, proximity) {
         minRating: minRating,
         tags: tags.join(",")
     })).then(response => response.json()).then(data => {
-        console.log(data);
         clearCards();
         data.forEach(function(ele) {
             addCard(ele)
