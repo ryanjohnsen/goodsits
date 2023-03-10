@@ -6,6 +6,7 @@ from urllib.parse import quote_plus, urlencode
 from authlib.integrations.flask_client import OAuth
 from werkzeug.utils import secure_filename
 from base64 import b64encode, b64decode
+from collections import Counter
 from io import BytesIO
 from time import time
 import magic
@@ -106,13 +107,15 @@ def search_api() -> Response:
 
     locations, results = db.search_locations(location, text, miles, min_rating, tags), []
     for loc in locations:
+        tagFreqs = Counter(loc[5]).most_common()
+        top3Tags = [tag for tag, _ in tagFreqs][:3]
         results.append({
             "id": loc[0],
             "title": loc[1],
             "hours": loc[2],
             "location": loc[3],
             "distance": loc[4],
-            "tags": loc[5],
+            "tags": top3Tags,
             "rating": loc[6]
         })
     

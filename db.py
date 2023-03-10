@@ -88,7 +88,7 @@ def search_locations(location: str, text: str, miles: int, min_rating: float, ta
 
         SELECT nearby.id, nearby.title, nearby.hours, nearby.location, nearby.miles, t.tags, r.avg_rating
         FROM nearby LEFT JOIN (
-            SELECT n.id, array_agg(DISTINCT t.title) AS Tags
+            SELECT n.id, array_agg(t.title) AS Tags
             FROM nearby AS n, Tag AS t
             WHERE n.id = t.loc_id
             GROUP BY n.id
