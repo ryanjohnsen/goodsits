@@ -9,7 +9,8 @@
 <script defer src="{{url_for('static', filename='scripts/star.js')}}"></script>
 <script defer src="{{url_for('static', filename='scripts/review.js')}}"></script>
 <script src="{{url_for('static', filename='scripts/tags.js')}}"
-    picked_label="review-picked-tags" unpicked_label="review-unpicked-tags" tags_label="review-tags" limit=3 defer></script>
+    picked_label="review-picked-tags" unpicked_label="review-unpicked-tags" tags_label="review-tags" limit=3 defer>
+</script>
 <script>
     // Retrieves the address of the location.
     function getAddy() {
@@ -72,7 +73,7 @@
 
             <div id="progress-bars" class="pure-u-2-3">
                 {% for i in range(1,6) %}
-                    {{ progress_bar(i) }}
+                    {{ progress_bar(6-i) }}
                 {% endfor %}
             </div>
         </div>
@@ -115,13 +116,28 @@
                         <div class="pure-u-4-5">
                             <div>
                                 <div id="stars-{{ rev['id'] }}">
-                                    <span id="rev-rating" class="rev-number"> {{ rev["rating"] }} </span>
+                                    <span id="rev-rating-{{ rev['id'] }}" class="rev-number"> {{ rev["rating"] }} </span>
                                     <div class="rating">
                                         <div class="rating-upper">{{ stars(5) }}</div>
                                         <div class="rating-lower">{{ stars(5) }}</div>
                                     </div>
                                 </div>
-                                <div id="edit-stars-{{ rev['id'] }}"></div>
+                                <div class="edit-stars" id="edit-stars-{{ rev['id'] }}">
+                                    <div class="stars pure-u-1">
+                                        <div class="star-rate">
+                                          <input type="radio" id="star-5-{{ rev['id'] }}" name="starRating" value="5" required="">
+                                          <label for="star-5" title="5 stars">5 stars</label>
+                                          <input type="radio" id="star-4-{{ rev['id'] }}" name="starRating" value="4">
+                                          <label for="star-4" title="4 stars">4 stars</label>
+                                          <input type="radio" id="star-3-{{ rev['id'] }}" name="starRating" value="3">
+                                          <label for="star-3" title="3 stars">3 stars</label>
+                                          <input type="radio" id="star-2-{{ rev['id'] }}" name="starRating" value="2">
+                                          <label for="star-2" title="2 stars">2 stars</label>
+                                          <input type="radio" id="star-1-{{ rev['id'] }}" name="starRating" value="1">
+                                          <label for="star-1" title="1 star">1 star</label>
+                                        </div>
+                                      </div>
+                                </div>
 
                                 <p class="text" id="text-{{ rev['id'] }}">{{ rev["review"] }}</p>
                                 <textarea class="edit-text text" id="edit-text-{{ rev['id'] }}">{{rev["review"]}}</textarea>

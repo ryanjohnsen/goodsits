@@ -69,9 +69,7 @@ Close button style
     align-items: start;
 }
 
-/* compensating for the way the floating stars are set up */
-/* since width: 1em below, we do -1em here so that it's still aligned */
-/* would prefer not to do this and use a diff way for the stars */
+
 .star-rate {
     margin-left: -1em;
 }
@@ -84,8 +82,7 @@ Close button style
     float: right;
     width: 1em;
     font-size: 40px;
-    color: var(--grey);
-    /* empty star color */
+    color: var(--grey);/* empty star color */    
 }
 
 /*star style*/
