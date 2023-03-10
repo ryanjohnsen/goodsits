@@ -22,7 +22,6 @@ function addCard(location) {
             tags += `<div class="picked tag">${tag}</div>`;
         });
     }
-    console.log(location);
     let card = `
         <a href="location/${location.id}">
         <div class="card pure-g">
@@ -73,7 +72,6 @@ async function search(loc, text, tags, minRating, proximity) {
         minRating: minRating,
         tags: tags.join(",")
     })).then(response => response.json()).then(data => {
-        console.log(data);
         clearCards();
         data.forEach(function(ele) {
             addCard(ele)
