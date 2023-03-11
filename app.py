@@ -105,6 +105,7 @@ def search_api() -> Response:
     min_rating = request.args.get("minRating")
 
     locations, results = db.search_locations(location, text, miles, min_rating, tags), []
+
     for loc in locations:
         results.append({
             "id": loc[0],
@@ -164,9 +165,9 @@ def location(loc_id: int) -> Response:
 
 @app.route("/search")
 def search():
-    return render_template('search.html', login = check_auth());
-# Endpoint for adding fields to a location entry
+    return render_template('search.html', login = check_auth())
 
+# Endpoint for adding fields to a location entry
 @app.route("/location/<int:loc_id>/add", methods = ["POST"])
 @requires_auth
 def add_review(loc_id: int) -> Response:
@@ -182,8 +183,6 @@ def add_review(loc_id: int) -> Response:
     db.insert_tags(loc_id, tags, review_id)
 
     return redirect("/location/"+str(loc_id))
-    
-
 
 # Helper for using vscode debugger
 if __name__ == "__main__":
