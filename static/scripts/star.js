@@ -1,12 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
-    let stars = document.querySelectorAll('.rating-upper');
-    let rating = document.querySelectorAll('.rev-number');
-    for (let i = 0; i < stars.length; i++) {
-        stars[i].style.width = `${parseFloat(rating[i].innerText) / 5 * 100}%`;
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
+function averageRating() {
     let ratings = document.querySelectorAll('.rev-number');
     let star_counts = {
         1: 0, 
@@ -36,4 +28,15 @@ document.addEventListener('DOMContentLoaded', () => {
             rating_value.innerText = star_counts[rating_number];
         }
     }
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    let stars = document.querySelectorAll('.rating-upper');
+    let rating = document.querySelectorAll('.rev-number');
+    for (let i = 0; i < stars.length; i++) {
+        stars[i].style.width = `${parseFloat(rating[i].innerText) / 5 * 100}%`;
+    }
 });
+
+document.addEventListener('DOMContentLoaded', averageRating);

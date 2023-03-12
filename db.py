@@ -209,6 +209,7 @@ def get_rating(loc_id: int) -> float:
 def edit_review(id: str, rating: str, review: str) -> int:
     with get_db_cursor(True) as cur:
         cur: cursor
+
         cur.execute(
             """
             UPDATE Review 
@@ -217,6 +218,7 @@ def edit_review(id: str, rating: str, review: str) -> int:
             RETURNING id
             """, (rating, review, id)
         )
+
         return int(cur.fetchone()[0])
     
     
@@ -229,7 +231,6 @@ def delete_review(id: str) -> int:
             WHERE id = %s 
             """, (id,)
         )
-        return int(cur.fetchone()[0])
 
 def delete_tags(review_id: int) -> int:
     with get_db_cursor(True) as cur:
@@ -240,4 +241,3 @@ def delete_tags(review_id: int) -> int:
             WHERE review_id = %s 
             """, (review_id,)
         )
-        return int(cur.fetchone()[0])

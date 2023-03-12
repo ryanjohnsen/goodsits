@@ -28,7 +28,7 @@ function exit(event) {
 async function save(event) {
   const rev_id = event.currentTarget.rev_id;
   const review = document.getElementById(`edit-text-${rev_id}`).value; 
-  const tags = ""; // make sure this is a comma seperate string like 'Outlet,Inside'
+  const tags = getPickedTags(`picked-tags-input-${rev_id}`).join(',');
 
   // Done: get the star rating value somehow
   let newRating = 0 ;
@@ -55,6 +55,30 @@ async function save(event) {
     throw new Error("Failed to update review");
   }
 
+
+  document.getElementById(`rev-rating-${rev_id}`).textContent = newRating;
+  document.getElementById(`stars-${rev_id}`).querySelector(".rating-upper").style.width = `${parseFloat(newRating) / 5 * 100}%`;
+  const listOfRatings = document.querySelectorAll('.rev-number');
+  let ratings = 0;
+  for (let i = 1; i < listOfRatings.length; i++) {
+    ratings += parseFloat(listOfRatings[i].textContent);
+  }
+  ratings = (ratings / (listOfRatings.length - 1)).toFixed(1);
+  document.getElementById("rating-number").textContent = ratings;
+  document.getElementById('rating').querySelector('.rating-upper').style.width = `${parseFloat(ratings) / 5 * 100}%`; 
+  document.getElementById(rev_id).querySelector(`.text`).textContent = review;
+
+  let tagsDiv = document.getElementById(`tags-${rev_id}`);
+  tagsDiv.innerHTML = "";
+  tags.split(",").forEach( ele => {
+    let tag = document.createElement("div");
+    tag.classList.add("picked");
+    tag.classList.add("tag");
+    tag.textContent = ele;
+    tagsDiv.appendChild(tag);
+  }); 
+
+  averageRating();
   changeButtonVisibility(rev_id, false);
   changeReviewVisibility(rev_id, false);
 }
