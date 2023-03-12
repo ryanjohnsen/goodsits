@@ -212,7 +212,7 @@ def edit_review(id: str, rating: str, review: str) -> int:
         cur.execute(
             """
             UPDATE Review 
-            SET rating= %s, review= %s 
+            SET rating = %s, review = %s 
             WHERE id = %s
             RETURNING id
             """, (rating, review, id)

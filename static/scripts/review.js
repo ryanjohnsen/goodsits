@@ -28,6 +28,7 @@ function exit(event) {
 async function save(event) {
   const rev_id = event.currentTarget.rev_id;
   const review = document.getElementById(`edit-text-${rev_id}`).value; 
+  const tags = ""; // make sure this is a comma seperate string like 'Outlet,Inside'
 
   // Done: get the star rating value somehow
   let newRating = 0 ;
@@ -36,26 +37,22 @@ async function save(event) {
       newRating= i;
     }
   }
-
-
-  console.log(newRating);
-
-
   
   const response = await fetch(location.href + `/edit`, {
     method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
-      'id': rev_id,
-      'loc_id': loc_id,
-      'rating': newRating,
-      'review': review
-    }),
+      review_id: rev_id,
+      rating: newRating,
+      review: review,
+      tags: tags
+    })
   });
 
-  if (response.ok) {
-    // celebrate
-  } else {
-    // idk struggle tweet
+  if (!response.ok) {
+    throw new Error("Failed to update review");
   }
 
   changeButtonVisibility(rev_id, false);

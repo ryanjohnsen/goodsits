@@ -188,10 +188,18 @@ def add_review(loc_id: int) -> Response:
 @app.route("/location/<int:loc_id>/edit",methods=["POST"])
 @requires_auth
 def edit_review(loc_id: int) -> Response:
-    # db.delete_tags(review_id, )
-    # db.edit_review(loc_id, rev_id, rating, review, user_id)
-    # TODO
-    return jsonify()
+    review_id = request.json.get('review_id')
+    rating = request.json.get('rating')
+    review = request.json.get('review')
+    tags = request.json.get('tags')
+
+    # Can't test but should work
+    # db.delete_tags(review_id)
+    # db.insert_tags(loc_id, tags, review_id)
+    
+    db.edit_review(review_id, rating, review)
+    
+    return make_response(f"Review updated", 200)
 
 # Helper for using vscode debugger
 if __name__ == "__main__":
