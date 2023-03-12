@@ -75,9 +75,9 @@ def search_locations(location: str, text: str, miles: int, min_rating: float, ta
     # Have to add these late to avoid botching the tag parameters
     args.append("%" + text + "%")
     
-    query += " l.title LIKE %s"
+    query += " l.title ILIKE %s"
     # No two points on earth are greater than 10,000 miles
-    query += "AND (POINT(%s, %s) <@> location <= COALESCE(%s, 10000) OR location IS NULL)"
+    query += "AND (POINT(%s, %s) <@> location <= COALESCE(%s, 10000.0) OR location IS NULL)"
     args.append(lat)
     args.append(long)
     args.append(miles if miles != "" else None)
