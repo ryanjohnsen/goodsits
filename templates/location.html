@@ -7,29 +7,8 @@
     <script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
     <script defer src="{{url_for('static', filename='scripts/star.js')}}"></script>
     <script defer src="{{url_for('static', filename='scripts/reviewTags.js')}}"></script>
-    <script>
-        function getAddy() {  
-            let address = document.getElementById('addy').innerText;
-            let myLatitude	= address.split(",")[0];
-            myLatitude = parseFloat(myLatitude.split("(")[1]);
-            let myLongitude	= address.split(",")[1];
-            myLongitude = parseFloat(myLongitude.split(")")[0]);
-            var geocoder	= new google.maps.Geocoder();							
-            var location	= new google.maps.LatLng(myLatitude, myLongitude);		
-                
-            geocoder.geocode({'latLng': location}, function (results, status) {
-                if(status == google.maps.GeocoderStatus.OK) {		
-                    let addy = results[0].formatted_address;
-                    let addyContainer = document.getElementById('addy');				
-                    addyContainer.innerText = addy;			
-                } else {
-                    alert("Geocode failure: " + status);
-                    return false;
-                }
-            });
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTxssaavgto&callback=getAddy" defer async></script>
+    <script defer src="{{url_for('static', filename='scripts/location.js')}}"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTxssaavgto&callback=getAddy"></script>
 {% endblock %}
 
 {% block content %}
@@ -141,7 +120,11 @@
             </div>
 
             <div id="add-review-button">
-                <button id="addBtn" class="pure-button pure-button-primary">Add Review</button>
+                {% if login.status == "Logout" %}
+                    <button id="addBtn" class="pure-button pure-button-primary">Add Review</button>
+                {% else %}
+                    <button id="addBtn" class="pure-button pure-button-primary" disabled>Add Review</button>
+                {% endif %}
             </div>
 
             <div id="hideReviewForm" class="modal">
