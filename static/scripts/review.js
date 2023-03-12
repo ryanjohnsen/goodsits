@@ -55,6 +55,21 @@ async function save(event) {
     throw new Error("Failed to update review");
   }
 
+
+  document.getElementById(`rev-rating-${rev_id}`).textContent = newRating;
+  document.getElementById(`stars-${rev_id}`).querySelector(".rating-upper").style.width = `${parseFloat(newRating) / 5 * 100}%`;
+  const listOfRatings = document.querySelectorAll('.rev-number');
+  let ratings = 0;
+  for (let i = 1; i < listOfRatings.length; i++) {
+    ratings += parseFloat(listOfRatings[i].textContent);
+  }
+  ratings = (ratings / (listOfRatings.length - 1)).toFixed(1);
+  document.getElementById("rating-number").textContent = ratings;
+  document.getElementById('rating').querySelector('.rating-upper').style.width = `${parseFloat(ratings) / 5 * 100}%`; 
+  document.getElementById(rev_id).querySelector(`.text`).textContent = review;
+
+
+  averageRating();
   changeButtonVisibility(rev_id, false);
   changeReviewVisibility(rev_id, false);
 }
