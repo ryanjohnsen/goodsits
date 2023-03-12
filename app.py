@@ -196,12 +196,17 @@ def edit_review(loc_id: int) -> Response:
     rating = request.json.get('rating')
     review = request.json.get('review')
     tags = request.json.get('tags')
+    rev_user_id = request.json.get('rev_user_id')
+    user_id = session["user"]["userinfo"]["sub"]
 
+    if (rev_user_id != user_id):
+        return make_response(f"Review Not Updated; User ID does not match Review User ID", 200)
+    
     db.delete_tags(review_id)
     db.insert_tags(loc_id, tags, review_id)
     db.edit_review(review_id, rating, review)
     
-    return make_response(f"Review updated", 200)
+    return make_response(f"Review Updated", 200)
 
 # Helper for using vscode debugger
 if __name__ == "__main__":

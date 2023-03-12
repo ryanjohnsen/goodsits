@@ -25,8 +25,12 @@ function exit(event) {
 
 async function save(event) {
   const rev_id = event.currentTarget.rev_id;
+  const rev_user_id = event.currentTarget.rev_user_id;
   const review = document.getElementById(`edit-text-${rev_id}`).value; 
   const tags = getPickedTags(`picked-tags-input-${rev_id}`).join(',');
+
+  changeButtonVisibility(rev_id, false);
+  changeReviewVisibility(rev_id, false);
 
   // Done: get the star rating value somehow
   let newRating = 0 ;
@@ -45,14 +49,14 @@ async function save(event) {
       review_id: rev_id,
       rating: newRating,
       review: review,
-      tags: tags
+      tags: tags,
+      rev_user_id: rev_user_id
     })
   });
 
   if (!response.ok) {
     throw new Error("Failed to update review");
   }
-
 
   document.getElementById(`rev-rating-${rev_id}`).textContent = newRating;
   document.getElementById(`stars-${rev_id}`).querySelector(".rating-upper").style.width = `${parseFloat(newRating) / 5 * 100}%`;
@@ -77,8 +81,6 @@ async function save(event) {
   }); 
 
   averageRating();
-  changeButtonVisibility(rev_id, false);
-  changeReviewVisibility(rev_id, false);
 }
 
 function changeButtonVisibility(rev_id, edit_mode = False) {
@@ -131,6 +133,7 @@ document.querySelectorAll('.review').forEach(group => {
     for (let i = 0; i < labels.length; i++) {
       const button = div.querySelector("." + labels[i]);
       button.rev_id = rev_id;
+      button.rev_user_id = rev_user_id;
       button.addEventListener("click", funcs[i]);
     }
   } else {
