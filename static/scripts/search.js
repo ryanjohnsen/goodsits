@@ -15,7 +15,7 @@ function clearCards() {
 }
 
 function addCard(location) {
-    // This definetly has cross site scripting vulnerabilities right now
+    // Have to be careful about cross-site scripting here. Right now, title and hours are escaped on the backend.
     let tags = "";
     if (location.tags != null) {
         location.tags.forEach(tag => {

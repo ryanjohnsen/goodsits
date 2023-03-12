@@ -110,8 +110,8 @@ def search_api() -> Response:
     for loc in locations:
         results.append({
             "id": loc[0],
-            "title": loc[1],
-            "hours": loc[2],
+            "title": escape(loc[1]),
+            "hours": escape(loc[2]),
             "location": loc[3],
             "distance": loc[4],
             "tags": loc[5],
