@@ -14,7 +14,7 @@ function closeModal() {
 
 // getting tags for submission
 function send_review_tags() {
-    document.getElementById('review-tags-list').value = getPickedTags();
+    document.getElementById('review-tags-list').value = getPickedTags("review-picked-tags");
 }
 
 document.getElementById("addBtn").addEventListener("click", addReview);

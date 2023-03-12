@@ -1,3 +1,12 @@
+{% block html_head %}
+  <script src="{{url_for('static', filename='scripts/tags.js')}}"
+    picked_label="review-picked-tags"
+    unpicked_label="review-unpicked-tags" 
+    tags_label="review-tags"
+    limit="3" defer>
+  </script>
+{% endblock %}
+
 {% block content %}
   <div id="modal">
     <form class="pure-form pure-form-stacked" id="modalForm">
