@@ -27,7 +27,7 @@ function exit(event) {
 
 async function save(event) {
   const rev_id = event.currentTarget.rev_id;
-  const review = document.getElementById(`edit-text-${rev_id}`).value;
+  const review = document.getElementById(`edit-text-${rev_id}`).value; 
 
   // Done: get the star rating value somehow
   let newRating = 0 ;

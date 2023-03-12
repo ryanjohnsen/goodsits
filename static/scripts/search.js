@@ -31,7 +31,7 @@ function addCard(location) {
                 <div class="subtitle">${location.hours}</div>
             </div>
             <div class="details">
-                <div class="proximity">📌 ${location.distance == null ? "?" : location.distance.toFixed(1)} km away</div>
+                <div class="proximity">📌 ${location.distance == null ? "?" : location.distance.toFixed(1)} miles away</div>
                 <div class="rating">⭐ ${(location.rating == null ? 5.0 : parseFloat(location.rating)).toFixed(1)} / 5.0</div>
             </div>
             <div class="picked-tags">${tags}</div>
@@ -72,7 +72,6 @@ async function search(loc, text, tags, minRating, proximity) {
         minRating: minRating,
         tags: tags.join(",")
     })).then(response => response.json()).then(data => {
-        console.log(data);
         clearCards();
         data.forEach(function(ele) {
             addCard(ele)
@@ -99,21 +98,17 @@ searchBar.addEventListener("keydown", event => {
     search(curLoc, text, tags, minRating, proximity);
 });
 
+const params = (new URL(document.location)).searchParams;
+const title = params.get("title");
+if (title != null) {
+    searchBar.value = lastText = title;
+    search(curLoc, lastText, lastTags, lastMinRating, lastProximity);
+    window.history.pushState({}, document.title, window.location.pathname);
+} else {
+    search(curLoc, lastText, lastTags, lastMinRating, lastProximity);
+}
+
 navigator.geolocation.getCurrentPosition(function (location) {
     curLoc = { lat: location.coords.latitude, lng: location.coords.longitude }
     search(curLoc, lastText, lastTags, lastMinRating, lastProximity);
 }, function (positionError) { /* "Error Handling" */ } );
-
-window.onload = _ => {
-    const params = (new URL(document.location)).searchParams;
-    const title = params.get("title");
-    searchBar.value = title;
-    if (title !== undefined) {
-        search(curLoc, title, [], -1, 10000);
-    } else {
-        search(curLoc, "", [], -1, 10000);
-    }
-    
-    // clear the url of the search query
-    window.history.pushState({}, document.title, window.location.pathname);
-}

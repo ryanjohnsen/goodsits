@@ -15,33 +15,33 @@
 <div class="container-custom pure-g"> <!-- FIXME: get rid of inline style once layout is made -->
   <div id="map" class="pure-u-3-5"></div>
   <div class="pure-u-2-5">
-    <form class="pure-form pure-form-stacked form-custom" enctype="multipart/form-data">
+    <form class="pure-form pure-form-stacked form-custom" id="add-location" method="post" action="/location" enctype="multipart/form-data">
       <fieldset> <!-- FIXME: idr if fieldset is actually needed here -->
         <h4>Add a Study Spot</h4>
-        <h1 class="title" id="address">Address at Pin Mark</h1> <!-- TODO: address dependent on map -->
+        <h1 class="title" id="address">Address at Pin Mark</h1>
 
         <div class="message-custom pure-form-message">
           Click anywhere on the map to adjust the location of your study spot.
         </div><br>
 
         <label for="title">Study Spot Title</label>
-        <input id="title" class="pure-input-1" name="title" placeholder="Basement of Keller Hall" /><br>
+        <input id="title" class="pure-input-1" name="title" placeholder="Basement of Keller Hall" required/><br>
 
         <label for="description">Description</label>
         <textarea class="pure-input-1" id="description" name="description"
-          placeholder="You would be so powerful here."></textarea>
+          placeholder="You would be so powerful here." required></textarea>
 
         <div class="pure-g">
           <div class="col-custom pure-u-6-12">
             <label for="hours">Hours Open</label>
-            <textarea class="pure-input-1" id="hours" name="hours" placeholder="Mondays 2:00 - 4:00 PM"></textarea>
+            <textarea class="pure-input-1" id="hours" name="hours" placeholder="Mondays 2:00 - 4:00 PM" required></textarea>
           </div>
 
           <div class="col-custom pure-u-5-12">
             <label for="upload"> Images
               <span class="pure-form-message-inline">Optional</span>
             </label>
-            <input class="pure-input-1" type="file" name="image" id="upload" accept="image/*" />
+            <input class="pure-input-1" type="file" name="image" id="upload" accept="image/*" required/>
           </div>
         </div><br>
 
@@ -50,7 +50,7 @@
           <input id="tags-list" type="hidden" name="tags" value="" />
         </div>
 
-        <input id="location" type="hidden" name="location" value="" />
+        <input id="location" type="hidden" name="location" value=""/>
 
         <input onclick="send_tags()" class="pure-button pure-button-primary" type="submit" value="Add Location"
           formaction="{{url_for('new_location')}}" formmethod="post">
