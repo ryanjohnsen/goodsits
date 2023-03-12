@@ -54,6 +54,5 @@ const picked_label = document.currentScript.getAttribute("picked_label");
 const unpicked_label = document.currentScript.getAttribute("unpicked_label");
 const tags_label = document.currentScript.getAttribute("tags_label");
 const limit = document.currentScript.getAttribute("limit"); // potentially null
-console.log(limit)
 
 setupTags(picked_label, unpicked_label, tags_label, limit);
