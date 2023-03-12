@@ -88,14 +88,30 @@ function changeReviewVisibility(rev_id, edit_mode = false) {
   }
 }
 
+function hideEdit(rev_id) {
+  const div = document.getElementById(rev_id);
+  const edit_btn = div.querySelector(".edit-button");
+  edit_btn.style.display = "none";
+}
+
+
 document.querySelectorAll('.review').forEach(group => {
   const rev_id = group.id;
   const labels = ["edit-button", "exit-button", "save-button"];
   const funcs = [edit, exit, save];
-  for (let i = 0; i < labels.length; i++) {
-    const div = document.getElementById(rev_id);
-    const button = div.querySelector("." + labels[i]);
-    button.rev_id = rev_id;
-    button.addEventListener("click", funcs[i]);
+  
+  const div = document.getElementById(rev_id);
+
+  // user can only edit their own reviews
+  const rev_user_id = div.getAttribute("rev_user_id");
+  const user_id = div.getAttribute("user_id");
+  if (rev_user_id === user_id) {
+    for (let i = 0; i < labels.length; i++) {
+      const button = div.querySelector("." + labels[i]);
+      button.rev_id = rev_id;
+      button.addEventListener("click", funcs[i]);
+    }
+  } else {
+    hideEdit(rev_id);
   }
 });

@@ -177,7 +177,7 @@ def get_reviews(loc_id: int) -> list:
         cur: cursor
         cur.execute(
             """
-            SELECT r.id, r.rating, r.review, array_agg(DISTINCT t.title) AS tags
+            SELECT r.id, r.user_id, r.rating, r.review, array_agg(DISTINCT t.title) AS tags
             FROM Review r LEFT JOIN Tag t
             ON r.id = t.review_id
             WHERE r.loc_id = %s
