@@ -1,28 +1,53 @@
-#hideReviewForm{
+#hideReviewForm {
     display: none;
 }
 
-#modalForm{
+#modalForm {
     margin: 1em;
 }
-/* 
-    modal overall Style
+
+
+/*
+Close button style
 */
-#modal{
+
+.close {
+    position: absolute;
+    right: 1.5em;
+    top: 1em;
+    font-size: 30px;
+    opacity: 0.4;
+    cursor: pointer;
+}
+.close:hover {
+    opacity: 1;
+} 
+
+
+
+/* modal overall Style */
+#modal {
     position: fixed;
     top: 20%;
     right: 30%;
     max-width: 40%;
     background-color: whitesmoke;
-    border: 2px solid #90EE90;
-    z-index: 1;
+    border: 2px solid #000000;
+    z-index: 9999;
 }
 
-/* 
-    Exit button style
-*/
+/* tag style for review model */
+.reviewTags {
+    color: #ee9090;
+}
+
+/* Exit button style */
 #modal .exitBtn {
     cursor: pointer;
+}
+
+.subtitle {
+    margin-bottom: 0.5em;
 }
 
 .g-custom {
@@ -34,4 +59,59 @@
     font-size: 1.5em;
     font-weight: bold;
     margin-right: 1em;
+}
+
+/* start rating styling */
+
+.stars {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+/* compensating for the way the floating stars are set up */
+/* since width: 1em below, we do -1em here so that it's still aligned */
+/* would prefer not to do this and use a diff way for the stars */
+.star-rate {
+    margin-left: -1em;
+}
+
+/*star label holder style*/
+.star-rate:not(:checked)>label {
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    float: right;
+    width: 1em;
+    font-size: 40px;
+    color: var(--grey);
+    /* empty star color */
+}
+
+/*star style*/
+.star-rate:not(:checked)>label::before {
+    content: '★ ';
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+/*
+remove input little circle
+found it here: https://stackoverflow.com/questions/34286322/remove-border-circle-from-radio-input
+*/
+.star-rate>input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* start color once checked */
+.star-rate>input:checked~label {
+    color: #FFD700;
+}
+
+/*star color when hovering over them*/
+.star-rate:not(:checked)>label:hover,
+.star-rate:not(:checked)>label:hover~label {
+    color: #d3b71b;
 }

@@ -75,22 +75,28 @@ def search_locations(location: str, text: str, miles: int, min_rating: float, ta
     # Have to add these late to avoid botching the tag parameters
     args.append("%" + text + "%")
     
-    query += " l.title LIKE %s"
+    query += " l.title ILIKE %s"
     # No two points on earth are greater than 10,000 miles
-    query += "AND (POINT(%s, %s) <@> location <= COALESCE(%s, 10000) OR location IS NULL)"
+    query += "AND (POINT(%s, %s) <@> location <= COALESCE(%s, 10000.0) OR location IS NULL)"
     args.append(lat)
     args.append(long)
     args.append(miles if miles != "" else None)
     args.append(min_rating if min_rating != None else -1)
 
     query += """
+        ),
+
+        frequencies AS (
+            SELECT loc_id, title, COUNT(title) AS frequency
+            FROM Tag
+            GROUP BY loc_id, title
         )
 
-        SELECT nearby.id, nearby.title, nearby.hours, nearby.location, nearby.miles, t.tags, r.avg_rating
+        SELECT nearby.id, nearby.title, nearby.hours, nearby.location, nearby.miles, t.tags[1:3], r.avg_rating
         FROM nearby LEFT JOIN (
-            SELECT n.id, array_agg(DISTINCT t.title) AS Tags
-            FROM nearby AS n, Tag AS t
-            WHERE n.id = t.loc_id
+            SELECT n.id, array_agg(f.title ORDER BY f.frequency DESC) AS tags
+            FROM nearby AS n, frequencies f
+            WHERE n.id = f.loc_id
             GROUP BY n.id
         ) AS t ON nearby.id = t.id LEFT JOIN (
             SELECT n.id, COALESCE(AVG(r.rating), 0.0) AS avg_rating
@@ -172,8 +178,9 @@ def get_reviews(loc_id: int) -> list:
         cur.execute(
             """
             SELECT r.id, r.rating, r.review, array_agg(DISTINCT t.title) AS tags
-            FROM Review AS r, Tag AS t
-            WHERE r.loc_id = t.loc_id AND r.loc_id = %s
+            FROM Review r LEFT JOIN Tag t
+            ON r.id = t.review_id
+            WHERE r.loc_id = %s
             GROUP BY r.id
             """, (loc_id,)
         )
@@ -185,8 +192,9 @@ def get_location(loc_id: int) -> dict:
         cur.execute(
             """
             SELECT l.id, l.title, l.description, l.hours, l.location, l.user_id, array_agg(DISTINCT t.title) AS tags
-            FROM Location AS l, Tag AS t
-            WHERE l.id = t.loc_id AND l.id = %s
+            FROM Location l LEFT JOIN Tag t
+            ON l.id = t.loc_id
+            WHERE l.id = %s
             GROUP BY l.id;
             """, (loc_id,)
         )

@@ -32,13 +32,13 @@ oauth.register(
 def requires_auth(func: Callable) -> Callable:
     @wraps(func)
     def decorator(*args, **kwargs) -> Response:
-        session["path"] = request.path
         if not session.get("user"):
             return redirect("/login")
         
         if session["user"]["expires_at"] <= int(time()):
+            tmp = session.get("referrer")
             session.clear()
-            session["path"] = request.path
+            session["referrer"] = tmp
             return redirect("/login")
 
         return func(*args, **kwargs)
@@ -51,6 +51,7 @@ def check_auth() -> dict:
 
 @app.route("/login", methods = ["GET"])
 def login() -> Response:
+    session["referrer"] = request.referrer
     return oauth.auth0.authorize_redirect(
         redirect_uri = url_for("callback", _external = True)
     )
@@ -60,7 +61,7 @@ def callback() -> Response:
     try:
         token = oauth.auth0.authorize_access_token()
         session["user"] = token
-        return redirect(session.get("path", "/"))
+        return redirect(session.get("referrer", "/"))
     except:
         return redirect("/login")
 
@@ -105,6 +106,7 @@ def search_api() -> Response:
     min_rating = request.args.get("minRating")
 
     locations, results = db.search_locations(location, text, miles, min_rating, tags), []
+
     for loc in locations:
         results.append({
             "id": loc[0],
@@ -145,7 +147,7 @@ def new_location() -> Response:
 
     id = db.insert_location(
         data["title"], data["description"], data["hours"],
-        image, data["location"], session["user"]["userinfo"]["aud"]
+        image, data["location"], session["user"]["userinfo"]["sub"]
     )
 
     db.insert_tags(id, data["tags"])
@@ -164,9 +166,9 @@ def location(loc_id: int) -> Response:
 
 @app.route("/search")
 def search():
-    return render_template('search.html', login = check_auth());
-# Endpoint for adding fields to a location entry
+    return render_template('search.html', login = check_auth())
 
+# Endpoint for adding fields to a location entry
 @app.route("/location/<int:loc_id>/add", methods = ["POST"])
 @requires_auth
 def add_review(loc_id: int) -> Response:
@@ -178,10 +180,10 @@ def add_review(loc_id: int) -> Response:
     if loc_id == None or rating == None or tags == None or review == None or user_id == None:
         return make_response("Review Not Inserted", 400)
     
-    review_id = db.insert_review(int(loc_id), int(rating), tags, review, user_id)
+    review_id = db.insert_review(int(loc_id), int(rating), review, user_id)
     db.insert_tags(loc_id, tags, review_id)
 
-    return make_response("Review Inserted", 200)
+    return redirect("/location/"+str(loc_id))
 
 # Helper for using vscode debugger
 if __name__ == "__main__":
