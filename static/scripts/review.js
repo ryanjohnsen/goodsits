@@ -16,6 +16,9 @@ function edit(event) {
 function exit(event) {
   const rev_id = event.currentTarget.rev_id;
   // TODO: clear all info in the edit review attempt
+  
+  
+  //stars will readjust by themselves  
   changeButtonVisibility(rev_id, false);
   changeReviewVisibility(rev_id, false);
 }
@@ -27,28 +30,41 @@ async function save(event) {
   const loc_id = event.currentTarget.getAttribute('loc_id');
   const tags = document.getElementById("edit-tags-" + rev_id).tags;
 
-  // TODO: get the star rating value somehow
-  const rating = document.getElementById("rev-rating-"+rev_id).textContent;//current rating
+  // Done: get the star rating value somehow
+  let newRating = 0 ;
+  for( let i=1; i <= 5; i++ ){
+    if(document.getElementById(`star-${i}-`+rev_id).checked){
+      newRating= i;
+    }
+  }
+
+
+  console.log(newRating);
+
+  console.log(review);
+  console.log(loc_id);
+  console.log(tags);
+  
 
 
 
 
-
+  
   const response = await fetch('/location/'+ loc_id + '/edit_review', {
     method: 'POST',
     body: JSON.stringify({
       'id': rev_id,
       'loc_id': loc_id,
-      'rating': rating,
+      'rating': newRating,
       'review': review
     }),
   });
 
-  // if (response.ok) {
-  //   // celebrate
-  // } else {
-  //   // idk struggle tweet
-  // }
+  if (response.ok) {
+    // celebrate
+  } else {
+    // idk struggle tweet
+  }
 
   changeButtonVisibility(rev_id, false);
   changeReviewVisibility(rev_id, false);
@@ -70,38 +86,16 @@ function changeReviewVisibility(rev_id, edit_mode = False) {
   labels.forEach(label => {
     const data = document.getElementById(label + "-" + rev_id);
     const editable_data = document.getElementById("edit-" + label + "-" + rev_id);
-    data.style.display = edit_mode ? "none" : "block";
+    data.style.display = edit_mode ? "none" : "flex";
     editable_data.style.display = edit_mode ? "block" : "none";
   });
 
-  //TODO: display current stars:
-  //not pretty but does the job
+  //Done: display current stars:
   const rating = document.getElementById("rev-rating-"+rev_id).textContent;//current rating
-  console.log(rating);
-  // switch(rating){
-  //   case 5 :
-  //     document.getElementById("star-5-"+rev_id).checked = true;
-  //     document.getElementById("star-5-"+rev_id).style.color = "red";
-  //     document.getElementById("star-4-"+rev_id).checked = true;
-  //     document.getElementById("star-3-"+rev_id).checked = true;
-  //     document.getElementById("star-2-"+rev_id).checked = true;
-  //     document.getElementById("star-1-"+rev_id).checked = true;
-  //   case 4 :
-  //     document.getElementById("star-4-"+rev_id).checked = true;
-  //     document.getElementById("star-3-"+rev_id).checked = true;
-  //     document.getElementById("star-2-"+rev_id).checked = true;
-  //     document.getElementById("star-1-"+rev_id).checked = true;
-  //   case 3 :
-  //     document.getElementById("star-3-"+rev_id).checked = true;
-  //     document.getElementById("star-2-"+rev_id).checked = true;
-  //     document.getElementById("star-1-"+rev_id).checked = true;
-  //   case 2 :
-  //     document.getElementById("star-2-"+rev_id).checked = true;
-  //     document.getElementById("star-1-"+rev_id).checked = true;
-  //   default:
-  //     document.getElementById("star-1-"+rev_id).checked = true;
-  // }
-    
+  // 
+  for( let i=1; i <= rating; i++ ){
+    document.getElementById(`star-${i}-`+rev_id).checked = true;
+  }
 }
 
 document.querySelectorAll('.edit').forEach(group => {
