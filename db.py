@@ -223,15 +223,28 @@ def edit_review(id: str, user_id: str, rating: str, review: str) -> int:
         return int(cur.fetchone()[0])
     
     
-def delete_review(id: str) -> int:
+def delete_review(id: str, user_id: str) -> int:
     with get_db_cursor(True) as cur:
         cur: cursor
+
         cur.execute(
             """
+            DELETE FROM Tag
+            WHERE review_id IN (
+                SELECT id
+                FROM Review
+                WHERE id = %s
+                AND user_id = %s
+            );
+
             DELETE FROM Review 
-            WHERE id = %s 
-            """, (id,)
+            WHERE id = %s
+            AND user_id = %s
+            RETURNING id
+            """, (id, user_id, id, user_id)
         )
+
+        return int(cur.fetchone()[0])
 
 def delete_tags(review_id: int) -> int:
     with get_db_cursor(True) as cur:

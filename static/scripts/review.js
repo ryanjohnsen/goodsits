@@ -64,7 +64,7 @@ async function save(event) {
 
   averageRating();
   
-  let locId = location.href.split("/").pop();
+  const locId = location.href.split("/").pop();
   const response = await fetch(`/review/${rev_id}/edit`, {
     method: 'POST',
     headers: {
@@ -84,14 +84,36 @@ async function save(event) {
   }
 }
 
+// Delete is a keyword or something );
+async function remove(event) {
+  const rev_id = event.currentTarget.rev_id;
+  const locId = location.href.split("/").pop();
+
+  document.getElementById(rev_id).remove();
+
+  const response = await fetch(`/review/${rev_id}/delete`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({})
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete review");
+  }
+}
+
 function changeButtonVisibility(rev_id, edit_mode = False) {
   const div = document.getElementById(rev_id);
   const edit_btn = div.querySelector(".edit-button");
   const exit_btn = div.querySelector(".exit-button");
   const save_btn = div.querySelector(".save-button");
+  const delete_btn = div.querySelector(".delete-button");
 
   exit_btn.style.display = edit_mode ? "block" : "none";
   save_btn.style.display = edit_mode ? "block" : "none";
+  delete_btn.style.display = edit_mode ? "block" : "none";
   edit_btn.style.display = edit_mode ? "none" : "block";
 }
 
@@ -122,8 +144,8 @@ function hideEdit(rev_id) {
 
 document.querySelectorAll('.review').forEach(group => {
   const rev_id = group.id;
-  const labels = ["edit-button", "exit-button", "save-button"];
-  const funcs = [edit, exit, save];
+  const labels = ["edit-button", "exit-button", "save-button", "delete-button"];
+  const funcs = [edit, exit, save, remove];
   
   const div = document.getElementById(rev_id);
 

@@ -208,6 +208,14 @@ def edit_review(review_id: int) -> Response:
     
     return make_response(f"Review Updated", 200)
 
+@app.route("/review/<int:review_id>/delete", methods=["POST"])
+@requires_auth
+def delete_review(review_id: int) -> Response:
+    user_id = session["user"]["userinfo"]["sub"]
+    db.delete_review(review_id, user_id)
+    
+    return make_response(f"Review Deleted", 200)
+
 # Helper for using vscode debugger
 if __name__ == "__main__":
     app.run(debug=True)

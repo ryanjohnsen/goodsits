@@ -189,7 +189,7 @@ body {
     z-index: 10;
 }
 
-.save-button, .exit-button, .edit-text, .edit-tags, .edit-stars, .edit-tags {
+.save-button, .exit-button, .delete-button, .edit-text, .edit-tags, .edit-stars, .edit-tags {
     display: none;
 }
 
