@@ -183,9 +183,10 @@ def add_review(loc_id: int) -> Response:
 
     return redirect("/location/"+str(loc_id))
     
-@app.route("/location/<int:loc_id>/edit_review",methods=["POST"])
+@app.route("/location/<int:loc_id>/edit",methods=["POST"])
 @requires_auth
 def edit_review(loc_id: int) -> Response:
+    # db.delete_tags(review_id, )
     # db.edit_review(loc_id, rev_id, rating, review, user_id)
     # TODO
     return jsonify()

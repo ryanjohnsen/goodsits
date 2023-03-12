@@ -49,7 +49,7 @@ async function save(event) {
 
 
   
-  const response = await fetch('/location/'+ loc_id + '/edit_review', {
+  const response = await fetch('/location/'+ loc_id + '/edit', {
     method: 'POST',
     body: JSON.stringify({
       'id': rev_id,
@@ -80,11 +80,11 @@ function changeButtonVisibility(rev_id, edit_mode = False) {
   edit_btn.style.display = edit_mode ? "none" : "block";
 }
 
-function changeReviewVisibility(rev_id, edit_mode = False) {
+function changeReviewVisibility(rev_id, edit_mode = false) {
   const div = document.getElementById(rev_id);
   const labels = ["text", "picked-tags", "stars"];
   labels.forEach(label => {
-    const data = document.getElementById(label + "-" + rev_id);
+    const data = document.getElementById(rev_id).querySelector(`.${label}`);
     const editable_data = document.getElementById("edit-" + label + "-" + rev_id);
     data.style.display = edit_mode ? "none" : "flex";
     editable_data.style.display = edit_mode ? "block" : "none";
