@@ -189,10 +189,10 @@ def add_review(loc_id: int) -> Response:
 
     return redirect("/location/"+str(loc_id))
     
-@app.route("/location/<int:loc_id>/edit",methods=["POST"])
+@app.route("/review/<int:review_id>/edit",methods=["POST"])
 @requires_auth
-def edit_review(loc_id: int) -> Response:
-    review_id = request.json.get('review_id')
+def edit_review(review_id: int) -> Response:
+    loc_id = request.json.get('loc_id')
     rating = request.json.get('rating')
     review = request.json.get('review')
     tags = request.json.get('tags')
@@ -202,9 +202,9 @@ def edit_review(loc_id: int) -> Response:
     if (rev_user_id != user_id):
         return make_response(f"Review Not Updated; User ID does not match Review User ID", 200)
     
-    db.delete_tags(review_id)
-    db.insert_tags(loc_id, tags, review_id)
-    db.edit_review(review_id, rating, review)
+    if db.edit_review(review_id, user_id, rating, review) != None:
+        db.delete_tags(review_id)
+        db.insert_tags(loc_id, tags, review_id)
     
     return make_response(f"Review Updated", 200)
 

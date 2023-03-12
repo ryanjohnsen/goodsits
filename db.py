@@ -206,7 +206,7 @@ def get_rating(loc_id: int) -> float:
         cur.execute("SELECT COALESCE(AVG(rating), 0.0) FROM Review WHERE loc_id = %s", (loc_id,))
         return float(cur.fetchone()[0])
     
-def edit_review(id: str, rating: str, review: str) -> int:
+def edit_review(id: str, user_id: str, rating: str, review: str) -> int:
     with get_db_cursor(True) as cur:
         cur: cursor
 
@@ -215,8 +215,9 @@ def edit_review(id: str, rating: str, review: str) -> int:
             UPDATE Review 
             SET rating = %s, review = %s 
             WHERE id = %s
+            AND user_id = %s
             RETURNING id
-            """, (rating, review, id)
+            """, (rating, review, id, user_id)
         )
 
         return int(cur.fetchone()[0])

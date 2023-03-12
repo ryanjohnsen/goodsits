@@ -39,24 +39,6 @@ async function save(event) {
       newRating= i;
     }
   }
-  
-  const response = await fetch(location.href + `/edit`, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      review_id: rev_id,
-      rating: newRating,
-      review: review,
-      tags: tags,
-      rev_user_id: rev_user_id
-    })
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to update review");
-  }
 
   document.getElementById(`rev-rating-${rev_id}`).textContent = newRating;
   document.getElementById(`stars-${rev_id}`).querySelector(".rating-upper").style.width = `${parseFloat(newRating) / 5 * 100}%`;
@@ -81,6 +63,25 @@ async function save(event) {
   }); 
 
   averageRating();
+  
+  let locId = location.href.split("/").pop();
+  const response = await fetch(`/review/${rev_id}/edit`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      loc_id: locId,
+      rating: newRating,
+      review: review,
+      tags: tags,
+      rev_user_id: rev_user_id
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update review");
+  }
 }
 
 function changeButtonVisibility(rev_id, edit_mode = False) {
