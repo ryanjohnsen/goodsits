@@ -7,7 +7,7 @@
     <script defer src="{{url_for('static', filename='scripts/reviewModal.js')}}"></script>
     <script defer src="{{url_for('static', filename='scripts/star.js')}}"></script>
     <script defer src="{{url_for('static', filename='scripts/review.js')}}"></script>
-    <script defer src="{{url_for('static', filename='scripts/location.js')}}"></script>
+    <script src="{{url_for('static', filename='scripts/location.js')}}"></script>
     <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUorjtCl749J-WlpB3VxDaOTxssaavgto&callback=getAddy"></script>
 {% endblock %}
 
@@ -53,7 +53,7 @@
         <div id="gist">
             <h2>Description</h2><p>{{ location["description"] }}</p>
             <h2>Hours</h2><p>{{ location["hours"] }}</p>
-            <h2>Address</h2><p id="addy">{{ location["location"] }}</p>
+            <h2>Address</h2><p id="addy" style="display: none;">{{ location["location"] }}</p>
 
             <!-- TODO: make tags look cool -->
             <h2>Tags</h2>
@@ -70,7 +70,7 @@
     <div id="img-revs" class="pure-u-7-12">
         <div id="img-container">
             {% set base_url = "/images/" %}
-            <img src={{ base_url ~ location["id"] }} alt="placeholder">
+            <img src="{{ base_url ~ location['id'] }}" alt="placeholder">
         </div>
 
             <div id="add-review-button">
@@ -127,12 +127,18 @@
                                     {% endif %}
                                 {% endfor %}
                             </div>
-
                             <div class="edit-picked-tags" id="edit-picked-tags-{{ rev['id'] }}" style="display: none">
                                 <div class="tags pure-u-1">
                                     <div id="edit-tags">
-                                      <label class="subtitle" for="edit-tags-list">Select tag: (3 max)</label>
-                                      <input id="edit-tags-list" type="hidden" name="tags" value="" />
+                                        <label class="subtitle" for="edit-tags-list">Select tag: (3 max)</label>
+                                        <script src="{{url_for('static', filename='scripts/tags.js')}}"
+                                            picked_label="picked-tags-input-{{ rev['id'] }}"
+                                            unpicked_label="unpicked-tags-input-{{ rev['id'] }}" 
+                                            tags_label="tags-input-{{ rev['id'] }}"
+                                            limit="3" defer>
+                                        </script>
+                                        <div id="tags-input-{{ rev['id'] }}">
+                                        </div>
                                     </div>
                                   </div>
                             </div>  

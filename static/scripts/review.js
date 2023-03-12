@@ -28,7 +28,7 @@ function exit(event) {
 async function save(event) {
   const rev_id = event.currentTarget.rev_id;
   const review = document.getElementById(`edit-text-${rev_id}`).value; 
-  const tags = ""; // make sure this is a comma seperate string like 'Outlet,Inside'
+  const tags = getPickedTags(`picked-tags-input-${rev_id}`).join(',');
 
   // Done: get the star rating value somehow
   let newRating = 0 ;
@@ -68,6 +68,15 @@ async function save(event) {
   document.getElementById('rating').querySelector('.rating-upper').style.width = `${parseFloat(ratings) / 5 * 100}%`; 
   document.getElementById(rev_id).querySelector(`.text`).textContent = review;
 
+  let tagsDiv = document.getElementById(`tags-${rev_id}`);
+  tagsDiv.innerHTML = "";
+  tags.split(",").forEach( ele => {
+    let tag = document.createElement("div");
+    tag.classList.add("picked");
+    tag.classList.add("tag");
+    tag.textContent = ele;
+    tagsDiv.appendChild(tag);
+  }); 
 
   averageRating();
   changeButtonVisibility(rev_id, false);

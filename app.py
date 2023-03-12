@@ -193,10 +193,8 @@ def edit_review(loc_id: int) -> Response:
     review = request.json.get('review')
     tags = request.json.get('tags')
 
-    # Can't test but should work
-    # db.delete_tags(review_id)
-    # db.insert_tags(loc_id, tags, review_id)
-    
+    db.delete_tags(review_id)
+    db.insert_tags(loc_id, tags, review_id)
     db.edit_review(review_id, rating, review)
     
     return make_response(f"Review updated", 200)
