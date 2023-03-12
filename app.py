@@ -32,13 +32,13 @@ oauth.register(
 def requires_auth(func: Callable) -> Callable:
     @wraps(func)
     def decorator(*args, **kwargs) -> Response:
-        session["path"] = request.path
         if not session.get("user"):
             return redirect("/login")
         
         if session["user"]["expires_at"] <= int(time()):
+            tmp = session.get("referrer")
             session.clear()
-            session["path"] = request.path
+            session["referrer"] = tmp
             return redirect("/login")
 
         return func(*args, **kwargs)
@@ -51,6 +51,7 @@ def check_auth() -> dict:
 
 @app.route("/login", methods = ["GET"])
 def login() -> Response:
+    session["referrer"] = request.referrer
     return oauth.auth0.authorize_redirect(
         redirect_uri = url_for("callback", _external = True)
     )
@@ -60,7 +61,7 @@ def callback() -> Response:
     try:
         token = oauth.auth0.authorize_access_token()
         session["user"] = token
-        return redirect(session.get("path", "/"))
+        return redirect(session.get("referrer", "/"))
     except:
         return redirect("/login")
 
