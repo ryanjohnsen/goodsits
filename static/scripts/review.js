@@ -27,7 +27,7 @@ function exit(event) {
 
 async function save(event) {
   const rev_id = event.currentTarget.rev_id;
-  console.log("save " + rev_id);
+  const review = document.getElementById(`edit-text-${rev_id}`).value;
 
   // Done: get the star rating value somehow
   let newRating = 0 ;
@@ -40,16 +40,9 @@ async function save(event) {
 
   console.log(newRating);
 
-  console.log(review);
-  console.log(loc_id);
-  console.log(tags);
-  
-
-
-
 
   
-  const response = await fetch('/location/'+ loc_id + '/edit', {
+  const response = await fetch(location.href + `/edit`, {
     method: 'POST',
     body: JSON.stringify({
       'id': rev_id,
