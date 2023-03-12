@@ -2,7 +2,6 @@
 
 function edit(event) {
   const rev_id = event.currentTarget.rev_id;
-  console.log("edit " + rev_id);
 
   changeButtonVisibility(rev_id, true);
   changeReviewVisibility(rev_id, true);
@@ -15,7 +14,6 @@ function edit(event) {
 
 function exit(event) {
   const rev_id = event.currentTarget.rev_id;
-  console.log("exit " + rev_id);
 
   // TODO: clear all info in the edit review attempt
   

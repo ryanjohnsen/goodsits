@@ -159,10 +159,8 @@ def new_location() -> Response:
 def location(loc_id: int) -> Response:
     reviews = db.get_reviews(loc_id)
     location = db.get_location(loc_id)
-    print(reviews)
 
     user_id = session["user"]["userinfo"]["sub"] if session.get("user") else None
-    print(user_id)
 
     return render_template('location.html', location=location, 
                                             rating=db.get_rating(loc_id),
