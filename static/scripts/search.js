@@ -7,7 +7,19 @@ function showFilters() {
 
 function hideFilters() {
     const filters = document.getElementById("filter-modal");
+    if (filters.style.display == "none")
+        return;
+
     filters.style.display = "none";
+    searchWithFilters();
+}
+
+function searchWithFilters() {
+    let tags = getPickedTags("picked-tags");
+    let minRating = document.getElementById("min-rating").value;
+    let text = searchBar.value;
+    let proximity = document.getElementById("proximity-input").value;
+    search(curLoc, text, tags, minRating, proximity);
 }
 
 function clearCards() {
@@ -91,11 +103,7 @@ searchBar.addEventListener("keydown", event => {
     if (event.key != "Enter")
         return;
 
-    let tags = getPickedTags();
-    let minRating = document.getElementById("min-rating").value;
-    let text = searchBar.value;
-    let proximity = document.getElementById("proximity-input").value;
-    search(curLoc, text, tags, minRating, proximity);
+    searchWithFilters();
 });
 
 const params = (new URL(document.location)).searchParams;
@@ -112,3 +120,9 @@ navigator.geolocation.getCurrentPosition(function (location) {
     curLoc = { lat: location.coords.latitude, lng: location.coords.longitude }
     search(curLoc, lastText, lastTags, lastMinRating, lastProximity);
 }, function (positionError) { /* "Error Handling" */ } );
+
+window.addEventListener('click', function (event){
+    if (!document.getElementById("filter").contains(event.target)) {
+        hideFilters();
+    }
+}, false);
