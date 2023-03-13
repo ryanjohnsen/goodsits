@@ -54,13 +54,15 @@ async function save(event) {
 
   let tagsDiv = document.getElementById(`tags-${rev_id}`);
   tagsDiv.innerHTML = "";
-  tags.split(",").forEach( ele => {
-    let tag = document.createElement("div");
-    tag.classList.add("picked");
-    tag.classList.add("tag");
-    tag.textContent = ele;
-    tagsDiv.appendChild(tag);
-  }); 
+  if (tags != "") {
+    tags.split(",").forEach( ele => {
+      let tag = document.createElement("div");
+      tag.classList.add("picked");
+      tag.classList.add("tag");
+      tag.textContent = ele;
+      tagsDiv.appendChild(tag);
+    });
+  }
 
   averageRating();
   
