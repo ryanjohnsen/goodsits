@@ -159,10 +159,14 @@ def new_location() -> Response:
 def location(loc_id: int) -> Response:
     reviews = db.get_reviews(loc_id)
     location = db.get_location(loc_id)
+
+    user_id = session["user"]["userinfo"]["sub"] if session.get("user") else None
+
     return render_template('location.html', location=location, 
                                             rating=db.get_rating(loc_id),
                                             reviews=reviews,
-                                            login = check_auth())
+                                            login = check_auth(),
+                                            user_id = user_id)
 
 @app.route("/search")
 def search():
@@ -184,6 +188,33 @@ def add_review(loc_id: int) -> Response:
     db.insert_tags(loc_id, tags, review_id)
 
     return redirect("/location/"+str(loc_id))
+    
+@app.route("/review/<int:review_id>/edit",methods=["POST"])
+@requires_auth
+def edit_review(review_id: int) -> Response:
+    loc_id = request.json.get('loc_id')
+    rating = request.json.get('rating')
+    review = request.json.get('review')
+    tags = request.json.get('tags')
+    rev_user_id = request.json.get('rev_user_id')
+    user_id = session["user"]["userinfo"]["sub"]
+
+    if (rev_user_id != user_id):
+        return make_response(f"Review Not Updated; User ID does not match Review User ID", 200)
+    
+    if db.edit_review(review_id, user_id, rating, review) != None:
+        db.delete_tags(review_id)
+        db.insert_tags(loc_id, tags, review_id)
+    
+    return make_response(f"Review Updated", 200)
+
+@app.route("/review/<int:review_id>/delete", methods=["POST"])
+@requires_auth
+def delete_review(review_id: int) -> Response:
+    user_id = session["user"]["userinfo"]["sub"]
+    db.delete_review(review_id, user_id)
+    
+    return make_response(f"Review Deleted", 200)
 
 # Helper for using vscode debugger
 if __name__ == "__main__":

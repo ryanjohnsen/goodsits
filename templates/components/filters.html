@@ -1,7 +1,8 @@
 {% block html_head %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/tags.css')}}">
 <script src="{{url_for('static', filename='scripts/filter.js')}}" defer></script>
-<script src="{{url_for('static', filename='scripts/tags.js')}}" defer></script>
+<script src="{{url_for('static', filename='scripts/tags.js')}}"
+    picked_label="picked-tags" unpicked_label="unpicked-tags" tags_label="tags" defer></script>
 {% endblock %}
 
 {% block content %}

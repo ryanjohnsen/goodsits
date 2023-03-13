@@ -24,7 +24,7 @@ body {
 }
 
 #loc-info {
-    border-radius: 2rem;
+    border-radius: 1rem;
     /* background-color: antiquewhite; */
     /* padding: 1rem 1rem; */
 }
@@ -113,7 +113,7 @@ body {
     padding: 2rem 0;
     padding-bottom: 1rem;
     /* background-color: antiquewhite; */
-    border-radius: 2rem;
+    border-radius: 1rem;
     
 }
 
@@ -123,7 +123,7 @@ body {
     padding: 1rem 1rem;
     background-color: #d6ffce;
     border: solid 3px black;
-    border-radius: 2rem;
+    border-radius: 1rem;
     margin-top: 1rem;
 }
 
@@ -159,7 +159,7 @@ body {
     background-color: #cce9fa;
     margin: 0.5rem 0.5rem;
     border: solid 3px black;
-    border-radius: 2rem;
+    border-radius: 1rem;
     padding: 1rem 1rem;
 }
 
@@ -168,20 +168,18 @@ body {
     font-weight: bold;
 }
 
-#edit-button {
+.edit {
     text-align: center;
 }
 
-#edit-button button {
+.edit button {
     float: right;
-    /* rounded border */
+    /* max-height: 30vh;
+    max-width: 30vh; */
     border-radius: 0.25rem;
-    padding: 0.1rem 0.1rem;
-    /* padding-bottom: 0.25rem; */
-    margin: 0.1rem 0.1rem;
-    background-color: #7fc7ff;
+    padding: 0.25rem;
+    margin: 0.25rem;
 }
-
 
 #fade-out-container {
     display: none;
@@ -189,4 +187,22 @@ body {
     inset: 0;
     background: rgba(0, 0, 0, 0.3);
     z-index: 10;
+}
+
+.save-button, .exit-button, .delete-button, .edit-text, .edit-tags, .edit-stars, .edit-tags {
+    display: none;
+}
+
+.edit-text {
+    width: 100%;
+}
+
+.text {
+    margin: 1em 0;
+}
+
+.stars-edit {
+    flex-direction: row !important;
+    padding: 0.25rem;
+    gap: 0.5rem;
 }

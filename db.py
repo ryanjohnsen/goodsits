@@ -177,7 +177,7 @@ def get_reviews(loc_id: int) -> list:
         cur: cursor
         cur.execute(
             """
-            SELECT r.id, r.rating, r.review, array_agg(DISTINCT t.title) AS tags
+            SELECT r.id, r.user_id, r.rating, r.review, array_agg(DISTINCT t.title) AS tags
             FROM Review r LEFT JOIN Tag t
             ON r.id = t.review_id
             WHERE r.loc_id = %s
@@ -206,3 +206,52 @@ def get_rating(loc_id: int) -> float:
         cur.execute("SELECT COALESCE(AVG(rating), 0.0) FROM Review WHERE loc_id = %s", (loc_id,))
         return float(cur.fetchone()[0])
     
+def edit_review(id: str, user_id: str, rating: str, review: str) -> int:
+    with get_db_cursor(True) as cur:
+        cur: cursor
+
+        cur.execute(
+            """
+            UPDATE Review 
+            SET rating = %s, review = %s 
+            WHERE id = %s
+            AND user_id = %s
+            RETURNING id
+            """, (rating, review, id, user_id)
+        )
+
+        return int(cur.fetchone()[0])
+    
+    
+def delete_review(id: str, user_id: str) -> int:
+    with get_db_cursor(True) as cur:
+        cur: cursor
+
+        cur.execute(
+            """
+            DELETE FROM Tag
+            WHERE review_id IN (
+                SELECT id
+                FROM Review
+                WHERE id = %s
+                AND user_id = %s
+            );
+
+            DELETE FROM Review 
+            WHERE id = %s
+            AND user_id = %s
+            RETURNING id
+            """, (id, user_id, id, user_id)
+        )
+
+        return int(cur.fetchone()[0])
+
+def delete_tags(review_id: int) -> int:
+    with get_db_cursor(True) as cur:
+        cur: cursor
+        cur.execute(
+            """
+            DELETE FROM Tag 
+            WHERE review_id = %s 
+            """, (review_id,)
+        )
