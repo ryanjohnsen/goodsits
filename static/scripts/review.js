@@ -90,7 +90,16 @@ async function remove(event) {
   const locId = location.href.split("/").pop();
 
   document.getElementById(rev_id).remove();
-
+  const listOfRatings = document.querySelectorAll('.rev-number');
+  let ratings = 0;
+  for (let i = 1; i < listOfRatings.length; i++) {
+    ratings += parseFloat(listOfRatings[i].textContent);
+  }
+  ratings = (ratings / (listOfRatings.length - 1)).toFixed(1);
+  document.getElementById("rating-number").textContent = ratings;
+  document.getElementById('rating').querySelector('.rating-upper').style.width = `${parseFloat(ratings) / 5 * 100}%`; 
+  averageRating();
+  
   const response = await fetch(`/review/${rev_id}/delete`, {
     method: 'POST',
     headers: {
