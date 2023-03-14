@@ -18,7 +18,9 @@
 
 .search-bar {
   display: flex;
-  border-bottom: solid var(--grey) 1px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 15px 15px -15px;
+  background-color: white;
+  z-index: 9999;
 }
 
 .search {
@@ -31,17 +33,13 @@
   overflow-y: scroll;
 }
 
-.search-bar {
-  background-color: var(--light-grey)
-}
-
 .filter {
   display: flex;
   flex-direction: row;
   text-transform: uppercase;
   font-weight: bold;
   font-size: small;
-  padding: 1em 2em;
+  padding: 1.5em 2em 1em 2em;
 }
 
 .filter-label:hover {
