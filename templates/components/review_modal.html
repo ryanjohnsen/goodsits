@@ -13,7 +13,7 @@
       <fieldset class="pure-g">
         <div class="g-custom pure-u-1">
           <legend class="legend-custom">Write Review</legend>
-          <a title="Close" onclick="closeModal()" class="close">X</a>
+          <a title="Close" onclick="closeModal()" class="close">✖</a>
         </div>
         
         <!-- Review start rating -->
@@ -51,7 +51,7 @@
           Submit
         </button> -->
 
-        <input onclick="send_review_tags()" class="pure-button pure-primary" type="submit" value="Submit"
+        <input onclick="send_review_tags()" class="submit-button pure-button pure-primary" type="submit" value="Submit"
           formaction="{{url_for('add_review',loc_id=location['id'] )}}" formmethod="post">
       </fieldset>
     </form>

@@ -18,6 +18,7 @@ Close button style
     font-size: 30px;
     opacity: 0.4;
     cursor: pointer;
+    user-select: none;
 }
 .close:hover {
     opacity: 1;
@@ -28,11 +29,13 @@ Close button style
 /* modal overall Style */
 #modal {
     position: fixed;
-    top: 20%;
-    right: 30%;
+    top: 15%;
+    right: 28%;
     max-width: 40%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     background-color: whitesmoke;
-    border: 2px solid #000000;
+    border-radius: 1em;
+    padding: 1.5em;
     z-index: 9999;
 }
 
@@ -47,7 +50,7 @@ Close button style
 }
 
 .subtitle {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.5em !important;
 }
 
 .g-custom {
@@ -71,7 +74,8 @@ Close button style
 
 
 .star-rate {
-    margin-left: -1em;
+    user-select: none; 
+    margin: -1em -1em 0em -1em;
 }
 
 /*star label holder style*/
@@ -80,7 +84,7 @@ Close button style
     white-space: nowrap;
     cursor: pointer;
     float: right;
-    width: 1em;
+    width: 0.85em;
     font-size: 40px;
     color: var(--grey);/* empty star color */    
 }
@@ -111,4 +115,10 @@ found it here: https://stackoverflow.com/questions/34286322/remove-border-circle
 .star-rate:not(:checked)>label:hover,
 .star-rate:not(:checked)>label:hover~label {
     color: #d3b71b;
+}
+
+.submit-button {
+    margin-top: 1em;
+    background-color: var(--dark-green);
+    color: white;
 }
