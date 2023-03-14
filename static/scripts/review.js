@@ -47,20 +47,23 @@ async function save(event) {
   for (let i = 1; i < listOfRatings.length; i++) {
     ratings += parseFloat(listOfRatings[i].textContent);
   }
-  ratings = (ratings / (listOfRatings.length - 1)).toFixed(1);
+  length = Math.max(listOfRatings.length - 1, 1);
+  ratings = (ratings / length).toFixed(1);
   document.getElementById("rating-number").textContent = ratings;
   document.getElementById('rating').querySelector('.rating-upper').style.width = `${parseFloat(ratings) / 5 * 100}%`; 
   document.getElementById(rev_id).querySelector(`.text`).textContent = review;
 
   let tagsDiv = document.getElementById(`tags-${rev_id}`);
   tagsDiv.innerHTML = "";
-  tags.split(",").forEach( ele => {
-    let tag = document.createElement("div");
-    tag.classList.add("picked");
-    tag.classList.add("tag");
-    tag.textContent = ele;
-    tagsDiv.appendChild(tag);
-  }); 
+  if (tags != "") {
+    tags.split(",").forEach( ele => {
+      let tag = document.createElement("div");
+      tag.classList.add("picked");
+      tag.classList.add("tag");
+      tag.textContent = ele;
+      tagsDiv.appendChild(tag);
+    });
+  }
 
   averageRating();
   
@@ -90,7 +93,17 @@ async function remove(event) {
   const locId = location.href.split("/").pop();
 
   document.getElementById(rev_id).remove();
-
+  const listOfRatings = document.querySelectorAll('.rev-number');
+  let ratings = 0;
+  for (let i = 1; i < listOfRatings.length; i++) {
+    ratings += parseFloat(listOfRatings[i].textContent);
+  }
+  length = Math.max(listOfRatings.length - 1, 1);
+  ratings = (ratings / length).toFixed(1);
+  document.getElementById("rating-number").textContent = ratings;
+  document.getElementById('rating').querySelector('.rating-upper').style.width = `${parseFloat(ratings) / 5 * 100}%`; 
+  averageRating();
+  
   const response = await fetch(`/review/${rev_id}/delete`, {
     method: 'POST',
     headers: {

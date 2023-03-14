@@ -7,7 +7,19 @@ function showFilters() {
 
 function hideFilters() {
     const filters = document.getElementById("filter-modal");
+    if (filters.style.display == "none")
+        return;
+
     filters.style.display = "none";
+    searchWithFilters();
+}
+
+function searchWithFilters() {
+    let tags = getPickedTags("picked-tags");
+    let minRating = document.getElementById("min-rating").value;
+    let text = searchBar.value;
+    let proximity = document.getElementById("proximity-input").value;
+    search(curLoc, text, tags, minRating, proximity);
 }
 
 function clearCards() {
@@ -15,7 +27,7 @@ function clearCards() {
 }
 
 function addCard(location) {
-    // This definetly has cross site scripting vulnerabilities right now
+    // Have to be careful about cross-site scripting here. Right now, title and hours are escaped on the backend.
     let tags = "";
     if (location.tags != null) {
         location.tags.forEach(tag => {
@@ -86,25 +98,17 @@ async function search(loc, text, tags, minRating, proximity) {
     });
 }
 
-function useSearchBar(searchBar) {
-    let tags = getPickedTags();
-    let minRating = document.getElementById("min-rating").value;
-    let text = searchBar.value;
-    let proximity = document.getElementById("proximity-input").value;
-    search(curLoc, text, tags, minRating, proximity);
-}
-
 let searchBar = document.getElementById("search");
-let searchBarBtn = document.getElementById("search-button");
-
 searchBar.addEventListener("keydown", event => {
     if (event.key != "Enter")
         return;
-    useSearchBar(searchBar);
+
+    searchWithFilters();
 });
 
+let searchBarBtn = document.getElementById("search-button")
 searchBarBtn.addEventListener("click", event => {
-    useSearchBar(searchBar);
+    searchWithFilters();
 });
 
 const params = (new URL(document.location)).searchParams;
@@ -121,3 +125,9 @@ navigator.geolocation.getCurrentPosition(function (location) {
     curLoc = { lat: location.coords.latitude, lng: location.coords.longitude }
     search(curLoc, lastText, lastTags, lastMinRating, lastProximity);
 }, function (positionError) { /* "Error Handling" */ } );
+
+window.addEventListener('click', function (event){
+    if (!document.getElementById("filter").contains(event.target)) {
+        hideFilters();
+    }
+}, false);
