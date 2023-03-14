@@ -1,66 +1,66 @@
 .header {
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1em 1em 0.5em 1em;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  background-image: linear-gradient(
-    to right,
-    var(--green) 1%,
-    var(--teal) 100%
-  );
-  background-size: 100% 8px;
-  background-position: 0% 0%, 0% 100%;
-  background-repeat: no-repeat;
-  position: relative;
-  z-index: 10;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 1em 0.5em 1em;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    background-image: linear-gradient(
+        to right,
+        var(--green) 1%,
+        var(--teal) 100%
+    );
+    background-size: 100% 8px;
+    background-position: 0% 0%, 0% 100%;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 10;
 }
 
 .header-response-horizontal {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .header-response-vertical {
-  display: none;
-  visibility: hidden;
+    display: none;
+    visibility: hidden;
 }
 
 .logo {
-  display: flex;
-  shape-rendering: crispEdges;
-  max-height: 50px;
+    display: flex;
+    shape-rendering: crispEdges;
+    max-height: 50px;
 }
 
 .login {
-  color: var(--dark-teal) !important;
-  font-weight: bold;
+    color: var(--dark-teal) !important;
+    font-weight: bold;
 }
 
 /* show drop down menu once the screen width is 500px or less */
 @media (max-width: 500px) {
-  .header-response-vertical {
-    float: right;
-    display: contents;
-    visibility: visible;
-    margin-right: 5%;
-  }
+    .header-response-vertical {
+        float: right;
+        display: contents;
+        visibility: visible;
+        margin-right: 5%;
+    }
 
-  .pure-menu-item {
-    padding: 0;
-    margin: 0;
-    height: 100%;
-    float: right;
-  }
+    .pure-menu-item {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        float: right;
+    }
 
-  .header-response-horizontal {
-    display: none;
-    visibility: hidden;
-    display: contents;
-  }
+    .header-response-horizontal {
+        display: none;
+        visibility: hidden;
+        display: contents;
+    }
 
-  .pure-menu-horizontal .pure-menu-list {
-    display: contents !important;
-  }
+    .pure-menu-horizontal .pure-menu-list {
+        display: contents !important;
+    }
 }

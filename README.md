@@ -4,30 +4,30 @@ CSCI 5117, Spring 2023, [assignment description](https://canvas.umn.edu/courses/
 
 ## App Info:
 
-- Team Name: MaryJ
-- App Name: GoodSits.™
-- App Link: (https://goodsits.onrender.com/)
+-   Team Name: MaryJ
+-   App Name: GoodSits.™
+-   App Link: (https://goodsits.onrender.com/)
 
 ### Students
 
-- Andrew Hoyle, hoyle020@umn.edu
-- Jack Lee, lee02802@umn.edu
-- Minnerva Zou, zou00086@umn.edu
-- Ryan Johnsen, joh18447@umn.edu
-- Youssef Zahar, zahar022@umn.edu
+-   Andrew Hoyle, hoyle020@umn.edu
+-   Jack Lee, lee02802@umn.edu
+-   Minnerva Zou, zou00086@umn.edu
+-   Ryan Johnsen, joh18447@umn.edu
+-   Youssef Zahar, zahar022@umn.edu
 
 ## Key Features
 
 **Describe the most challenging features you implemented
 (one sentence per bullet, maximum 4 bullets):**
 
-- ...
+-   ...
 
 ## Testing Notes
 
 **Is there anything special we need to know in order to effectively test your app? (optional):**
 
-- ...
+-   ...
 
 ## Screenshots of Site
 
@@ -74,8 +74,8 @@ The user can click Add Review and will be presented with a modal to enter inform
 **Document integrations with 3rd Party code or services here.
 Please do not document required libraries. or libraries that are mentioned in the product requirements**
 
-- Library or service name: description of use
-- ...
+-   Library or service name: description of use
+-   ...
 
 **If there's anything else you would like to disclose about how your project
 relied on external code, expertise, or anything else, please disclose that

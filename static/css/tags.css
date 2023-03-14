@@ -4,23 +4,23 @@
 .picked-tags,
 #review-picked-tags,
 #review-unpicked-tags {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  user-select: none;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    user-select: none;
 }
 
 .picked {
-  background-color: var(--teal);
+    background-color: var(--teal);
 }
 
 .unpicked {
-  background-color: var(--grey);
+    background-color: var(--grey);
 }
 
 .tag {
-  color: white;
-  margin: 2px;
-  padding: 0.5em;
-  border-radius: 5px;
+    color: white;
+    margin: 2px;
+    padding: 0.5em;
+    border-radius: 5px;
 }

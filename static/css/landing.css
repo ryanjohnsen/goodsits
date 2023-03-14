@@ -1,169 +1,169 @@
 @keyframes fadeIn {
-  0% {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-size: cover;
-  background-position: center;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
-    url(/static/images/hero.jpg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
+        url(/static/images/hero.jpg);
 
-  /* parallax */
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 75%;
-  text-align: center;
+    /* parallax */
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 75%;
+    text-align: center;
 }
 
 .hero-header {
-  animation: fadeIn 1s ease-out;
-  letter-spacing: -0.05em;
-  font-weight: bolder;
-  font-size: 4rem;
-  margin: 0.25em;
+    animation: fadeIn 1s ease-out;
+    letter-spacing: -0.05em;
+    font-weight: bolder;
+    font-size: 4rem;
+    margin: 0.25em;
 
-  background-image: linear-gradient(45deg, var(--green), var(--light-blue));
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+    background-image: linear-gradient(45deg, var(--green), var(--light-blue));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
 .title {
-  display: flex;
-  align-items: top;
-  transform: translateX(-10em);
+    display: flex;
+    align-items: top;
+    transform: translateX(-10em);
 }
 
 /* you could do this in js to be cleaner */
 
 .rotating-text span {
-  animation: rotation 12s linear 0s infinite;
-  letter-spacing: -0.05em;
-  font-weight: bolder;
-  font-size: 4rem;
-  margin: 0;
-  width: 6em;
-  text-align: left;
+    animation: rotation 12s linear 0s infinite;
+    letter-spacing: -0.05em;
+    font-weight: bolder;
+    font-size: 4rem;
+    margin: 0;
+    width: 6em;
+    text-align: left;
 
-  background-image: linear-gradient(45deg, var(--green), var(--light-blue));
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
+    background-image: linear-gradient(45deg, var(--green), var(--light-blue));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
 }
 
 .rotating-text span:nth-child(1) {
-  animation-delay: 4s;
+    animation-delay: 4s;
 }
 .rotating-text span:nth-child(2) {
-  animation-delay: 8s;
+    animation-delay: 8s;
 }
 /* a little jank */
 
 @keyframes rotation {
-  0% {
-    opacity: 0;
-  }
-  5% {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-  10% {
-    opacity: 1;
-    transform: translateY(16px);
-  }
-  25% {
-    opacity: 1;
-    transform: translateY(16px);
-  }
-  30% {
-    opacity: 0;
-    -moz-transform: translateY(50px);
-  }
-  100% {
-    opacity: 0;
-  }
+    0% {
+        opacity: 0;
+    }
+    5% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(16px);
+    }
+    25% {
+        opacity: 1;
+        transform: translateY(16px);
+    }
+    30% {
+        opacity: 0;
+        -moz-transform: translateY(50px);
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 .sub-hero {
-  animation: fadeIn 1s ease-out 1.25s both;
-  color: white;
-  font-size: 1.5rem;
-  margin: 0;
+    animation: fadeIn 1s ease-out 1.25s both;
+    color: white;
+    font-size: 1.5rem;
+    margin: 0;
 }
 
 .main {
-  background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='50' fill='%2390EE91'/></svg>")
-      no-repeat calc(-30vw / 6) 25vh,
-    url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='50' fill='%23CAEEC2'/></svg>")
-      no-repeat 75vw calc(-30vw / 2);
-  background-size: 30vw, 30vw;
-  width: 100%;
-  height: 45%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+    background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='50' fill='%2390EE91'/></svg>")
+            no-repeat calc(-30vw / 6) 25vh,
+        url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='50' fill='%23CAEEC2'/></svg>")
+            no-repeat 75vw calc(-30vw / 2);
+    background-size: 30vw, 30vw;
+    width: 100%;
+    height: 45%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .search {
-  margin-top: 3%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
+    margin-top: 3%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
 }
 
 .search > h1 {
-  color: black;
+    color: black;
 }
 
 .search-form {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .bar {
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  border: 2px solid black;
-  width: 40%;
-  font-size: 1.25rem;
-  height: 4rem;
-  border-radius: 20px;
-  padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: 2px solid black;
+    width: 40%;
+    font-size: 1.25rem;
+    height: 4rem;
+    border-radius: 20px;
+    padding: 0 0.5rem;
 }
 
 .bar > input {
-  background: transparent;
-  flex: 1;
-  border: 0;
-  outline: none;
-  padding: 0.5rem;
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    padding: 0.5rem;
 }
 
 .bar > button > img {
-  width: 2rem;
+    width: 2rem;
 }
 
 .bar > button {
-  width: 3rem;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
+    width: 3rem;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
 }
