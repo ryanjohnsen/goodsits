@@ -70,7 +70,7 @@ p {
 }
 
 .rating-upper {
-    color: #FFD700;
+    color: #ffd700;
     padding: 0;
     position: absolute;
     z-index: 0;
@@ -113,14 +113,13 @@ p {
 
 .progress-bar {
     height: 100%;
-    background-color: #FFD700;
+    background-color: #ffd700;
     width: 18%;
 }
 
 #loc-info-inner {
     padding-bottom: 1rem;
     border-radius: 1rem;
-    
 }
 
 /* colors: https://coolors.co/ede3e4-e7dfe8-e4dee4-cabfc5-af9fa5-aa9ca0-a4989a */
@@ -133,7 +132,7 @@ p {
 #img-container {
     display: flex;
     justify-content: center;
-    background-color: #E6E6E6;
+    background-color: #e6e6e6;
     border-radius: 1em;
     margin: 0 1.5em 0 3em;
     height: 40vh;
@@ -193,7 +192,13 @@ p {
     z-index: 10;
 }
 
-.save-button, .exit-button, .delete-button, .edit-text, .edit-tags, .edit-stars, .edit-tags {
+.save-button,
+.exit-button,
+.delete-button,
+.edit-text,
+.edit-tags,
+.edit-stars,
+.edit-tags {
     display: none;
 }
 
@@ -216,6 +221,7 @@ p {
     gap: 0.5rem;
 }
 
-.picked-tags, .unpicked-tags {
+.picked-tags,
+.unpicked-tags {
     margin-top: 0.5em;
 }

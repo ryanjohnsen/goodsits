@@ -6,7 +6,6 @@
     margin: 1em;
 }
 
-
 /*
 Close button style
 */
@@ -22,9 +21,7 @@ Close button style
 }
 .close:hover {
     opacity: 1;
-} 
-
-
+}
 
 /* modal overall Style */
 #modal {
@@ -32,7 +29,8 @@ Close button style
     top: 15%;
     right: 28%;
     max-width: 40%;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     background-color: whitesmoke;
     border-radius: 1em;
     padding: 1.5em;
@@ -72,26 +70,25 @@ Close button style
     align-items: start;
 }
 
-
 .star-rate {
-    user-select: none; 
+    user-select: none;
     margin: -1em -1em 0em -1em;
 }
 
 /*star label holder style*/
-.star-rate:not(:checked)>label {
+.star-rate:not(:checked) > label {
     overflow: hidden;
     white-space: nowrap;
     cursor: pointer;
     float: right;
     width: 0.85em;
     font-size: 40px;
-    color: var(--grey);/* empty star color */    
+    color: var(--grey); /* empty star color */
 }
 
 /*star style*/
-.star-rate:not(:checked)>label::before {
-    content: '★ ';
+.star-rate:not(:checked) > label::before {
+    content: "★ ";
     position: relative;
     padding-bottom: 0.5rem;
 }
@@ -100,20 +97,20 @@ Close button style
 remove input little circle
 found it here: https://stackoverflow.com/questions/34286322/remove-border-circle-from-radio-input
 */
-.star-rate>input {
+.star-rate > input {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 }
 
 /* start color once checked */
-.star-rate>input:checked~label {
-    color: #FFD700;
+.star-rate > input:checked ~ label {
+    color: #ffd700;
 }
 
 /*star color when hovering over them*/
-.star-rate:not(:checked)>label:hover,
-.star-rate:not(:checked)>label:hover~label {
+.star-rate:not(:checked) > label:hover,
+.star-rate:not(:checked) > label:hover ~ label {
     color: #d3b71b;
 }
 

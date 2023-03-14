@@ -1,34 +1,33 @@
-
 @font-face {
     font-family: "Open Sans";
-    src: url('/static/font/os_med.ttf');
+    src: url("/static/font/os_med.ttf");
     font-weight: 400;
-    font-style: normal
-}  
+    font-style: normal;
+}
 
 @font-face {
     font-family: "Open Sans";
-    src: url('/static/font/os_bold.ttf');
+    src: url("/static/font/os_bold.ttf");
     font-weight: 700;
     font-style: bold;
-}  
+}
 
 @font-face {
     font-family: "Open Sans";
-    src: url('/static/font/os_xbold.ttf');
+    src: url("/static/font/os_xbold.ttf");
     font-weight: 900;
     font-style: bolder;
-}  
+}
 
 :root {
-    --light-grey: #F3F3F3;
+    --light-grey: #f3f3f3;
     --grey: #979799;
     --light-blue: #91d5cd;
-    --blue: #719BE3;
+    --blue: #719be3;
     --dark-blue: #587892;
-    --green: #95E47F;
+    --green: #95e47f;
     --dark-green: #59834d;
-    --teal: #5CCCBF;
+    --teal: #5cccbf;
     --dark-teal: #4eaca1;
 }
 
@@ -36,7 +35,9 @@ html {
     font-family: "Open Sans", sans-serif !important;
 }
 
-html, body, #content {
+html,
+body,
+#content {
     height: 100%;
 }
 

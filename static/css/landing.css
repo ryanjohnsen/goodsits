@@ -1,11 +1,11 @@
 @keyframes fadeIn {
     0% {
-      transform: translateY(-100%);
-      opacity: 0;
+        transform: translateY(-100%);
+        opacity: 0;
     }
     100% {
-      transform: translateY(0);
-      opacity: 1;
+        transform: translateY(0);
+        opacity: 1;
     }
 }
 
@@ -16,16 +16,15 @@
     align-items: center;
     background-size: cover;
     background-position: center;
-    background-image: 
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
         url(/static/images/hero.jpg);
 
     /* parallax */
     background-attachment: fixed;
     background-repeat: no-repeat;
-    width: 100%;    
+    width: 100%;
     height: 75%;
-    text-align: center; 
+    text-align: center;
 }
 
 .hero-header {
@@ -35,7 +34,7 @@
     font-size: 4rem;
     margin: 0.25em;
 
-    background-image: linear-gradient(45deg, var(--green), var(--light-blue));  
+    background-image: linear-gradient(45deg, var(--green), var(--light-blue));
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
@@ -58,30 +57,46 @@
     width: 6em;
     text-align: left;
 
-    background-image: linear-gradient(45deg, var(--green), var(--light-blue));  
+    background-image: linear-gradient(45deg, var(--green), var(--light-blue));
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
 }
 
-.rotating-text span:nth-child(1){
-	animation-delay: 4s;
+.rotating-text span:nth-child(1) {
+    animation-delay: 4s;
 }
-.rotating-text span:nth-child(2){
-	animation-delay: 8s;
+.rotating-text span:nth-child(2) {
+    animation-delay: 8s;
 }
 /* a little jank */
 
 @keyframes rotation {
-    0% { opacity: 0; }
-	5% { opacity: 0; transform: translateY(-50px); }
-	10% { opacity: 1; transform: translateY(16px); }
-	25% { opacity: 1; transform: translateY(16px); }
-	30% { opacity: 0; -moz-transform: translateY(50px); }
-	100% { opacity: 0; }
+    0% {
+        opacity: 0;
+    }
+    5% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(16px);
+    }
+    25% {
+        opacity: 1;
+        transform: translateY(16px);
+    }
+    30% {
+        opacity: 0;
+        -moz-transform: translateY(50px);
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 .sub-hero {
@@ -92,8 +107,10 @@
 }
 
 .main {
-    background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='50' fill='%2390EE91'/></svg>") no-repeat calc(-30vw / 6) 25vh,
-                url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='50' fill='%23CAEEC2'/></svg>") no-repeat 75vw calc(-30vw / 2);
+    background: url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='50' fill='%2390EE91'/></svg>")
+            no-repeat calc(-30vw / 6) 25vh,
+        url("data:image/svg+xml;utf8,<svg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'><circle cx='50' cy='50' r='50' fill='%23CAEEC2'/></svg>")
+            no-repeat 75vw calc(-30vw / 2);
     background-size: 30vw, 30vw;
     width: 100%;
     height: 45%;

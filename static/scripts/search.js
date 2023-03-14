@@ -7,8 +7,7 @@ function showFilters() {
 
 function hideFilters() {
     const filters = document.getElementById("filter-modal");
-    if (filters.style.display == "none")
-        return;
+    if (filters.style.display == "none") return;
 
     filters.style.display = "none";
     searchWithFilters();
@@ -30,7 +29,7 @@ function addCard(location) {
     // Have to be careful about cross-site scripting here. Right now, title and hours are escaped on the backend.
     let tags = "";
     if (location.tags != null) {
-        location.tags.forEach(tag => {
+        location.tags.forEach((tag) => {
             tags += `<div class="picked tag">${tag}</div>`;
         });
     }
@@ -43,8 +42,15 @@ function addCard(location) {
                 <div class="subtitle">${location.hours}</div>
             </div>
             <div class="details">
-                <div class="proximity">📌 ${location.distance == null ? "?" : location.distance.toFixed(1)} miles away</div>
-                <div class="rating">⭐ ${(location.rating == null ? 5.0 : parseFloat(location.rating)).toFixed(1)} / 5.0</div>
+                <div class="proximity">📌 ${
+                    location.distance == null
+                        ? "?"
+                        : location.distance.toFixed(1)
+                } miles away</div>
+                <div class="rating">⭐ ${(location.rating == null
+                    ? 5.0
+                    : parseFloat(location.rating)
+                ).toFixed(1)} / 5.0</div>
             </div>
             <div class="picked-tags">${tags}</div>
             </div>
@@ -54,7 +60,7 @@ function addCard(location) {
         </div>
         </a>
     `;
-    let div = document.createElement('div');
+    let div = document.createElement("div");
     div.innerHTML = card;
     document.getElementById("cards-container").appendChild(div);
 }
@@ -77,41 +83,49 @@ async function search(loc, text, tags, minRating, proximity) {
     lastTags = tags;
     lastMinRating = minRating;
     lastProximity = proximity;
-    fetch("/api/search?" + new URLSearchParams({
-        location: loc.lat+ "," + loc.lng,
-        text: text,
-        miles: proximity,
-        minRating: minRating,
-        tags: tags.join(",")
-    })).then(response => response.json()).then(data => {
-        clearCards();
-        data.forEach(function(ele) {
-            addCard(ele)
-        });
+    fetch(
+        "/api/search?" +
+            new URLSearchParams({
+                location: loc.lat + "," + loc.lng,
+                text: text,
+                miles: proximity,
+                minRating: minRating,
+                tags: tags.join(","),
+            })
+    )
+        .then((response) => response.json())
+        .then((data) => {
+            clearCards();
+            data.forEach(function (ele) {
+                addCard(ele);
+            });
 
-        displayPoints(data.filter(ele => ele.location != null).map(ele => {
-            return {
-                id: ele.id,
-                point: pointToLatLng(ele.location)
-            };
-        }));
-    });
+            displayPoints(
+                data
+                    .filter((ele) => ele.location != null)
+                    .map((ele) => {
+                        return {
+                            id: ele.id,
+                            point: pointToLatLng(ele.location),
+                        };
+                    })
+            );
+        });
 }
 
 let searchBar = document.getElementById("search");
-searchBar.addEventListener("keydown", event => {
-    if (event.key != "Enter")
-        return;
+searchBar.addEventListener("keydown", (event) => {
+    if (event.key != "Enter") return;
 
     searchWithFilters();
 });
 
-let searchBarBtn = document.getElementById("search-button")
-searchBarBtn.addEventListener("click", event => {
+let searchBarBtn = document.getElementById("search-button");
+searchBarBtn.addEventListener("click", (event) => {
     searchWithFilters();
 });
 
-const params = (new URL(document.location)).searchParams;
+const params = new URL(document.location).searchParams;
 const title = params.get("title");
 if (title != null) {
     searchBar.value = lastText = title;
@@ -121,13 +135,25 @@ if (title != null) {
     search(curLoc, lastText, lastTags, lastMinRating, lastProximity);
 }
 
-navigator.geolocation.getCurrentPosition(function (location) {
-    curLoc = { lat: location.coords.latitude, lng: location.coords.longitude }
-    search(curLoc, lastText, lastTags, lastMinRating, lastProximity);
-}, function (positionError) { /* "Error Handling" */ } );
-
-window.addEventListener('click', function (event){
-    if (!document.getElementById("filter").contains(event.target)) {
-        hideFilters();
+navigator.geolocation.getCurrentPosition(
+    function (location) {
+        curLoc = {
+            lat: location.coords.latitude,
+            lng: location.coords.longitude,
+        };
+        search(curLoc, lastText, lastTags, lastMinRating, lastProximity);
+    },
+    function (positionError) {
+        /* "Error Handling" */
     }
-}, false);
+);
+
+window.addEventListener(
+    "click",
+    function (event) {
+        if (!document.getElementById("filter").contains(event.target)) {
+            hideFilters();
+        }
+    },
+    false
+);
