@@ -1,124 +1,121 @@
 #hideReviewForm {
-    display: none;
+  display: none;
 }
 
 #modalForm {
-    margin: 1em;
+  margin: 1em;
 }
-
 
 /*
 Close button style
 */
 
 .close {
-    position: absolute;
-    right: 1.5em;
-    top: 1em;
-    font-size: 30px;
-    opacity: 0.4;
-    cursor: pointer;
-    user-select: none;
+  position: absolute;
+  right: 1.5em;
+  top: 1em;
+  font-size: 30px;
+  opacity: 0.4;
+  cursor: pointer;
+  user-select: none;
 }
 .close:hover {
-    opacity: 1;
-} 
-
-
+  opacity: 1;
+}
 
 /* modal overall Style */
 #modal {
-    position: fixed;
-    top: 15%;
-    right: 28%;
-    max-width: 40%;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-    background-color: whitesmoke;
-    border-radius: 1em;
-    padding: 1.5em;
-    z-index: 9999;
+  position: fixed;
+  top: 15%;
+  right: 28%;
+  max-width: 40%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  background-color: whitesmoke;
+  border-radius: 1em;
+  padding: 1.5em;
+  z-index: 9999;
 }
 
 /* tag style for review model */
 .reviewTags {
-    color: #ee9090;
+  color: #ee9090;
 }
 
 /* Exit button style */
 #modal .exitBtn {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .subtitle {
-    margin-bottom: 0.5em !important;
+  margin-bottom: 0.5em !important;
 }
 
 .g-custom {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .legend-custom {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-right: 1em;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-right: 1em;
 }
 
 /* start rating styling */
 
 .stars {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 
-
 .star-rate {
-    user-select: none; 
-    margin: -1em -1em 0em -1em;
+  user-select: none;
+  margin: -1em -1em 0em -1em;
 }
 
 /*star label holder style*/
-.star-rate:not(:checked)>label {
-    overflow: hidden;
-    white-space: nowrap;
-    cursor: pointer;
-    float: right;
-    width: 0.85em;
-    font-size: 40px;
-    color: var(--grey);/* empty star color */    
+.star-rate:not(:checked) > label {
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  float: right;
+  width: 0.85em;
+  font-size: 40px;
+  color: var(--grey); /* empty star color */
 }
 
 /*star style*/
-.star-rate:not(:checked)>label::before {
-    content: '★ ';
-    position: relative;
-    padding-bottom: 0.5rem;
+.star-rate:not(:checked) > label::before {
+  content: "★ ";
+  position: relative;
+  padding-bottom: 0.5rem;
 }
 
 /*
 remove input little circle
 found it here: https://stackoverflow.com/questions/34286322/remove-border-circle-from-radio-input
 */
-.star-rate>input {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+.star-rate > input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 /* start color once checked */
-.star-rate>input:checked~label {
-    color: #FFD700;
+.star-rate > input:checked ~ label {
+  color: #ffd700;
 }
 
 /*star color when hovering over them*/
-.star-rate:not(:checked)>label:hover,
-.star-rate:not(:checked)>label:hover~label {
-    color: #d3b71b;
+.star-rate:not(:checked) > label:hover,
+.star-rate:not(:checked) > label:hover ~ label {
+  color: #d3b71b;
 }
 
 .submit-button {
-    margin-top: 1em;
-    background-color: var(--dark-green);
-    color: white;
+  margin-top: 1em;
+  background-color: var(--dark-green);
+  color: white;
 }

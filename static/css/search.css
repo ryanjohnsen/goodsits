@@ -9,28 +9,30 @@
   box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
 }
 
-.map, .cards {
+.map,
+.cards {
   height: 100vh;
 }
 
-.filter, .cards {
+.filter,
+.cards {
   border-bottom: solid var(--light-grey) 2px;
 }
 
 .search-bar {
   display: flex;
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
   padding: 1em 2em;
 }
 
 .search-bar button {
   background: none;
-	color: inherit;
-	border: none;
-	padding: 0;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
   margin-left: 1em;
 }
 

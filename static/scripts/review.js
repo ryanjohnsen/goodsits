@@ -7,7 +7,7 @@ function edit(event) {
   changeReviewVisibility(rev_id, true);
 
   // TODO: show the ratings here
-  const rating = document.getElementById("rev-rating-"+rev_id).textContent;
+  const rating = document.getElementById("rev-rating-" + rev_id).textContent;
 
   // TODO: show the stars here
 }
@@ -16,9 +16,8 @@ function exit(event) {
   const rev_id = event.currentTarget.rev_id;
 
   // TODO: clear all info in the edit review attempt
-  
-  
-  //stars will readjust by themselves  
+
+  //stars will readjust by themselves
   changeButtonVisibility(rev_id, false);
   changeReviewVisibility(rev_id, false);
 }
@@ -26,23 +25,27 @@ function exit(event) {
 async function save(event) {
   const rev_id = event.currentTarget.rev_id;
   const rev_user_id = event.currentTarget.rev_user_id;
-  const review = document.getElementById(`edit-text-${rev_id}`).value; 
-  const tags = getPickedTags(`picked-tags-input-${rev_id}`).join(',');
+  const review = document.getElementById(`edit-text-${rev_id}`).value;
+  const tags = getPickedTags(`picked-tags-input-${rev_id}`).join(",");
 
   changeButtonVisibility(rev_id, false);
   changeReviewVisibility(rev_id, false);
 
   // Done: get the star rating value somehow
-  let newRating = 0 ;
-  for( let i=1; i <= 5; i++ ){
-    if(document.getElementById(`star-${i}-`+rev_id).checked){
-      newRating= i;
+  let newRating = 0;
+  for (let i = 1; i <= 5; i++) {
+    if (document.getElementById(`star-${i}-` + rev_id).checked) {
+      newRating = i;
     }
   }
 
   document.getElementById(`rev-rating-${rev_id}`).textContent = newRating;
-  document.getElementById(`stars-${rev_id}`).querySelector(".rating-upper").style.width = `${parseFloat(newRating) / 5 * 100}%`;
-  const listOfRatings = document.querySelectorAll('.rev-number');
+  document
+    .getElementById(`stars-${rev_id}`)
+    .querySelector(".rating-upper").style.width = `${
+    (parseFloat(newRating) / 5) * 100
+  }%`;
+  const listOfRatings = document.querySelectorAll(".rev-number");
   let ratings = 0;
   for (let i = 1; i < listOfRatings.length; i++) {
     ratings += parseFloat(listOfRatings[i].textContent);
@@ -50,13 +53,17 @@ async function save(event) {
   length = Math.max(listOfRatings.length - 1, 1);
   ratings = (ratings / length).toFixed(1);
   document.getElementById("rating-number").textContent = ratings;
-  document.getElementById('rating').querySelector('.rating-upper').style.width = `${parseFloat(ratings) / 5 * 100}%`; 
+  document
+    .getElementById("rating")
+    .querySelector(".rating-upper").style.width = `${
+    (parseFloat(ratings) / 5) * 100
+  }%`;
   document.getElementById(rev_id).querySelector(`.text`).textContent = review;
 
   let tagsDiv = document.getElementById(`tags-${rev_id}`);
   tagsDiv.innerHTML = "";
   if (tags != "") {
-    tags.split(",").forEach( ele => {
+    tags.split(",").forEach((ele) => {
       let tag = document.createElement("div");
       tag.classList.add("picked");
       tag.classList.add("tag");
@@ -66,10 +73,10 @@ async function save(event) {
   }
 
   averageRating();
-  
+
   const locId = location.href.split("/").pop();
   const response = await fetch(`/review/${rev_id}/edit`, {
-    method: 'POST',
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
@@ -78,8 +85,8 @@ async function save(event) {
       rating: newRating,
       review: review,
       tags: tags,
-      rev_user_id: rev_user_id
-    })
+      rev_user_id: rev_user_id,
+    }),
   });
 
   if (!response.ok) {
@@ -93,7 +100,7 @@ async function remove(event) {
   const locId = location.href.split("/").pop();
 
   document.getElementById(rev_id).remove();
-  const listOfRatings = document.querySelectorAll('.rev-number');
+  const listOfRatings = document.querySelectorAll(".rev-number");
   let ratings = 0;
   for (let i = 1; i < listOfRatings.length; i++) {
     ratings += parseFloat(listOfRatings[i].textContent);
@@ -101,15 +108,19 @@ async function remove(event) {
   length = Math.max(listOfRatings.length - 1, 1);
   ratings = (ratings / length).toFixed(1);
   document.getElementById("rating-number").textContent = ratings;
-  document.getElementById('rating').querySelector('.rating-upper').style.width = `${parseFloat(ratings) / 5 * 100}%`; 
+  document
+    .getElementById("rating")
+    .querySelector(".rating-upper").style.width = `${
+    (parseFloat(ratings) / 5) * 100
+  }%`;
   averageRating();
-  
+
   const response = await fetch(`/review/${rev_id}/delete`, {
-    method: 'POST',
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({})
+    body: JSON.stringify({}),
   });
 
   if (!response.ok) {
@@ -133,18 +144,20 @@ function changeButtonVisibility(rev_id, edit_mode = False) {
 function changeReviewVisibility(rev_id, edit_mode = false) {
   const div = document.getElementById(rev_id);
   const labels = ["text", "picked-tags", "stars"];
-  labels.forEach(label => {
+  labels.forEach((label) => {
     const data = document.getElementById(rev_id).querySelector(`.${label}`);
-    const editable_data = document.getElementById("edit-" + label + "-" + rev_id);
+    const editable_data = document.getElementById(
+      "edit-" + label + "-" + rev_id
+    );
     data.style.display = edit_mode ? "none" : "flex";
     editable_data.style.display = edit_mode ? "block" : "none";
   });
 
   //Done: display current stars:
-  const rating = document.getElementById("rev-rating-"+rev_id).textContent;//current rating
-  // 
-  for( let i=1; i <= rating; i++ ){
-    document.getElementById(`star-${i}-`+rev_id).checked = true;
+  const rating = document.getElementById("rev-rating-" + rev_id).textContent; //current rating
+  //
+  for (let i = 1; i <= rating; i++) {
+    document.getElementById(`star-${i}-` + rev_id).checked = true;
   }
 }
 
@@ -154,12 +167,11 @@ function hideEdit(rev_id) {
   edit_btn.style.display = "none";
 }
 
-
-document.querySelectorAll('.review').forEach(group => {
+document.querySelectorAll(".review").forEach((group) => {
   const rev_id = group.id;
   const labels = ["edit-button", "exit-button", "save-button", "delete-button"];
   const funcs = [edit, exit, save, remove];
-  
+
   const div = document.getElementById(rev_id);
 
   // user can only edit their own reviews

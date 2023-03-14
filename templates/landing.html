@@ -1,32 +1,33 @@
 {% extends "base.html" %}
-
-{% block html_head %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/landing.css')}}">
-{% endblock %}
-
+{% block html_head %}<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/landing.css') }}"/>{% endblock %}
 {% block content %}
-<div class="hero">
-    <div class="title">
-        <h1 class="hero-header">Find your place to sit in</h1>
-        <div class="rotating-text">
-            <span>Keller Hall</span>
-            <span>Lind Hall</span>
-            <span>West Bank</span>
+    <div class="hero">
+        <div class="title">
+            <h1 class="hero-header">Find your place to sit in</h1>
+            <div class="rotating-text">
+                <span>Keller Hall</span>
+                <span>Lind Hall</span>
+                <span>West Bank</span>
+            </div>
+        </div>
+        <p class="sub-hero">Discover comfort in every corner of the world.</p>
+    </div>
+    <div class="main">
+        <div class="search">
+            <h1>Get Started</h1>
+            <form action="/search" method="GET" class="search-form">
+                <div class="bar">
+                    <input type="text"
+                           name="title"
+                           placeholder="Basement of Keller Hall"
+                           required/>
+                    <!-- Icon from https://fonts.google.com/icons-->
+                    <button type="submit">
+                        <img src="{{ url_for('static', filename='images/search.png') }}" />
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-    <p class="sub-hero">Discover comfort in every corner of the world.</p>
-</div>
-
-<div class="main">
-    <div class="search">
-        <h1>Get Started</h1>
-        <form action="/search" method="GET" class="search-form">
-            <div class="bar">
-                <input type="text" name="title" placeholder="Basement of Keller Hall" required>
-                <!-- Icon from https://fonts.google.com/icons-->
-                <button type="submit"><img src="{{url_for('static', filename='images/search.png')}}"></button>
-            </div>
-        </form>
-    </div>    
-</div>
 {% endblock %}

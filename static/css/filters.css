@@ -1,58 +1,58 @@
 #filter-modal {
-    display: none;
+  display: none;
 }
 
 /* 
     modal overall Style
 */
-#modal{
-    margin-left: 1.5em;
-    margin-top: -1em;
-    position: absolute;
-    max-width: 40%;
-    background-color: white;
-    z-index: 1;
-    border: 1px solid var(--grey);
+#modal {
+  margin-left: 1.5em;
+  margin-top: -1em;
+  position: absolute;
+  max-width: 40%;
+  background-color: white;
+  z-index: 1;
+  border: 1px solid var(--grey);
 }
 
 .accordion-content {
-    margin: 0.5em;
+  margin: 0.5em;
 }
 
 .filter-label-container {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    background-color: var(--light-grey);
-    padding: 0.5em 1em;
-    border-top: 1px solid var(--grey);
-    border-bottom: 1px solid var(--grey);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  background-color: var(--light-grey);
+  padding: 0.5em 1em;
+  border-top: 1px solid var(--grey);
+  border-bottom: 1px solid var(--grey);
 }
 
 .filter-header {
-    background-color: white;
-    border-top: 0px;
-    border-bottom: 0px;
+  background-color: white;
+  border-top: 0px;
+  border-bottom: 0px;
 }
 
 .filter-label {
-    font-size: medium;
+  font-size: medium;
 }
 
 .accordion {
-    max-height: 500px;
-    overflow: hidden;
-    transition: max-height 0.5s;
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 0.5s;
 }
 
 .accordion-text {
-    display: inline-flex;
-    align-items: center;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    color: black;
+  display: inline-flex;
+  align-items: center;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  color: black;
 }
 
 .arrow {
-    user-select: none;
+  user-select: none;
 }

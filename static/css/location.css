@@ -4,218 +4,224 @@
      box-sizing: border-box; 
 } */
 body {
-    background-color: whitesmoke;
+  background-color: whitesmoke;
 }
 
 hr {
-    color: var(--light-grey);
-    margin-bottom: 2em;
+  color: var(--light-grey);
+  margin-bottom: 2em;
 }
 
 p {
-    line-height: 125%;
+  line-height: 125%;
 }
 
 #gist h2 {
-    color: var(--dark-green);
+  color: var(--dark-green);
 }
 
 #main-content {
-    margin: 2em;
+  margin: 2em;
 }
 
 #title h1 {
-    font-size: 2.5rem;
-    margin: 1em 1em 0 1em;
-    background-clip: text;
-    -webkit-background-clip: text;
+  font-size: 2.5rem;
+  margin: 1em 1em 0 1em;
+  background-clip: text;
+  -webkit-background-clip: text;
 }
 
 #loc-info {
-    border-radius: 1rem;
-    background-color: white;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    /* background-color: antiquewhite; */
+  border-radius: 1rem;
+  background-color: white;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  /* background-color: antiquewhite; */
 }
 
 #rating {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 #rating-number {
-    font-size: 4rem;
-    text-align: center;
-    margin: 0;
-    /* padding: 1rem; */
-    /* background-color: lightgray; */
+  font-size: 4rem;
+  text-align: center;
+  margin: 0;
+  /* padding: 1rem; */
+  /* background-color: lightgray; */
 }
 
 #addBtn {
-    background-color: var(--dark-green);
+  background-color: var(--dark-green);
 }
 
 .rating {
-    display: inline-block;
-    unicode-bidi: bidi-override;
-    color: lightgray;
-    font-size: 3vh;
-    height: 3vh;
-    width: auto;
-    margin: 0;
-    position: relative;
-    padding: 0;
+  display: inline-block;
+  unicode-bidi: bidi-override;
+  color: lightgray;
+  font-size: 3vh;
+  height: 3vh;
+  width: auto;
+  margin: 0;
+  position: relative;
+  padding: 0;
 }
 
 .rating-upper {
-    color: #FFD700;
-    padding: 0;
-    position: absolute;
-    z-index: 0;
-    display: flex;
-    top: 0;
-    left: 0;
-    overflow: hidden;
+  color: #ffd700;
+  padding: 0;
+  position: absolute;
+  z-index: 0;
+  display: flex;
+  top: 0;
+  left: 0;
+  overflow: hidden;
 }
 
 .rating-lower {
-    padding: 0;
-    display: flex;
-    z-index: 0;
+  padding: 0;
+  display: flex;
+  z-index: 0;
 }
 
 .single-progress-bar {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 0.69rem;
-    margin-left: 0.69rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 0.69rem;
+  margin-left: 0.69rem;
 }
 
 .rating-text {
-    margin-right: 0.5rem;
-    width: fit-content;
+  margin-right: 0.5rem;
+  width: fit-content;
 }
 
 .rating-value {
-    margin-left: 0.69rem;
+  margin-left: 0.69rem;
 }
 
 .progress {
-    height: 20px;
-    width: 69%;
-    background-color: #e0e0de;
-    border-radius: 4px;
-    overflow: hidden;
+  height: 20px;
+  width: 69%;
+  background-color: #e0e0de;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .progress-bar {
-    height: 100%;
-    background-color: #FFD700;
-    width: 18%;
+  height: 100%;
+  background-color: #ffd700;
+  width: 18%;
 }
 
 #loc-info-inner {
-    padding-bottom: 1rem;
-    border-radius: 1rem;
-    
+  padding-bottom: 1rem;
+  border-radius: 1rem;
 }
 
 /* colors: https://coolors.co/ede3e4-e7dfe8-e4dee4-cabfc5-af9fa5-aa9ca0-a4989a */
 #gist {
-    /* background-color: #E4DEE4; */
-    padding: 1rem 1rem;
-    margin: 1rem;
+  /* background-color: #E4DEE4; */
+  padding: 1rem 1rem;
+  margin: 1rem;
 }
 
 #img-container {
-    display: flex;
-    justify-content: center;
-    background-color: #E6E6E6;
-    border-radius: 1em;
-    margin: 0 1.5em 0 3em;
-    height: 40vh;
+  display: flex;
+  justify-content: center;
+  background-color: #e6e6e6;
+  border-radius: 1em;
+  margin: 0 1.5em 0 3em;
+  height: 40vh;
 }
 
 #img-container img {
-    object-fit: fill;
-    height: 100%;
+  object-fit: fill;
+  height: 100%;
 }
 
 #add-review-button {
-    padding: 1.5rem;
-    display: flex;
-    justify-content: flex-end;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
 }
 
 #reviews {
-    /* background-color: #E4DEE4; */
-    /* padding: 1rem 1rem; */
-    margin: 0 1.5em 0 3em;
-    padding: 0.5rem 0;
-    padding-bottom: 2rem;
-    margin-bottom: 2rem;
+  /* background-color: #E4DEE4; */
+  /* padding: 1rem 1rem; */
+  margin: 0 1.5em 0 3em;
+  padding: 0.5rem 0;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .review {
-    background-color: white;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    margin: 2rem 0;
-    border-radius: 1rem;
-    padding: 1rem 1rem;
+  background-color: white;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  margin: 2rem 0;
+  border-radius: 1rem;
+  padding: 1rem 1rem;
 }
 
 #rev-rating {
-    font-size: 1.25rem;
-    font-weight: bold;
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 
 .edit {
-    text-align: center;
+  text-align: center;
 }
 
 .edit button {
-    float: right;
-    border: 0;
-    border-radius: 0.25rem;
-    padding: 0.5em;
-    margin: 0.25rem;
-    cursor: pointer;
+  float: right;
+  border: 0;
+  border-radius: 0.25rem;
+  padding: 0.5em;
+  margin: 0.25rem;
+  cursor: pointer;
 }
 
 #fade-out-container {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 10;
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 10;
 }
 
-.save-button, .exit-button, .delete-button, .edit-text, .edit-tags, .edit-stars, .edit-tags {
-    display: none;
+.save-button,
+.exit-button,
+.delete-button,
+.edit-text,
+.edit-tags,
+.edit-stars,
+.edit-tags {
+  display: none;
 }
 
 .edit-text {
-    width: 100%;
+  width: 100%;
 }
 
 .text {
-    margin: 1em 0;
+  margin: 1em 0;
 }
 
 .stars {
-    display: flex;
-    flex-direction: row !important;
-    align-items: end !important;
+  display: flex;
+  flex-direction: row !important;
+  align-items: end !important;
 }
 
 .stars-edit {
-    padding: 0.25rem;
-    gap: 0.5rem;
+  padding: 0.25rem;
+  gap: 0.5rem;
 }
 
-.picked-tags, .unpicked-tags {
-    margin-top: 0.5em;
+.picked-tags,
+.unpicked-tags {
+  margin-top: 0.5em;
 }

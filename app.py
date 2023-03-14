@@ -9,32 +9,34 @@ from base64 import b64encode, b64decode
 from io import BytesIO
 from time import time
 import magic
-import db 
+import db
 
 app = Flask(__name__)
 with app.app_context():
-    db.setup() 
+    db.setup()
 app.secret_key = env.get("APP_SECRET_KEY")
 app.config["JSON_SORT_KEYS"] = False
 
 oauth = OAuth(app)
 oauth.register(
     "auth0",
-    client_id = env.get("AUTH0_CLIENT_ID"),
-    client_secret = env.get("AUTH0_CLIENT_SECRET"),
-    client_kwargs = {
+    client_id=env.get("AUTH0_CLIENT_ID"),
+    client_secret=env.get("AUTH0_CLIENT_SECRET"),
+    client_kwargs={
         "scope": "openid profile email",
     },
-    server_metadata_url = f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
+    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
 
-## Utility Authorization Decorator
+# Utility Authorization Decorator
+
+
 def requires_auth(func: Callable) -> Callable:
     @wraps(func)
     def decorator(*args, **kwargs) -> Response:
         if not session.get("user"):
             return redirect("/login")
-        
+
         if session["user"]["expires_at"] <= int(time()):
             tmp = session.get("referrer")
             session.clear()
@@ -44,19 +46,23 @@ def requires_auth(func: Callable) -> Callable:
         return func(*args, **kwargs)
     return decorator
 
-# Helps render page differently based of current authentication. 
+# Helps render page differently based of current authentication.
+
+
 def check_auth() -> dict:
     state = "logout" if session.get("user") else "login"
     return {"link": f"/{state}", "status": state.capitalize()}
 
-@app.route("/login", methods = ["GET"])
+
+@app.route("/login", methods=["GET"])
 def login() -> Response:
     session["referrer"] = request.referrer
     return oauth.auth0.authorize_redirect(
-        redirect_uri = url_for("callback", _external = True)
+        redirect_uri=url_for("callback", _external=True)
     )
 
-@app.route("/callback", methods = ["GET", "POST"])
+
+@app.route("/callback", methods=["GET", "POST"])
 def callback() -> Response:
     try:
         token = oauth.auth0.authorize_access_token()
@@ -65,25 +71,29 @@ def callback() -> Response:
     except:
         return redirect("/login")
 
-@app.route("/logout", methods = ["GET"])
+
+@app.route("/logout", methods=["GET"])
 def logout() -> Response:
     session.clear()
     return redirect(
         f"https://{env.get('AUTH0_DOMAIN')}/v2/logout?"
         + urlencode({
-                "returnTo": url_for("landing", _external = True),
-                "client_id": env.get("AUTH0_CLIENT_ID"),
-            },
-            quote_via = quote_plus,
+            "returnTo": url_for("landing", _external=True),
+            "client_id": env.get("AUTH0_CLIENT_ID"),
+        },
+            quote_via=quote_plus,
         )
     )
 
+
 @app.route("/")
 def landing() -> Response:
-    return render_template('landing.html', login = check_auth())
+    return render_template('landing.html', login=check_auth())
 
 # Returns back a image link to a entry in the database
-@app.route("/images/<int:image_id>", methods = ["GET"])
+
+
+@app.route("/images/<int:image_id>", methods=["GET"])
 def image(image_id: int) -> Response:
     binary = db.get_image(image_id)
     if (binary == None):
@@ -91,13 +101,15 @@ def image(image_id: int) -> Response:
 
     image = b64decode(binary)
 
-    mime = magic.from_buffer(image, mime = True)
+    mime = magic.from_buffer(image, mime=True)
     stream = BytesIO(image)
 
-    return send_file(stream, mimetype = mime)
+    return send_file(stream, mimetype=mime)
 
 # Endpoint for searching the top 10 location with filtered tags in a radius
-@app.route("/api/search", methods = ["GET"])
+
+
+@app.route("/api/search", methods=["GET"])
 def search_api() -> Response:
     location = request.args.get("location", "0,0")
     miles = request.args.get("miles")
@@ -105,7 +117,8 @@ def search_api() -> Response:
     text = request.args.get("text")
     min_rating = request.args.get("minRating")
 
-    locations, results = db.search_locations(location, text, miles, min_rating, tags), []
+    locations, results = db.search_locations(
+        location, text, miles, min_rating, tags), []
 
     for loc in locations:
         results.append({
@@ -117,23 +130,27 @@ def search_api() -> Response:
             "tags": loc[5],
             "rating": loc[6]
         })
-    
+
     return jsonify(results)
 
 # Renders the page for adding a location
+
+
 @app.route("/add")
 @requires_auth
 def add_location() -> Response:
-    return render_template('add_location.html', login = check_auth())
+    return render_template('add_location.html', login=check_auth())
 
 # The post to location endpoint that will add a location and its respective tags to the location and tag table.
 # Then will proceed to redirect to the location page of the added entry
-@app.route("/location", methods = ["POST"])
+
+
+@app.route("/location", methods=["POST"])
 @requires_auth
 def new_location() -> Response:
     # TODO: switch form to call js function to get var instead of just html form submit? maybe
     data = request.form
-    required_info = ["title", "description", "tags", "location"] #"user_id"]
+    required_info = ["title", "description", "tags", "location"]  # "user_id"]
     # optional_info = ["hours", "image"] (none values are okay)
     for key in required_info:
         if data[key] == None:
@@ -155,25 +172,31 @@ def new_location() -> Response:
     return redirect("/location/" + str(id))
 
 # The page the location at loc_id resides on along with all its respective reviews
-@app.route("/location/<int:loc_id>", methods = ["GET"])
+
+
+@app.route("/location/<int:loc_id>", methods=["GET"])
 def location(loc_id: int) -> Response:
     reviews = db.get_reviews(loc_id)
     location = db.get_location(loc_id)
 
-    user_id = session["user"]["userinfo"]["sub"] if session.get("user") else None
+    user_id = session["user"]["userinfo"]["sub"] if session.get(
+        "user") else None
 
-    return render_template('location.html', location=location, 
-                                            rating=db.get_rating(loc_id),
-                                            reviews=reviews,
-                                            login = check_auth(),
-                                            user_id = user_id)
+    return render_template('location.html', location=location,
+                           rating=db.get_rating(loc_id),
+                           reviews=reviews,
+                           login=check_auth(),
+                           user_id=user_id)
+
 
 @app.route("/search")
 def search():
-    return render_template('search.html', login = check_auth())
+    return render_template('search.html', login=check_auth())
 
 # Endpoint for adding fields to a location entry
-@app.route("/location/<int:loc_id>/add", methods = ["POST"])
+
+
+@app.route("/location/<int:loc_id>/add", methods=["POST"])
 @requires_auth
 def add_review(loc_id: int) -> Response:
     rating = request.form.get("starRating")
@@ -183,13 +206,14 @@ def add_review(loc_id: int) -> Response:
 
     if loc_id == None or rating == None or tags == None or review == None or user_id == None:
         return make_response("Review Not Inserted", 400)
-    
+
     review_id = db.insert_review(int(loc_id), int(rating), review, user_id)
     db.insert_tags(loc_id, tags, review_id)
 
     return redirect("/location/"+str(loc_id))
-    
-@app.route("/review/<int:review_id>/edit",methods=["POST"])
+
+
+@app.route("/review/<int:review_id>/edit", methods=["POST"])
 @requires_auth
 def edit_review(review_id: int) -> Response:
     loc_id = request.json.get('loc_id')
@@ -201,20 +225,22 @@ def edit_review(review_id: int) -> Response:
 
     if (rev_user_id != user_id):
         return make_response(f"Review Not Updated; User ID does not match Review User ID", 200)
-    
+
     if db.edit_review(review_id, user_id, rating, review) != None:
         db.delete_tags(review_id)
         db.insert_tags(loc_id, tags, review_id)
-    
+
     return make_response(f"Review Updated", 200)
+
 
 @app.route("/review/<int:review_id>/delete", methods=["POST"])
 @requires_auth
 def delete_review(review_id: int) -> Response:
     user_id = session["user"]["userinfo"]["sub"]
     db.delete_review(review_id, user_id)
-    
+
     return make_response(f"Review Deleted", 200)
+
 
 # Helper for using vscode debugger
 if __name__ == "__main__":
