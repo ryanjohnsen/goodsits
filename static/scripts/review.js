@@ -47,7 +47,8 @@ async function save(event) {
   for (let i = 1; i < listOfRatings.length; i++) {
     ratings += parseFloat(listOfRatings[i].textContent);
   }
-  ratings = (ratings / (listOfRatings.length - 1)).toFixed(1);
+  length = Math.max(listOfRatings.length - 1, 1);
+  ratings = (ratings / length).toFixed(1);
   document.getElementById("rating-number").textContent = ratings;
   document.getElementById('rating').querySelector('.rating-upper').style.width = `${parseFloat(ratings) / 5 * 100}%`; 
   document.getElementById(rev_id).querySelector(`.text`).textContent = review;
@@ -97,7 +98,8 @@ async function remove(event) {
   for (let i = 1; i < listOfRatings.length; i++) {
     ratings += parseFloat(listOfRatings[i].textContent);
   }
-  ratings = (ratings / (listOfRatings.length - 1)).toFixed(1);
+  length = Math.max(listOfRatings.length - 1, 1);
+  ratings = (ratings / length).toFixed(1);
   document.getElementById("rating-number").textContent = ratings;
   document.getElementById('rating').querySelector('.rating-upper').style.width = `${parseFloat(ratings) / 5 * 100}%`; 
   averageRating();
