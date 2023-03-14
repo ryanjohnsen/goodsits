@@ -86,16 +86,25 @@ async function search(loc, text, tags, minRating, proximity) {
     });
 }
 
-let searchBar = document.getElementById("search");
-searchBar.addEventListener("keydown", event => {
-    if (event.key != "Enter")
-        return;
-
+function useSearchBar(searchBar) {
     let tags = getPickedTags();
     let minRating = document.getElementById("min-rating").value;
     let text = searchBar.value;
     let proximity = document.getElementById("proximity-input").value;
     search(curLoc, text, tags, minRating, proximity);
+}
+
+let searchBar = document.getElementById("search");
+let searchBarBtn = document.getElementById("search-button");
+
+searchBar.addEventListener("keydown", event => {
+    if (event.key != "Enter")
+        return;
+    useSearchBar(searchBar);
+});
+
+searchBarBtn.addEventListener("click", event => {
+    useSearchBar(searchBar);
 });
 
 const params = (new URL(document.location)).searchParams;

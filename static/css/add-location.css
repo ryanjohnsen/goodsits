@@ -40,3 +40,7 @@ h4 {
   font-size: large;
   color: var(--grey);
 }
+
+.button {
+  background-color: var(--dark-green);
+}
