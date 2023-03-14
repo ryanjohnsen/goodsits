@@ -6,7 +6,7 @@
 }
 
 .picked {
-    background-color: var(--blue);
+    background-color: var(--teal);
 }
 
 .unpicked {
