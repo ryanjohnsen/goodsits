@@ -135,7 +135,7 @@ p {
     background-color: #E6E6E6;
     border-radius: 1em;
     margin: 0 1.5em 0 3em;
-    height: 50vh;
+    height: 40vh;
 }
 
 #img-container img {
@@ -204,8 +204,13 @@ p {
     margin: 1em 0;
 }
 
-.stars-edit {
+.stars {
+    display: flex;
     flex-direction: row !important;
+    align-items: end !important;
+}
+
+.stars-edit {
     padding: 0.25rem;
     gap: 0.5rem;
 }
