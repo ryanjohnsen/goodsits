@@ -1,6 +1,5 @@
 function averageRating() {
     let ratings = document.querySelectorAll('.rev-number');
-    console.log(ratings);
     let star_counts = {
         1: 0, 
         2: 0, 
@@ -23,7 +22,6 @@ function averageRating() {
 
         if (star_counts[rating_number] == 0) {
             prog_bar.style.width = '0%';
-            rating_value.innerText = '0';
         }
         else {
             prog_bar.style.width = `${star_counts[rating_number] / (ratings.length - 1) * 100}%`;
