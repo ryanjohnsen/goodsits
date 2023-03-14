@@ -15,10 +15,14 @@
     justify-content: center;
     align-items: center;
     background-size: cover;
-    background-position: 60% 22%;
+    background-position: center;
     background-image: 
-        linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), 
-        url(/static/images/Hero_Image.png);
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), 
+        url(/static/images/hero.jpg);
+
+    /* parallax */
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     width: 100%;    
     height: 75%;
     text-align: center; 
@@ -26,18 +30,65 @@
 
 .hero-header {
     animation: fadeIn 1s ease-out;
-    color: rgb(144, 238, 145);
-    letter-spacing: 2px;
-    font-weight: 700;
-    font-size: 3rem;
-    margin: 0.5em;
+    letter-spacing: -0.05em;
+    font-weight: bolder;
+    font-size: 4rem;
+    margin: 0.25em;
+
+    background-image: linear-gradient(45deg, var(--green), var(--light-blue));  
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.title {
+    display: flex;
+    align-items: top;
+    transform: translateX(-10em);
+}
+
+/* you could do this in js to be cleaner */
+
+.rotating-text span {
+    animation: rotation 12s linear 0s infinite;
+    letter-spacing: -0.05em;
+    font-weight: bolder;
+    font-size: 4rem;
+    margin: 0;
+    width: 6em;
+    text-align: left;
+
+    background-image: linear-gradient(45deg, var(--green), var(--light-blue));  
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+}
+
+.rotating-text span:nth-child(1){
+	animation-delay: 4s;
+}
+.rotating-text span:nth-child(2){
+	animation-delay: 8s;
+}
+/* a little jank */
+
+@keyframes rotation {
+    0% { opacity: 0; }
+	5% { opacity: 0; transform: translateY(-50px); }
+	10% { opacity: 1; transform: translateY(16px); }
+	25% { opacity: 1; transform: translateY(16px); }
+	30% { opacity: 0; -moz-transform: translateY(50px); }
+	100% { opacity: 0; }
 }
 
 .sub-hero {
     animation: fadeIn 1s ease-out 1.25s both;
     color: white;
     font-size: 1.5rem;
-    margin: 0.5em;
+    margin: 0;
 }
 
 .main {

@@ -39,18 +39,18 @@
 {% block content %}
 <div id="fade-out-container"></div>
 <div id="main-content" class="pure-g">
-    <div id="title" class="pure-u-1"><h1>{{ location["title"] }}</h1></div>
-
     <!-- Location info (LHS) -->
-    <div id="loc-info" class="pure-u-1-3">
+    <div id="loc-info" class="pure-u-2-5">
+        <div id="title" class="pure-u-1"><h1>{{ location["title"] }}</h1></div>
+        <hr>
         <div id="loc-info-inner" class="pure-g">
-            <div id="rating" class="pure-u-1-3">
-                <h2 id="rating-number" class="rev-number"> {{ "%.1f"|format(rating) }} </h2>
-                <div class="rating">
-                    <div class="rating-upper">{{ stars(5) }}</div>
-                    <div class="rating-lower">{{ stars(5) }}</div>
+                <div id="rating" class="pure-u-1-3">
+                    <h2 id="rating-number" class="rev-number"> {{ "%.1f"|format(rating) }} </h2>
+                    <div class="rating">
+                        <div class="rating-upper">{{ stars(5) }}</div>
+                        <div class="rating-lower">{{ stars(5) }}</div>
+                    </div>
                 </div>
-            </div>
 
             <div id="progress-bars" class="pure-u-2-3">
                 {% for i in range(1,6) %}
@@ -73,12 +73,10 @@
         </div>
     </div>
 
-    <div class="pure-u-1-12"></div>
-
-    <div id="img-revs" class="pure-u-7-12">
+    <div id="img-revs" class="pure-u-3-5">
         <div id="img-container">
             {% set base_url = "/images/" %}
-            <img src="{{ base_url ~ location['id'] }}" alt="placeholder">
+            <img class="pure-img" src="{{ base_url ~ location['id'] }}" alt="placeholder">
         </div>
 
             <div id="add-review-button">

@@ -106,6 +106,11 @@ searchBar.addEventListener("keydown", event => {
     searchWithFilters();
 });
 
+let searchBarBtn = document.getElementById("search-button")
+searchBarBtn.addEventListener("click", event => {
+    searchWithFilters();
+});
+
 const params = (new URL(document.location)).searchParams;
 const title = params.get("title");
 if (title != null) {
