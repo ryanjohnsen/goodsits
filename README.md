@@ -48,7 +48,7 @@ a location, search, or login/logout.
 <img src="/websiteScreenshots/searchPage.png" height=400px width=600px>
 <img src="/websiteScreenshots/searchFilterPage.png" height=400px width=600px>
 
-**Description:**  Where the user finds study spots near them. Entering a search in the search bar makes the red markers appear along with the cards on the left sidebar. Clicking any card on the left sidebar brings the user to the *Location* page for that specific study spot. Clicking the *Filters* button on the left side opens the modal pictured in the second image (modal with tags / rating / availability / proximity).
+**Description:**  Where the user finds study spots near them. Entering a search in the search bar makes the red markers appear along with the cards on the left sidebar. Clicking any card on the left sidebar brings the user to the *Location* page for that specific study spot. Clicking the *Filters* button on the left side opens the modal pictured in the second image (modal with tags / rating / proximity).
 
 ### Add Location Page
 
