@@ -48,3 +48,8 @@ body {
 textarea {
     resize: vertical;
 }
+
+.title {
+    font-weight: bold;
+    font-size: x-large;
+}

@@ -35,9 +35,3 @@ a {
 .img {
     margin-left: 1em;
 }
-
-/* add to style.css, global refactor */
-.title {
-    font-weight: bold;
-    font-size: x-large;
-}
