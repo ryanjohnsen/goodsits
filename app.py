@@ -148,10 +148,8 @@ def add_location() -> Response:
 @app.route("/location", methods=["POST"])
 @requires_auth
 def new_location() -> Response:
-    # TODO: switch form to call js function to get var instead of just html form submit? maybe
     data = request.form
-    required_info = ["title", "description", "tags", "location"]  # "user_id"]
-    # optional_info = ["hours", "image"] (none values are okay)
+    required_info = ["title", "description", "tags", "location"]
     for key in required_info:
         if data[key] == None:
             return make_response(f"Missing {key}; Location not Inserted", 400)
