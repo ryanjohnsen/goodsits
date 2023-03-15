@@ -1,4 +1,9 @@
-#unpicked-tags, .unpicked-tags, #picked-tags, .picked-tags, #review-picked-tags, #review-unpicked-tags {
+#unpicked-tags,
+.unpicked-tags,
+#picked-tags,
+.picked-tags,
+#review-picked-tags,
+#review-unpicked-tags {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -6,7 +11,7 @@
 }
 
 .picked {
-    background-color: var(--blue);
+    background-color: var(--teal);
 }
 
 .unpicked {

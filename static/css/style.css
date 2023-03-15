@@ -1,12 +1,43 @@
-:root {
-    --light-grey: #F3F3F3;
-    --grey: #979799;
-    --light-blue: #BEE3F8;
-    --blue: #719BE3;
-    --dark-blue: #587892;
+@font-face {
+    font-family: "Open Sans";
+    src: url("/static/font/os_med.ttf");
+    font-weight: 400;
+    font-style: normal;
 }
 
-html, body, #content {
+@font-face {
+    font-family: "Open Sans";
+    src: url("/static/font/os_bold.ttf");
+    font-weight: 700;
+    font-style: bold;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url("/static/font/os_xbold.ttf");
+    font-weight: 900;
+    font-style: bolder;
+}
+
+:root {
+    --light-grey: #f3f3f3;
+    --grey: #979799;
+    --light-blue: #91d5cd;
+    --blue: #719be3;
+    --dark-blue: #587892;
+    --green: #95e47f;
+    --dark-green: #59834d;
+    --teal: #5cccbf;
+    --dark-teal: #4eaca1;
+}
+
+html {
+    font-family: "Open Sans", sans-serif !important;
+}
+
+html,
+body,
+#content {
     height: 100%;
 }
 
