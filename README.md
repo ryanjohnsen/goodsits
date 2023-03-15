@@ -80,7 +80,7 @@ The user can click Add Review and will be presented with a modal to enter inform
 Please do not document required libraries. or libraries that are mentioned in the product requirements**
 
 * [Google Maps API](https://developers.google.com/maps): used for converting latitude/longitude coordinates into tangible building addresses 
-* python-magic: used for file type identification of the images in our database
+* [python-magic](https://pypi.org/project/python-magic/0.4.15/): used for file type identification of the images in our database
 
 **If there's anything else you would like to disclose about how your project
 relied on external code, expertise, or anything else, please disclose that
