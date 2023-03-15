@@ -22,7 +22,9 @@ CSCI 5117, Spring 2023, [assignment description](https://canvas.umn.edu/courses/
 **Describe the most challenging features you implemented
 (one sentence per bullet, maximum 4 bullets):**
 
-* ...
+- We integrated the Google Maps API into our site to allow users to select real locations
+- We used geospatial search methods, specifically Postgres SQL's Earthdistance module, to find study spot locations near our users
+- We utilized advanced SQL query functions such as LATERAL JOIN to implement searching by tags
 
 ## Testing Notes
 
@@ -77,7 +79,7 @@ The user can click Add Review and will be presented with a modal to enter inform
 **Document integrations with 3rd Party code or services here.
 Please do not document required libraries. or libraries that are mentioned in the product requirements**
 
-* Library or service name: description of use
+* Google Maps API: used for converting latitude/longitude coordinates into tangible building addresses 
 * ...
 
 **If there's anything else you would like to disclose about how your project
