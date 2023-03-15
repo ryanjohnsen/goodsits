@@ -82,5 +82,3 @@ function displayPoints(markerPoints) {
 }
 
 window.initMap = initMap;
-
-// displayPoints(mockPoints);

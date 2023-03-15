@@ -1,4 +1,3 @@
-// FIXME: this is jank
 
 function edit(event) {
     const rev_id = event.currentTarget.rev_id;
@@ -6,16 +5,11 @@ function edit(event) {
     changeButtonVisibility(rev_id, true);
     changeReviewVisibility(rev_id, true);
 
-    // TODO: show the ratings here
-    const rating = document.getElementById("rev-rating-" + rev_id).textContent;
-
-    // TODO: show the stars here
 }
 
 function exit(event) {
     const rev_id = event.currentTarget.rev_id;
 
-    // TODO: clear all info in the edit review attempt
 
     //stars will readjust by themselves
     changeButtonVisibility(rev_id, false);

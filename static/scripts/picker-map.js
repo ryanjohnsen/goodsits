@@ -22,7 +22,7 @@ function initMap() {
             map.setCenter(initialLocation);
         },
         function (positionError) {
-            /* "Error Handling" */
+            /* "Error Handling" :)*/
         }
     );
 
@@ -42,7 +42,6 @@ function initMap() {
             map: map,
         });
 
-        // FIXME: is there a better way to do this??
         coord = `${curLoc.lat},${curLoc.lng}`;
         document.getElementById("location").value = coord;
 

@@ -13,7 +13,7 @@ function closeModal() {
 }
 
 // getting tags for submission
-function send_review_tags() {
+function sendReviewTags() {
     document.getElementById("review-tags-list").value =
         getPickedTags("review-picked-tags");
 }

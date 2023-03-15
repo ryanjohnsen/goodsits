@@ -73,7 +73,6 @@ function pointToLatLng(point) {
     return toRet;
 }
 
-// There is a better way to do this caching behavior. I don't know it right now.
 let lastText = "";
 let lastTags = [];
 let lastMinRating = -1;
@@ -144,7 +143,7 @@ navigator.geolocation.getCurrentPosition(
         search(curLoc, lastText, lastTags, lastMinRating, lastProximity);
     },
     function (positionError) {
-        /* "Error Handling" */
+        /* "Error Handling" :(*/
     }
 );
 
