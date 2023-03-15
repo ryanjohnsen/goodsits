@@ -13,10 +13,18 @@ function initMap() {
     geocoder = new google.maps.Geocoder();
 
     // Taken from https://stackoverflow.com/a/29972553
-    navigator.geolocation.getCurrentPosition(function (position) {
-        var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        map.setCenter(initialLocation);
-    }, function (positionError) { /* "Error Handling" */ });
+    navigator.geolocation.getCurrentPosition(
+        function (position) {
+            var initialLocation = new google.maps.LatLng(
+                position.coords.latitude,
+                position.coords.longitude
+            );
+            map.setCenter(initialLocation);
+        },
+        function (positionError) {
+            /* "Error Handling" :)*/
+        }
+    );
 
     let marker = null;
 
@@ -34,9 +42,8 @@ function initMap() {
             map: map,
         });
 
-        // FIXME: is there a better way to do this??
         coord = `${curLoc.lat},${curLoc.lng}`;
-        document.getElementById('location').value = coord;
+        document.getElementById("location").value = coord;
 
         updateAddress();
     });
@@ -47,7 +54,8 @@ function updateAddress() {
         .geocode({ location: curLoc })
         .then((response) => {
             if (response.results[0]) {
-                document.getElementById('address').textContent = response.results[0].formatted_address;
+                document.getElementById("address").textContent =
+                    response.results[0].formatted_address;
             } else {
                 console.log("No Reverse Geocode Result...");
             }

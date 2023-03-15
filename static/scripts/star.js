@@ -1,39 +1,46 @@
-document.addEventListener('DOMContentLoaded', () => {
-    let stars = document.querySelectorAll('.rating-upper');
-    let rating = document.querySelectorAll('.rev-number');
-    for (let i = 0; i < stars.length; i++) {
-        stars[i].style.width = `${parseFloat(rating[i].innerText) / 5 * 100}%`;
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    let ratings = document.querySelectorAll('.rev-number');
-    let star_counts = {
-        1: 0, 
-        2: 0, 
-        3: 0, 
-        4: 0, 
-        5: 0
+function averageRating() {
+    let ratings = document.querySelectorAll(".rev-number");
+    console.log(ratings);
+    let starCounts = {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
     };
     for (let i = 1; i < ratings.length; i++) {
-        star_counts[parseInt(ratings[i].innerText)] += 1;
+        starCounts[parseInt(ratings[i].innerText)] += 1;
     }
 
-    let rating_bars = document.querySelectorAll('.single-progress-bar');
-    for (let i = 0; i < rating_bars.length; i++) {
-        rating_text = rating_bars[i].querySelector('.rating-text').innerText;
-        rating_value = rating_bars[i].querySelector('.rating-value');
-        prog_bar = rating_bars[i].querySelector('.progress-bar');
+    let ratingBars = document.querySelectorAll(".single-progress-bar");
+    for (let i = 0; i < ratingBars.length; i++) {
+        ratingText = ratingBars[i].querySelector(".rating-text").innerText;
+        ratingValue = ratingBars[i].querySelector(".rating-value");
+        progBar = ratingBars[i].querySelector(".progress-bar");
 
-        rating_text = rating_text.split('★')[0];
-        rating_number = parseInt(rating_text);
+        ratingText = ratingText.split("★")[0];
+        ratingNumber = parseInt(ratingText);
 
-        if (star_counts[rating_number] == 0) {
-            prog_bar.style.width = '0%';
+        if (starCounts[ratingNumber] == 0) {
+            progBar.style.width = "0%";
+            ratingValue.innerText = "0";
+        } else {
+            progBar.style.width = `${
+                (starCounts[ratingNumber] / (ratings.length - 1)) * 100
+            }%`;
+            ratingValue.innerText = starCounts[ratingNumber];
         }
-        else {
-            prog_bar.style.width = `${star_counts[rating_number] / (ratings.length - 1) * 100}%`;
-            rating_value.innerText = star_counts[rating_number];
-        }
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    let stars = document.querySelectorAll(".rating-upper");
+    let rating = document.querySelectorAll(".rev-number");
+    for (let i = 0; i < stars.length; i++) {
+        stars[i].style.width = `${
+            (parseFloat(rating[i].innerText) / 5) * 100
+        }%`;
     }
 });
+
+document.addEventListener("DOMContentLoaded", averageRating);

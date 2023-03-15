@@ -1,42 +1,42 @@
-/* 
-  TODO: refactor into style.css? at least for the element selectors
-*/
-
 body {
-  background-color: white;
+    background-color: white;
 }
 
 label {
-  font-weight: bold;
-  font-size: large;
+    font-weight: bold;
+    font-size: large;
 }
 
 h4 {
-  margin: 0;
+    margin: 0;
 }
 
 .title {
-  margin: 0.5em 0;
-  font-size: xx-large;
+    margin: 0.5em 0;
+    font-size: xx-large;
 }
 
 #tags {
-  margin: 0 0 1em 0;
+    margin: 0 0 1em 0;
 }
 
 .container-custom {
-  margin: 2em;
+    margin: 2em;
 }
 
 .form-custom {
-  margin: 0 2em;
+    margin: 0 2em;
 }
 
 .col-custom {
-  margin-right: 2em;
+    margin-right: 2em;
 }
 
 .message-custom {
-  font-size: large;
-  color: var(--grey);
+    font-size: large;
+    color: var(--grey);
+}
+
+.button {
+    background-color: var(--dark-green);
 }

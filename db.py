@@ -7,13 +7,14 @@ from psycopg2.extensions import connection, cursor
 
 pool: ThreadedConnectionPool = None
 
+
 def setup():
     global pool
     DATABASE_URL = env['DATABASE_URL']
     current_app.logger.info(f"creating db connection pool")
     pool = ThreadedConnectionPool(
         1,
-        50, # We sometimes hit 5 when loading a lot of images at once on the search page
+        50,  # We sometimes hit 5 when loading a lot of images at once on the search page
         dsn=DATABASE_URL,
         sslmode='require',
         keepalives=1,
@@ -21,6 +22,7 @@ def setup():
         keepalives_interval=2,
         keepalives_count=2
     )
+
 
 @contextmanager
 def get_db_connection() -> connection:
@@ -30,17 +32,19 @@ def get_db_connection() -> connection:
     finally:
         pool.putconn(conn)
 
+
 @contextmanager
 def get_db_cursor(commit: bool = False) -> cursor:
     with get_db_connection() as conn:
         conn: connection
-        cur = conn.cursor(cursor_factory = DictCursor)
+        cur = conn.cursor(cursor_factory=DictCursor)
         try:
             yield cur
             if commit:
                 conn.commit()
         finally:
             cur.close()
+
 
 def search_locations(location: str, text: str, miles: int, min_rating: float, tags: str) -> list:
     lat, long = location.split(',')
@@ -53,7 +57,6 @@ def search_locations(location: str, text: str, miles: int, min_rating: float, ta
             FROM Location AS l
             WHERE
     """.rstrip()
-    
 
     if tags:
         query += " ARRAY["
@@ -74,7 +77,7 @@ def search_locations(location: str, text: str, miles: int, min_rating: float, ta
 
     # Have to add these late to avoid botching the tag parameters
     args.append("%" + text + "%")
-    
+
     query += " l.title ILIKE %s"
     # No two points on earth are greater than 10,000 miles
     query += "AND (POINT(%s, %s) <@> location <= COALESCE(%s, 10000.0) OR location IS NULL)"
@@ -111,18 +114,20 @@ def search_locations(location: str, text: str, miles: int, min_rating: float, ta
 
     with get_db_cursor() as cur:
         cur: cursor
-        cur.execute(query, args) 
+        cur.execute(query, args)
         return cur.fetchall()
-    
+
+
 def get_image(id: int) -> bytes:
     with get_db_cursor() as cur:
         cur: cursor
-        cur.execute("SELECT image FROM Location WHERE id = %s", (id,)) 
+        cur.execute("SELECT image FROM Location WHERE id = %s", (id,))
         return cur.fetchone()[0]
 
+
 def insert_location(title: str, description: str, hours: str, image: str, location: str, user_id: str) -> int:
-     lat, long = location.split(',')
-     with get_db_cursor(True) as cur:
+    lat, long = location.split(',')
+    with get_db_cursor(True) as cur:
         cur: cursor
         cur.execute(
             """
@@ -133,10 +138,11 @@ def insert_location(title: str, description: str, hours: str, image: str, locati
         )
         return int(cur.fetchone()[0])
 
+
 def insert_tags(loc_id: int, tags: str, review_id: int = None) -> None:
     if tags == None or len(tags) == 0:
         return
-    
+
     args = []
     tags = tags.split(',')
 
@@ -144,13 +150,13 @@ def insert_tags(loc_id: int, tags: str, review_id: int = None) -> None:
         INSERT INTO Tag (loc_id, review_id, title)
         VALUES
     """.rstrip()
-    
+
     for i in range(len(tags) - 1):
         query += " (%s, %s, %s),"
         args.append(loc_id)
         args.append(review_id)
         args.append(tags[i])
-    
+
     query += " (%s, %s, %s)"
     args.append(loc_id)
     args.append(review_id)
@@ -159,6 +165,7 @@ def insert_tags(loc_id: int, tags: str, review_id: int = None) -> None:
     with get_db_cursor(True) as cur:
         cur: cursor
         cur.execute(query, args)
+
 
 def insert_review(loc_id: int, rating: str, review: str, user_id: str) -> int:
     with get_db_cursor(True) as cur:
@@ -171,13 +178,14 @@ def insert_review(loc_id: int, rating: str, review: str, user_id: str) -> int:
             """, (loc_id, rating, review, user_id)
         )
         return int(cur.fetchone()[0])
-    
+
+
 def get_reviews(loc_id: int) -> list:
     with get_db_cursor() as cur:
         cur: cursor
         cur.execute(
             """
-            SELECT r.id, r.rating, r.review, array_agg(DISTINCT t.title) AS tags
+            SELECT r.id, r.user_id, r.rating, r.review, array_agg(DISTINCT t.title) AS tags
             FROM Review r LEFT JOIN Tag t
             ON r.id = t.review_id
             WHERE r.loc_id = %s
@@ -185,7 +193,8 @@ def get_reviews(loc_id: int) -> list:
             """, (loc_id,)
         )
         return cur.fetchall()
-    
+
+
 def get_location(loc_id: int) -> dict:
     with get_db_cursor() as cur:
         cur: cursor
@@ -199,10 +208,63 @@ def get_location(loc_id: int) -> dict:
             """, (loc_id,)
         )
         return cur.fetchone()
-    
+
+
 def get_rating(loc_id: int) -> float:
     with get_db_cursor() as cur:
         cur: cursor
-        cur.execute("SELECT COALESCE(AVG(rating), 0.0) FROM Review WHERE loc_id = %s", (loc_id,))
+        cur.execute(
+            "SELECT COALESCE(AVG(rating), 0.0) FROM Review WHERE loc_id = %s", (loc_id,))
         return float(cur.fetchone()[0])
-    
+
+
+def edit_review(id: str, user_id: str, rating: str, review: str) -> int:
+    with get_db_cursor(True) as cur:
+        cur: cursor
+
+        cur.execute(
+            """
+            UPDATE Review 
+            SET rating = %s, review = %s 
+            WHERE id = %s
+            AND user_id = %s
+            RETURNING id
+            """, (rating, review, id, user_id)
+        )
+
+        return int(cur.fetchone()[0])
+
+
+def delete_review(id: str, user_id: str) -> int:
+    with get_db_cursor(True) as cur:
+        cur: cursor
+
+        cur.execute(
+            """
+            DELETE FROM Tag
+            WHERE review_id IN (
+                SELECT id
+                FROM Review
+                WHERE id = %s
+                AND user_id = %s
+            );
+
+            DELETE FROM Review 
+            WHERE id = %s
+            AND user_id = %s
+            RETURNING id
+            """, (id, user_id, id, user_id)
+        )
+
+        return int(cur.fetchone()[0])
+
+
+def delete_tags(review_id: int) -> int:
+    with get_db_cursor(True) as cur:
+        cur: cursor
+        cur.execute(
+            """
+            DELETE FROM Tag 
+            WHERE review_id = %s 
+            """, (review_id,)
+        )
