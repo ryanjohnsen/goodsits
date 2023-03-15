@@ -50,7 +50,7 @@ async function save(event) {
     for (let i = 1; i < listOfRatings.length; i++) {
         ratings += parseFloat(listOfRatings[i].textContent);
     }
-    length = Math.max(listOfRatings.length - 1, 1);
+    const length = Math.max(listOfRatings.length - 1, 1);
     ratings = (ratings / length).toFixed(1);
     document.getElementById("rating-number").textContent = ratings;
     document
@@ -105,7 +105,7 @@ async function remove(event) {
     for (let i = 1; i < listOfRatings.length; i++) {
         ratings += parseFloat(listOfRatings[i].textContent);
     }
-    length = Math.max(listOfRatings.length - 1, 1);
+    const length = Math.max(listOfRatings.length - 1, 1);
     ratings = (ratings / length).toFixed(1);
     document.getElementById("rating-number").textContent = ratings;
     document
@@ -152,13 +152,6 @@ function changeReviewVisibility(rev_id, edit_mode = false) {
         data.style.display = edit_mode ? "none" : "flex";
         editable_data.style.display = edit_mode ? "block" : "none";
     });
-
-    //Done: display current stars:
-    const rating = document.getElementById("rev-rating-" + rev_id).textContent; //current rating
-    //
-    for (let i = 1; i <= rating; i++) {
-        document.getElementById(`star-${i}-` + rev_id).checked = true;
-    }
 }
 
 function hideEdit(rev_id) {
