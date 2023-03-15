@@ -24,7 +24,7 @@ CSCI 5117, Spring 2023, [assignment description](https://canvas.umn.edu/courses/
 
 - We integrated the Google Maps API into our site to allow users to select real locations
 - We used geospatial search methods, specifically Postgres SQL's Earthdistance module, to find study spot locations near our users
-- We utilized advanced SQL query functions such as LATERAL JOIN to implement searching by tags
+- Integrated novel SVG graphics into the background that will scale reactively to any device
 
 ## Testing Notes
 
