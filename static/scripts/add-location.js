@@ -13,5 +13,5 @@ form.addEventListener("submit", (event) => {
 });
 
 function sendTags() {
-    document.getElementById("tags-list").value = getPickedTags();
+    document.getElementById("tags-list").value = getPickedTags("picked-tags");
 }
